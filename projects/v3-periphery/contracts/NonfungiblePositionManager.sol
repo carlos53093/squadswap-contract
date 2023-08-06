@@ -19,7 +19,7 @@ import './base/SelfPermit.sol';
 import './base/PoolInitializer.sol';
 
 /// @title NFT positions
-/// @notice Wraps Squad V3 positions in the ERC721 non-fungible token interface
+/// @notice Wraps Pancake V3 positions in the ERC721 non-fungible token interface
 contract NonfungiblePositionManager is
     INonfungiblePositionManager,
     Multicall,
@@ -30,7 +30,7 @@ contract NonfungiblePositionManager is
     PeripheryValidation,
     SelfPermit
 {
-    // details about the Squad position
+    // details about the pancake position
     struct Position {
         // the nonce for permits
         uint96 nonce;
@@ -73,7 +73,7 @@ contract NonfungiblePositionManager is
         address _factory,
         address _WETH9,
         address _tokenDescriptor_
-    ) ERC721Permit('Squad V3 Positions NFT-V1', 'PCS-V3-POS', '1') PeripheryImmutableState(_deployer, _factory, _WETH9) {
+    ) ERC721Permit('Pancake V3 Positions NFT-V1', 'PCS-V3-POS', '1') PeripheryImmutableState(_deployer, _factory, _WETH9) {
         _tokenDescriptor = _tokenDescriptor_;
     }
 

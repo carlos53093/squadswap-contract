@@ -1,13 +1,13 @@
 {
-  "name": "@squadswap/v3-periphery",
-  "description": "🎚 Peripheral smart contracts for interacting with SquadSwap V3",
+  "name": "@pancakeswap/v3-periphery",
+  "description": "🎚 Peripheral smart contracts for interacting with PancakeSwap V3",
   "license": "GPL-2.0-or-later",
   "publishConfig": {
     "access": "public"
   },
   "version": "1.0.2",
   "keywords": [
-    "Squadswap",
+    "pancakeswap",
     "periphery",
     "v3"
   ],

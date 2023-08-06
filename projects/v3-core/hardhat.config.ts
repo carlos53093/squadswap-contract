@@ -91,8 +91,8 @@ export default {
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
     overrides: {
-      'contracts/SquadV3Pool.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/SquadV3PoolDeployer.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/PancakeV3Pool.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/PancakeV3PoolDeployer.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
       'contracts/test/OutputCodeHash.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
     },
   },

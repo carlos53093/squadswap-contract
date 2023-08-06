@@ -1,14 +1,14 @@
 {
-  "name": "@squadswap/masterchef-v3",
+  "name": "@pancakeswap/masterchef-v3",
   "version": "1.0.0",
-  "description": "Squad MasterChef V3",
+  "description": "Pancake MasterChef V3",
   "publishConfig": {
     "access": "public"
   },
-  "author": "SquadSwap",
+  "author": "PancakeSwap",
   "license": "MIT",
   "keywords": [
-    "Squadswap",
+    "pancakeswap",
     "masterchef",
     "v3"
   ],

@@ -21,8 +21,8 @@ abstract contract LiquidityManagement is IPancakeV3MintCallback, PeripheryImmuta
         address payer;
     }
 
-    /// @inheritdoc ISquadV3MintCallback
-    function squadV3MintCallback(
+    /// @inheritdoc IPancakeV3MintCallback
+    function pancakeV3MintCallback(
         uint256 amount0Owed,
         uint256 amount1Owed,
         bytes calldata data

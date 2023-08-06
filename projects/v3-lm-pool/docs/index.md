@@ -8,7 +8,7 @@
 function getLatestPeriodInfo(address _v3Pool) external view returns (uint256 cakePerSecond, uint256 endTime)
 ```
 
-## SquadV3LmPool
+## PancakeV3LmPool
 
 ### REWARD_PRECISION
 
@@ -19,7 +19,7 @@ uint256 REWARD_PRECISION
 ### pool
 
 ```solidity
-contract ISquadV3Pool pool
+contract IPancakeV3Pool pool
 ```
 
 ### masterChef
@@ -100,7 +100,7 @@ function updatePosition(int24 tickLower, int24 tickUpper, int128 liquidityDelta)
 function getRewardGrowthInside(int24 tickLower, int24 tickUpper) external view returns (uint256 rewardGrowthInsideX128)
 ```
 
-## ISquadV3FactoryOwner
+## IPancakeV3FactoryOwner
 
 ### setLmPool
 
@@ -108,7 +108,7 @@ function getRewardGrowthInside(int24 tickLower, int24 tickUpper) external view r
 function setLmPool(address pool, address lmPool) external
 ```
 
-## SquadV3LmPoolDeployer
+## PancakeV3LmPoolDeployer
 
 _This contract is for Master Chef to create a corresponding LmPool when
 adding a new farming pool. As for why not just create LmPool inside the
@@ -124,7 +124,7 @@ address masterChef
 ### factoryOwner
 
 ```solidity
-contract ISquadV3FactoryOwner factoryOwner
+contract IPancakeV3FactoryOwner factoryOwner
 ```
 
 ### onlyMasterChef
@@ -136,13 +136,13 @@ modifier onlyMasterChef()
 ### constructor
 
 ```solidity
-constructor(address _masterChef, contract ISquadV3FactoryOwner _factoryOwner) public
+constructor(address _masterChef, contract IPancakeV3FactoryOwner _factoryOwner) public
 ```
 
 ### deploy
 
 ```solidity
-function deploy(contract ISquadV3Pool pool) external returns (contract ISquadV3LmPool lmPool)
+function deploy(contract IPancakeV3Pool pool) external returns (contract IPancakeV3LmPool lmPool)
 ```
 
 _Deploys a LmPool_
@@ -151,9 +151,9 @@ _Deploys a LmPool_
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| pool | contract ISquadV3Pool | The contract address of the SquadSwap V3 pool |
+| pool | contract IPancakeV3Pool | The contract address of the PancakeSwap V3 pool |
 
-## ISquadV3LmPool
+## IPancakeV3LmPool
 
 ### accumulateReward
 

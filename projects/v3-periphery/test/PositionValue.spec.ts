@@ -5,9 +5,9 @@ import {
   PositionValueTest,
   SwapRouter,
   MockTimeNonfungiblePositionManager,
-  ISquadV3Pool,
+  IPancakeV3Pool,
   TestERC20,
-  ISquadV3Factory,
+  IPancakeV3Factory,
 } from '../typechain-types'
 import { FeeAmount, MaxUint128, TICK_SPACINGS } from './shared/constants'
 import { getMaxTick, getMinTick } from './shared/ticks'
@@ -30,7 +30,7 @@ describe('PositionValue', async () => {
     nft: MockTimeNonfungiblePositionManager
     router: SwapRouter
     deployer: Contract
-    factory: ISquadV3Factory
+    factory: IPancakeV3Factory
   }> = async (wallets, provider) => {
     const { nft, router, tokens, factory, deployer } = await completeFixture(wallets, provider)
     const positionValueFactory = await ethers.getContractFactory('PositionValueTest')
@@ -58,7 +58,7 @@ describe('PositionValue', async () => {
   let positionValue: PositionValueTest
   let nft: MockTimeNonfungiblePositionManager
   let router: SwapRouter
-  let factory: ISquadV3Factory
+  let factory: IPancakeV3Factory
 
   let amountDesired: BigNumberish
 

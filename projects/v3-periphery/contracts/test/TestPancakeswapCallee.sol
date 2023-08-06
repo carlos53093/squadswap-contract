@@ -45,7 +45,7 @@ contract TestPancakeswapCallee is IPancakeV3SwapCallback {
         IPancakeV3Pool(pool).swap(recipient, false, -amount0Out.toInt256(), sqrtPriceLimitX96, abi.encode(msg.sender));
     }
 
-    function squadV3SwapCallback(
+    function pancakeV3SwapCallback(
         int256 amount0Delta,
         int256 amount1Delta,
         bytes calldata data

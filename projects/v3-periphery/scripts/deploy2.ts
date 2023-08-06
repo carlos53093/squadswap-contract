@@ -11,7 +11,7 @@ const artifacts: { [name: string]: ContractJson } = {
   QuoterV2: require('../artifacts/contracts/lens/QuoterV2.sol/QuoterV2.json'),
   TickLens: require('../artifacts/contracts/lens/TickLens.sol/TickLens.json'),
   V3Migrator: require('../artifacts/contracts/V3Migrator.sol/V3Migrator.json'),
-  SquadInterfaceMulticall: require('../artifacts/contracts/lens/SquadInterfaceMulticall.sol/SquadInterfaceMulticall.json'),
+  PancakeInterfaceMulticall: require('../artifacts/contracts/lens/PancakeInterfaceMulticall.sol/PancakeInterfaceMulticall.json'),
   // eslint-disable-next-line global-require
   SwapRouter: require('../artifacts/contracts/SwapRouter.sol/SwapRouter.json'),
   // eslint-disable-next-line global-require
@@ -156,8 +156,8 @@ async function main() {
   console.log('nonfungiblePositionManager', nonfungiblePositionManager.address)
 
   const PancakeInterfaceMulticall = new ContractFactory(
-    artifacts.SquadInterfaceMulticall.abi,
-    artifacts.SquadInterfaceMulticall.bytecode,
+    artifacts.PancakeInterfaceMulticall.abi,
+    artifacts.PancakeInterfaceMulticall.bytecode,
     owner
   )
 

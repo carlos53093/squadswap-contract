@@ -3,7 +3,7 @@ import { Fixture } from 'ethereum-waffle'
 import { BigNumberish, constants, Contract, Wallet } from 'ethers'
 import { ethers, waffle } from 'hardhat'
 import {
-  ISquadV3Factory,
+  IPancakeV3Factory,
   IWETH9,
   MockTimeNonfungiblePositionManager,
   NonfungiblePositionManagerPositionsGasTest,
@@ -31,7 +31,7 @@ describe('NonfungiblePositionManager', () => {
 
   const nftFixture: Fixture<{
     nft: MockTimeNonfungiblePositionManager
-    factory: ISquadV3Factory
+    factory: IPancakeV3Factory
     tokens: [TestERC20, TestERC20, TestERC20]
     weth9: IWETH9
     router: SwapRouter
@@ -56,7 +56,7 @@ describe('NonfungiblePositionManager', () => {
     }
   }
 
-  let factory: ISquadV3Factory
+  let factory: IPancakeV3Factory
   let deployer: Contract
   let nft: MockTimeNonfungiblePositionManager
   let tokens: [TestERC20, TestERC20, TestERC20]

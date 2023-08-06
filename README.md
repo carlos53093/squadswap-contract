@@ -1,4 +1,4 @@
-# Squad V3
+# Pancake V3
 
 
 ## Deployments

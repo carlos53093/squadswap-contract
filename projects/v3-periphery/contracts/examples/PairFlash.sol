@@ -13,7 +13,7 @@ import '../libraries/TransferHelper.sol';
 import '../interfaces/ISwapRouter.sol';
 
 /// @title Flash contract implementation
-/// @notice An example contract using the SquadSwap V3 flash function
+/// @notice An example contract using the PancakeSwap V3 flash function
 contract PairFlash is IPancakeV3FlashCallback, PeripheryPayments {
     using LowGasSafeMath for uint256;
     using LowGasSafeMath for int256;
@@ -44,7 +44,7 @@ contract PairFlash is IPancakeV3FlashCallback, PeripheryPayments {
     /// @param data The data needed in the callback passed as FlashCallbackData from `initFlash`
     /// @notice implements the callback called from flash
     /// @dev fails if the flash is not profitable, meaning the amountOut from the flash is less than the amount borrowed
-    function squadV3FlashCallback(
+    function pancakeV3FlashCallback(
         uint256 fee0,
         uint256 fee1,
         bytes calldata data

@@ -1,21 +1,21 @@
 {
-  "name": "@squadswap/v3-core",
-  "description": "🥞 Core smart contracts of SquadSwap V3",
+  "name": "@pancakeswap/v3-core",
+  "description": "🥞 Core smart contracts of PancakeSwap V3",
   "license": "GPL-2.0-or-later",
   "publishConfig": {
     "access": "public"
   },
   "version": "1.0.2",
   "keywords": [
-    "Squadswap",
+    "pancakeswap",
     "core",
     "v3"
   ],
   "files": [
     "contracts/interfaces",
     "contracts/libraries",
-    "artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json",
-    "artifacts/contracts/SquadV3Pool.sol/SquadV3Pool.json",
+    "artifacts/contracts/PancakeV3Factory.sol/PancakeV3Factory.json",
+    "artifacts/contracts/PancakeV3Pool.sol/PancakeV3Pool.json",
     "artifacts/contracts/interfaces/**/*.json",
     "!artifacts/contracts/interfaces/**/*.dbg.json"
   ],

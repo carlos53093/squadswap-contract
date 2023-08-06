@@ -1,5 +1,5 @@
 {
-  "name": "@squadswap/v3-lm-pool",
+  "name": "@pancakeswap/v3-lm-pool",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

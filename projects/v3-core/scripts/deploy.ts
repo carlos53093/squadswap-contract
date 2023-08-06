@@ -6,9 +6,9 @@ import fs from 'fs'
 type ContractJson = { abi: any; bytecode: string }
 const artifacts: { [name: string]: ContractJson } = {
   // eslint-disable-next-line global-require
-  PancakeV3PoolDeployer: require('../artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json'),
+  PancakeV3PoolDeployer: require('../artifacts/contracts/PancakeV3PoolDeployer.sol/PancakeV3PoolDeployer.json'),
   // eslint-disable-next-line global-require
-  PancakeV3Factory: require('../artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'),
+  PancakeV3Factory: require('../artifacts/contracts/PancakeV3Factory.sol/PancakeV3Factory.json'),
 }
 
 async function main() {

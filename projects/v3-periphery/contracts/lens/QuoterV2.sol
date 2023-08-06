@@ -37,8 +37,8 @@ contract QuoterV2 is IQuoterV2, IPancakeV3SwapCallback, PeripheryImmutableState 
         return IPancakeV3Pool(PoolAddress.computeAddress(deployer, PoolAddress.getPoolKey(tokenA, tokenB, fee)));
     }
 
-    /// @inheritdoc ISquadV3SwapCallback
-    function squadV3SwapCallback(
+    /// @inheritdoc IPancakeV3SwapCallback
+    function pancakeV3SwapCallback(
         int256 amount0Delta,
         int256 amount1Delta,
         bytes memory path

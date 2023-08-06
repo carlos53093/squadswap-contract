@@ -1,5 +1,5 @@
 {
-  "name": "Squad-v3",
+  "name": "pancake-v3",
   "private": true,
   "workspaces": [
     "projects/*",

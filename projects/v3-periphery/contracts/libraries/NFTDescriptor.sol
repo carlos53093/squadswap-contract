@@ -112,7 +112,7 @@ library NFTDescriptor {
         return
             string(
                 abi.encodePacked(
-                    'This NFT represents a liquidity position in a SquadSwap V3 ',
+                    'This NFT represents a liquidity position in a PancakeSwap V3 ',
                     quoteTokenSymbol,
                     '-',
                     baseTokenSymbol,
@@ -160,7 +160,7 @@ library NFTDescriptor {
         return
             string(
                 abi.encodePacked(
-                    'Squad - ',
+                    'Pancake - ',
                     feeTier,
                     ' - ',
                     escapeQuotes(params.quoteTokenSymbol),
