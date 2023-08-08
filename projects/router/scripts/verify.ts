@@ -1,17 +1,21 @@
-import { verifyContract } from '@pancakeswap/common/verify'
-import { sleep } from '@pancakeswap/common/sleep'
-import { configs } from '@pancakeswap/common/config'
+import { verifyContract } from '../../../common/verify'
+import { sleep } from '../../../common/sleep'
+// import { configs } from '@pancakeswap/common/config'
+import { configs } from '../../../common/config'
 
 async function main() {
   const networkName = network.name
-  const config = configs[networkName as keyof typeof configs]
+  const config = configs[networkName as any]
 
   if (!config) {
     throw new Error(`No config found for network ${networkName}`)
   }
-  const deployedContracts_v3_core = await import(`@pancakeswap/v3-core/deployments/${networkName}.json`)
-  const deployedContracts_v3_periphery = await import(`@pancakeswap/v3-periphery/deployments/${networkName}.json`)
-  const deployedContracts_smart_router = await import(`@pancakeswap/smart-router/deployments/${networkName}.json`)
+
+  config.v2Factory = "0xf7b814A12617B92fb17f17276Cbc02ef3523C0D2";    // Squad factory v2 in bsc testnet
+
+  const deployedContracts_v3_core = await import(`../../v3-core/deployments/${networkName}.json`)
+  const deployedContracts_v3_periphery = await import(`../../v3-periphery/deployments/${networkName}.json`)
+  const deployedContracts_smart_router = await import(`../../router/deployments/${networkName}.json`)
 
   // Verify SmartRouterHelper
   console.log('Verify SmartRouterHelper')

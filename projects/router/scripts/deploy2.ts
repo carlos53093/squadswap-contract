@@ -1,18 +1,21 @@
 import { ethers, network } from 'hardhat'
-import { configs } from '@pancakeswap/common/config'
+// import { configs } from '@pancakeswap/common/config'
+import { configs } from '../../../common/config'
 import { tryVerify } from '@pancakeswap/common/verify'
 import { writeFileSync } from 'fs'
 
 async function main() {
   // Remember to update the init code hash in SC for different chains before deploying
   const networkName = network.name
-  const config = configs[networkName as keyof typeof configs]
+  const config = {...configs[networkName as any]}
   if (!config) {
     throw new Error(`No config found for network ${networkName}`)
   }
 
-  const v3DeployedContracts = await import(`@pancakeswap/v3-core/deployments/${networkName}.json`)
-  const v3PeripheryDeployedContracts = await import(`@pancakeswap/v3-periphery/deployments/${networkName}.json`)
+  config.v2Factory = "0xf7b814A12617B92fb17f17276Cbc02ef3523C0D2";    // Squad factory v2 in bsc testnet
+
+  const v3DeployedContracts = await import(`../../v3-core/deployments/${networkName}.json`)
+  const v3PeripheryDeployedContracts = await import(`../../v3-periphery/deployments/${networkName}.json`)
 
   const pancakeV3PoolDeployer_address = v3DeployedContracts.PancakeV3PoolDeployer
   const pancakeV3Factory_address = v3DeployedContracts.PancakeV3Factory

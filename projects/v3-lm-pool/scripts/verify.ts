@@ -1,6 +1,7 @@
-import { verifyContract } from '@pancakeswap/common/verify'
-import { sleep } from '@pancakeswap/common/sleep'
-import { configs } from '@pancakeswap/common/config'
+import { verifyContract } from '../../../common/verify'
+import { sleep } from '../../../common/sleep'
+// import { configs } from '@pancakeswap/common/config'
+import { configs } from '../../../common/config';
 
 async function main() {
   const networkName = network.name
@@ -9,8 +10,8 @@ async function main() {
   if (!config) {
     throw new Error(`No config found for network ${networkName}`)
   }
-  const deployedContracts_masterchef_v3 = await import(`@pancakeswap/masterchef-v3/deployments/${networkName}.json`)
-  const deployedContracts_v3_lm_pool = await import(`@pancakeswap/v3-lm-pool/deployments/${networkName}.json`)
+  const deployedContracts_masterchef_v3 = await import(`../../masterchef-v3/deployments/${networkName}.json`)
+  const deployedContracts_v3_lm_pool = await import(`../../v3-lm-pool/deployments/${networkName}.json`)
 
   // Verify pancakeV3LmPoolDeployer
   console.log('Verify pancakeV3LmPoolDeployer')

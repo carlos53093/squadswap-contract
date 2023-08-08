@@ -4,12 +4,10 @@ pragma solidity =0.7.6;
 import './interfaces/IPancakeV3Factory.sol';
 import "./interfaces/IPancakeV3PoolDeployer.sol";
 import './interfaces/IPancakeV3Pool.sol';
-import './PancakeV3Pool.sol';
 
 /// @title Canonical PancakeSwap V3 factory
 /// @notice Deploys PancakeSwap V3 pools and manages ownership and control over pool protocol fees
 contract PancakeV3Factory is IPancakeV3Factory {
-    bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(PancakeV3Pool).creationCode));
     /// @inheritdoc IPancakeV3Factory
     address public override owner;
 
@@ -37,7 +35,7 @@ contract PancakeV3Factory is IPancakeV3Factory {
         _;
     }
 
-    constructor(address _poolDeployer, address _feeManager) {
+    constructor(address _poolDeployer) {
         poolDeployer = _poolDeployer;
         owner = msg.sender;
         emit OwnerChanged(address(0), msg.sender);
@@ -58,9 +56,6 @@ contract PancakeV3Factory is IPancakeV3Factory {
         feeAmountTickSpacingExtraInfo[10000] = TickSpacingExtraInfo({whitelistRequested: false, enabled: true});
         emit FeeAmountEnabled(10000, 200);
         emit FeeAmountExtraInfoUpdated(10000, false, true);
-
-        feeManager = _feeManager;
-        emit UpdateFeeManager(_feeManager);
     }
 
     /// @inheritdoc IPancakeV3Factory
