@@ -12,7 +12,7 @@ async function main() {
     throw new Error(`No config found for network ${networkName}`)
   }
 
-  config.v2Factory = "0xf7b814A12617B92fb17f17276Cbc02ef3523C0D2";    // Squad factory v2 in bsc testnet
+  // config.v2Factory = "0xf7b814A12617B92fb17f17276Cbc02ef3523C0D2";    // Squad factory v2 in bsc testnet
 
   const v3DeployedContracts = await import(`../../v3-core/deployments/${networkName}.json`)
   const v3PeripheryDeployedContracts = await import(`../../v3-periphery/deployments/${networkName}.json`)

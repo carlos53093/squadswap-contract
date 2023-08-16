@@ -68,5 +68,16 @@ describe('PoolAddress', () => {
         )
       )
     })
+
+    it('calculation pool address', async () => {
+      const addr = await poolAddress.computeAddress(
+        '0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9',
+        '0xa73A87f6A21fb0Fa702D1D2016DA27B32b790050',
+        '0xe62a6af264E0E9cc1D4Bd3877b878B262E8b433E',
+        2500
+      )
+      console.log('==============', addr)
+    })
+    
   })
 })

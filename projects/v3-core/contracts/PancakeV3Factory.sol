@@ -8,6 +8,7 @@ import './interfaces/IPancakeV3Pool.sol';
 /// @title Canonical PancakeSwap V3 factory
 /// @notice Deploys PancakeSwap V3 pools and manages ownership and control over pool protocol fees
 contract PancakeV3Factory is IPancakeV3Factory {
+
     /// @inheritdoc IPancakeV3Factory
     address public override owner;
 

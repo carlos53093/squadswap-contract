@@ -20,7 +20,7 @@ import snapshotGasCost from './shared/snapshotGasCost'
 
 import { expect } from './shared/expect'
 
-import { abi as IPancakeV3PoolABI } from '@pancakeswap/v3-core/artifacts/contracts/interfaces/IPancakeV3Pool.sol/IPancakeV3Pool.json'
+import { abi as IPancakeV3PoolABI } from '../../v3-core/artifacts/contracts/interfaces/IPancakeV3Pool.sol/IPancakeV3Pool.json'
 
 describe('PositionValue', async () => {
   const [...wallets] = waffle.provider.getWallets()

@@ -29,6 +29,7 @@ describe('PancakeV3Factory', () => {
     const factory_ = (await factoryFactory.deploy(deployer_.address)) as PancakeV3Factory
 
     await deployer_.setFactoryAddress(factory_.address)
+
     return [factory_, deployer_] as [PancakeV3Factory, PancakeV3PoolDeployer]
   }
 
@@ -48,6 +49,7 @@ describe('PancakeV3Factory', () => {
   })
 
   it('owner is deployer', async () => {
+    console.log('--------------------', await factory.INIT_HASH())
     expect(await factory.owner()).to.eq(wallet.address)
   })
 

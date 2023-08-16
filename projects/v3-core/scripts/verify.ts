@@ -14,6 +14,9 @@ async function main() {
   console.log('Verify pancakeV3Factory')
   await verifyContract(deployedContracts.PancakeV3Factory, [deployedContracts.PancakeV3PoolDeployer])
   await sleep(10000)
+
+  // await verifyContract('0x5Ecb5717120E1A10Ec778322eC82Ba781E5420E0')
+  // await sleep(10000)
 }
 
 main()

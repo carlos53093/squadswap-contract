@@ -11,7 +11,7 @@ async function main() {
     throw new Error(`No config found for network ${networkName}`)
   }
 
-  config.v2Factory = "0xf7b814A12617B92fb17f17276Cbc02ef3523C0D2";    // Squad factory v2 in bsc testnet
+  // config.v2Factory = "0xf7b814A12617B92fb17f17276Cbc02ef3523C0D2";    // Squad factory v2 in bsc testnet
 
   const deployedContracts_v3_core = await import(`../../v3-core/deployments/${networkName}.json`)
   const deployedContracts_v3_periphery = await import(`../../v3-periphery/deployments/${networkName}.json`)
@@ -56,7 +56,7 @@ async function main() {
   await sleep(10000)
 
   // Verify tokenValidator
-  console.log('Verify tokenValidator')
+  console.log('-----------Verify tokenValidator------------')
   await verifyContract(deployedContracts_smart_router.TokenValidator, [
     config.v2Factory,
     deployedContracts_v3_periphery.NonfungiblePositionManager,

@@ -7,7 +7,7 @@ import { PancakeV3PoolDeployer } from '../../typechain-types/contracts/PancakeV3
 import { TestPancakeV3Callee } from '../../typechain-types/contracts/test/TestPancakeV3Callee'
 import { TestPancakeV3Router } from '../../typechain-types/contracts/test/TestPancakeV3Router'
 import { MockTimePancakeV3PoolDeployer } from '../../typechain-types/contracts/test/MockTimePancakeV3PoolDeployer'
-import PancakeV3LmPoolArtifact from '@pancakeswap/v3-lm-pool/artifacts/contracts/PancakeV3LmPool.sol/PancakeV3LmPool.json'
+import PancakeV3LmPoolArtifact from '../../../v3-lm-pool/artifacts/contracts/PancakeV3LmPool.sol/PancakeV3LmPool.json'
 
 import { Fixture } from 'ethereum-waffle'
 
