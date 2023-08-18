@@ -2,7 +2,7 @@
 
 ## PairFlash
 
-An example contract using the PancakeSwap V3 flash function
+An example contract using the squadSwap V3 flash function
 
 ### swapRouter
 
@@ -29,10 +29,10 @@ struct FlashCallbackData {
 }
 ```
 
-### pancakeV3FlashCallback
+### squadV3FlashCallback
 
 ```solidity
-function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes data) external
+function squadV3FlashCallback(uint256 fee0, uint256 fee1, bytes data) external
 ```
 
 implements the callback called from flash
@@ -67,7 +67,7 @@ struct FlashParams {
 function initFlash(struct PairFlash.FlashParams params) external
 ```
 
-Calls the pools flash function with data needed in `PancakeV3FlashCallback`
+Calls the pools flash function with data needed in `squadV3FlashCallback`
 
 #### Parameters
 

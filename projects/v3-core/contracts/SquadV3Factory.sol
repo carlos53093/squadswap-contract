@@ -1,24 +1,24 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity =0.7.6;
 
-import './interfaces/IPancakeV3Factory.sol';
-import "./interfaces/IPancakeV3PoolDeployer.sol";
-import './interfaces/IPancakeV3Pool.sol';
+import './interfaces/ISquadV3Factory.sol';
+import "./interfaces/ISquadV3PoolDeployer.sol";
+import './interfaces/ISquadV3Pool.sol';
 
-/// @title Canonical PancakeSwap V3 factory
-/// @notice Deploys PancakeSwap V3 pools and manages ownership and control over pool protocol fees
-contract PancakeV3Factory is IPancakeV3Factory {
+/// @title Canonical SquadSwap V3 factory
+/// @notice Deploys SquadSwap V3 pools and manages ownership and control over pool protocol fees
+contract SquadV3Factory is ISquadV3Factory {
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     address public override owner;
 
     address public immutable poolDeployer;
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     mapping(uint24 => int24) public override feeAmountTickSpacing;
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     mapping(address => mapping(address => mapping(uint24 => address))) public override getPool;
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     mapping(uint24 => TickSpacingExtraInfo) public override feeAmountTickSpacingExtraInfo;
     mapping(address => bool) private _whiteListAddresses;
 
@@ -59,7 +59,7 @@ contract PancakeV3Factory is IPancakeV3Factory {
         emit FeeAmountExtraInfoUpdated(10000, false, true);
     }
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     function createPool(
         address tokenA,
         address tokenB,
@@ -75,20 +75,20 @@ contract PancakeV3Factory is IPancakeV3Factory {
             require(_whiteListAddresses[msg.sender], "user should be in the white list for this fee tier");
         }
         require(getPool[token0][token1][fee] == address(0));
-        pool = IPancakeV3PoolDeployer(poolDeployer).deploy(address(this), token0, token1, fee, tickSpacing);
+        pool = ISquadV3PoolDeployer(poolDeployer).deploy(address(this), token0, token1, fee, tickSpacing);
         getPool[token0][token1][fee] = pool;
         // populate mapping in the reverse direction, deliberate choice to avoid the cost of comparing addresses
         getPool[token1][token0][fee] = pool;
         emit PoolCreated(token0, token1, fee, tickSpacing, pool);
     }
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     function setOwner(address _owner) external override onlyOwner {
         emit OwnerChanged(owner, _owner);
         owner = _owner;
     }
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     function enableFeeAmount(uint24 fee, int24 tickSpacing) public override onlyOwner {
         require(fee < 1000000);
         // tick spacing is capped at 16384 to prevent the situation where tickSpacing is so large that
@@ -103,7 +103,7 @@ contract PancakeV3Factory is IPancakeV3Factory {
         emit FeeAmountExtraInfoUpdated(fee, false, true);
     }
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     function setWhiteListAddress(address user, bool verified) public override onlyOwner {
         require(_whiteListAddresses[user] != verified, "state not change");
         _whiteListAddresses[user] = verified;
@@ -111,7 +111,7 @@ contract PancakeV3Factory is IPancakeV3Factory {
         emit WhiteListAdded(user, verified);
     }
 
-    /// @inheritdoc IPancakeV3Factory
+    /// @inheritdoc ISquadV3Factory
     function setFeeAmountExtraInfo(
         uint24 fee,
         bool whitelistRequested,
@@ -132,7 +132,7 @@ contract PancakeV3Factory is IPancakeV3Factory {
     }
 
     function setFeeProtocol(address pool, uint32 feeProtocol0, uint32 feeProtocol1) external override onlyOwner {
-        IPancakeV3Pool(pool).setFeeProtocol(feeProtocol0, feeProtocol1);
+        ISquadV3Pool(pool).setFeeProtocol(feeProtocol0, feeProtocol1);
     }
 
     function collectProtocol(
@@ -142,11 +142,11 @@ contract PancakeV3Factory is IPancakeV3Factory {
         uint128 amount1Requested
     ) external override returns (uint128 amount0, uint128 amount1) {
         require(msg.sender == feeManager, "no permission");
-        return IPancakeV3Pool(pool).collectProtocol(feeManager, amount0Requested, amount1Requested);
+        return ISquadV3Pool(pool).collectProtocol(feeManager, amount0Requested, amount1Requested);
     }
 
     function setLmPool(address pool, address lmPool) external override onlyOwnerOrLmPoolDeployer {
-        IPancakeV3Pool(pool).setLmPool(lmPool);
+        ISquadV3Pool(pool).setLmPool(lmPool);
     }
 
     function changeFeeManager(address _manager) external onlyOwnerOrLmPoolDeployer {

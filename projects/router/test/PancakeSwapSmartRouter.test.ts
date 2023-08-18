@@ -5,21 +5,21 @@ import { parseEther } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
 import { assert, expect } from "chai";
 
-const PancakeStableSwapFactory = artifacts.require("stable-swap/contracts/PancakeStableSwapFactory.sol");
-const PancakeStableSwapLPFactory = artifacts.require("stable-swap/contracts/PancakeStableSwapLPFactory.sol");
-const PancakeStableSwapTwoPoolDeployer = artifacts.require("stable-swap/contracts/PancakeStableSwapTwoPoolDeployer.sol");
-const PancakeStableSwapThreePoolDeployer = artifacts.require("stable-swap/contracts/PancakeStableSwapThreePoolDeployer.sol");
-const PancakeStableSwapTwoPool = artifacts.require("stable-swap/contracts/PancakeStableSwapTwoPool.sol");
-const PancakeStableSwapThreePool = artifacts.require("stable-swap/contracts/PancakeStableSwapThreePool.sol");
-const PancakeStableSwapTwoPoolInfo = artifacts.require("stable-swap/contracts/utils/PancakeStableSwapTwoPoolInfo.sol");
-const PancakeStableSwapThreePoolInfo = artifacts.require("stable-swap/contracts/utils/PancakeStableSwapThreePoolInfo.sol");
-const PancakeStableSwapInfo = artifacts.require("stable-swap/contracts/utils/PancakeStableSwapInfo.sol");
-const LPToken = artifacts.require("stable-swap/contracts/PancakeStableSwapLP.sol");
+const SquadStableSwapFactory = artifacts.require("stable-swap/contracts/SquadStableSwapFactory.sol");
+const SquadStableSwapLPFactory = artifacts.require("stable-swap/contracts/SquadStableSwapLPFactory.sol");
+const SquadStableSwapTwoPoolDeployer = artifacts.require("stable-swap/contracts/SquadStableSwapTwoPoolDeployer.sol");
+const SquadStableSwapThreePoolDeployer = artifacts.require("stable-swap/contracts/SquadStableSwapThreePoolDeployer.sol");
+const SquadStableSwapTwoPool = artifacts.require("stable-swap/contracts/SquadStableSwapTwoPool.sol");
+const SquadStableSwapThreePool = artifacts.require("stable-swap/contracts/SquadStableSwapThreePool.sol");
+const SquadStableSwapTwoPoolInfo = artifacts.require("stable-swap/contracts/utils/SquadStableSwapTwoPoolInfo.sol");
+const SquadStableSwapThreePoolInfo = artifacts.require("stable-swap/contracts/utils/SquadStableSwapThreePoolInfo.sol");
+const SquadStableSwapInfo = artifacts.require("stable-swap/contracts/utils/SquadStableSwapInfo.sol");
+const LPToken = artifacts.require("stable-swap/contracts/SquadStableSwapLP.sol");
 const Token = artifacts.require("stable-swap/contracts/test/Token.sol");
 const FeeOnTransferToken = artifacts.require("exchange-protocol/contracts/test/FeeOnTransferToken.sol");
-const PancakeFactory = artifacts.require("exchange-protocol/contracts/PancakeFactory.sol");
-const PancakePair = artifacts.require("exchange-protocol/contracts/PancakePair.sol");
-const PancakeRouter = artifacts.require("exchange-protocol/contracts/PancakeRouter.sol");
+const SquadFactory = artifacts.require("exchange-protocol/contracts/SquadFactory.sol");
+const SquadPair = artifacts.require("exchange-protocol/contracts/SquadPair.sol");
+const SquadRouter = artifacts.require("exchange-protocol/contracts/SquadRouter.sol");
 const WrappedBNB = artifacts.require("exchange-protocol/contracts/libraries/WBNB.sol");
 const StableSwapRouterHelper = artifacts.require("./libraries/StableSwapRouterHelper.sol");
 const SmartRouter = artifacts.require("./SmartRouter.sol");
@@ -58,8 +58,8 @@ contract("SmartRouter", ([admin, bob, carol]) => {
     const A = 1000;
     const Fee = 4000000;
     const AdminFee = 5000000000;
-    let pancakeFactory;
-    let pancakeRouter;
+    let squadFactory;
+    let squadRouter;
     let WBNB;
     let pool_WBNB_BUSD;
     let pool_BUSD_USDC;
@@ -92,15 +92,15 @@ contract("SmartRouter", ([admin, bob, carol]) => {
 
 
         /** Create Stable Swap */
-        stableSwapLPFactory = await PancakeStableSwapLPFactory.new({ from: admin });
-        stableSwap2PoolDeployer = await PancakeStableSwapTwoPoolDeployer.new({ from: admin });
-        stableSwap3PoolDeployer = await PancakeStableSwapThreePoolDeployer.new({ from: admin });
-        stableSwapFactory = await PancakeStableSwapFactory.new(stableSwapLPFactory.address, stableSwap2PoolDeployer.address, stableSwap3PoolDeployer.address, {
+        stableSwapLPFactory = await SquadStableSwapLPFactory.new({ from: admin });
+        stableSwap2PoolDeployer = await SquadStableSwapTwoPoolDeployer.new({ from: admin });
+        stableSwap3PoolDeployer = await SquadStableSwapThreePoolDeployer.new({ from: admin });
+        stableSwapFactory = await SquadStableSwapFactory.new(stableSwapLPFactory.address, stableSwap2PoolDeployer.address, stableSwap3PoolDeployer.address, {
             from: admin,
         });
-        stableSwap2PoolInfo = await PancakeStableSwapTwoPoolInfo.new({ from: admin });
-        stableSwap3PoolInfo = await PancakeStableSwapThreePoolInfo.new({ from: admin });
-        stableSwapPoolInfo = await PancakeStableSwapInfo.new(stableSwap2PoolInfo.address, stableSwap3PoolInfo.address, { from: admin });
+        stableSwap2PoolInfo = await SquadStableSwapTwoPoolInfo.new({ from: admin });
+        stableSwap3PoolInfo = await SquadStableSwapThreePoolInfo.new({ from: admin });
+        stableSwapPoolInfo = await SquadStableSwapInfo.new(stableSwap2PoolInfo.address, stableSwap3PoolInfo.address, { from: admin });
 
         await stableSwapLPFactory.transferOwnership(stableSwapFactory.address, { from: admin });
         await stableSwap2PoolDeployer.transferOwnership(stableSwapFactory.address, { from: admin });
@@ -108,19 +108,19 @@ contract("SmartRouter", ([admin, bob, carol]) => {
 
         await stableSwapFactory.createSwapPair(BUSD.address, USDC.address, A, Fee, AdminFee, { from: admin });
         stable2PoolInfo = await stableSwapFactory.getPairInfo(BUSD.address, USDC.address);
-        stable2Pool_BUSD_USDC = await PancakeStableSwapTwoPool.at(stable2PoolInfo.swapContract);
+        stable2Pool_BUSD_USDC = await SquadStableSwapTwoPool.at(stable2PoolInfo.swapContract);
         stable2Pool_LP_BUSD_USDC = await LPToken.at(stable2PoolInfo.LPContract);
         stable2Pool_token0 = await Token.at(stable2PoolInfo.token0);
         stable2Pool_token1 = await Token.at(stable2PoolInfo.token1);
         await stableSwapFactory.createSwapPair(WBNB.address, BUSD.address, A, Fee, AdminFee, { from: admin });
         stable2PoolInfo_WBNB_BUSD = await stableSwapFactory.getPairInfo(WBNB.address, BUSD.address);
-        stable2Pool_WBNB_BUSD = await PancakeStableSwapTwoPool.at(stable2PoolInfo_WBNB_BUSD.swapContract);
+        stable2Pool_WBNB_BUSD = await SquadStableSwapTwoPool.at(stable2PoolInfo_WBNB_BUSD.swapContract);
         stable2Pool_LP_WBNB_BUSD = await LPToken.at(stable2PoolInfo_WBNB_BUSD.LPContract);
         stable2Pool_WBNB_BUSD_token0 = await Token.at(stable2PoolInfo_WBNB_BUSD.token0);
         stable2Pool_WBNB_BUSD_token1 = await Token.at(stable2PoolInfo_WBNB_BUSD.token1);
         await stableSwapFactory.createThreePoolPair(BUSD.address, USDC.address, USDT.address, A, Fee, AdminFee, { from: admin });
         stable3PoolInfo = await stableSwapFactory.getThreePoolPairInfo(BUSD.address, USDC.address);
-        stable3Pool_BUSD_USDC_USDT = await PancakeStableSwapThreePool.at(stable3PoolInfo.swapContract);
+        stable3Pool_BUSD_USDC_USDT = await SquadStableSwapThreePool.at(stable3PoolInfo.swapContract);
         stable3Pool_LP_BUSD_USDC_USDT = await LPToken.at(stable3PoolInfo.LPContract);
         stable3Pool_token0 = await Token.at(stable3PoolInfo.token0);
         stable3Pool_token1 = await Token.at(stable3PoolInfo.token1);

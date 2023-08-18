@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity =0.7.6;
 
-import '@pancakeswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
-import '@pancakeswap/v3-core/contracts/libraries/SafeCast.sol';
-import '@pancakeswap/v3-core/contracts/libraries/FullMath.sol';
-import '@pancakeswap/v3-core/contracts/libraries/FixedPoint128.sol';
-import '@pancakeswap/v3-core/contracts/interfaces/IPancakeV3Pool.sol';
+import '@squadswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
+import '@squadswap/v3-core/contracts/libraries/SafeCast.sol';
+import '@squadswap/v3-core/contracts/libraries/FullMath.sol';
+import '@squadswap/v3-core/contracts/libraries/FixedPoint128.sol';
+import '@squadswap/v3-core/contracts/interfaces/ISquadV3Pool.sol';
 
 import './libraries/LmTick.sol';
 
-import './interfaces/IPancakeV3LmPool.sol';
+import './interfaces/ISquadV3LmPool.sol';
 import './interfaces/IMasterChefV3.sol';
 
-contract PancakeV3LmPool is IPancakeV3LmPool {
+contract SquadV3LmPool is ISquadV3LmPool {
   using LowGasSafeMath for uint256;
   using LowGasSafeMath for int256;
   using SafeCast for uint256;
@@ -21,7 +21,7 @@ contract PancakeV3LmPool is IPancakeV3LmPool {
 
   uint256 public constant REWARD_PRECISION = 1e12;
 
-  IPancakeV3Pool public immutable pool;
+  ISquadV3Pool public immutable pool;
   IMasterChefV3 public immutable masterChef;
 
   uint256 public rewardGrowthGlobalX128;
@@ -48,7 +48,7 @@ contract PancakeV3LmPool is IPancakeV3LmPool {
   }
 
   constructor(address _pool, address _masterChef, uint32 rewardStartTimestamp) {
-    pool = IPancakeV3Pool(_pool);
+    pool = ISquadV3Pool(_pool);
     masterChef = IMasterChefV3(_masterChef);
     lastRewardTimestamp = rewardStartTimestamp;
   }

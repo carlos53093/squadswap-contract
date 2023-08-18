@@ -1,4 +1,4 @@
-import { tryVerify } from '@pancakeswap/common/verify'
+// import { tryVerify } from '@pancakeswap/common/verify'
 import { ContractFactory } from 'ethers'
 import { ethers, network } from 'hardhat'
 import fs from 'fs'
@@ -6,9 +6,9 @@ import fs from 'fs'
 type ContractJson = { abi: any; bytecode: string }
 const artifacts: { [name: string]: ContractJson } = {
   // eslint-disable-next-line global-require
-  PancakeV3PoolDeployer: require('../artifacts/contracts/PancakeV3PoolDeployer.sol/PancakeV3PoolDeployer.json'),
+  SquadV3PoolDeployer: require('../artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json'),
   // eslint-disable-next-line global-require
-  PancakeV3Factory: require('../artifacts/contracts/PancakeV3Factory.sol/PancakeV3Factory.json'),
+  SquadV3Factory: require('../artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'),
 }
 
 async function main() {
@@ -16,49 +16,49 @@ async function main() {
   const networkName = network.name
   console.log('owner', owner.address)
 
-  let pancakeV3PoolDeployer_address = ''
-  let pancakeV3PoolDeployer
-  const PancakeV3PoolDeployer = new ContractFactory(
-    artifacts.PancakeV3PoolDeployer.abi,
-    artifacts.PancakeV3PoolDeployer.bytecode,
+  let squadV3PoolDeployer_address = ''
+  let squadV3PoolDeployer
+  const SquadV3PoolDeployer = new ContractFactory(
+    artifacts.SquadV3PoolDeployer.abi,
+    artifacts.SquadV3PoolDeployer.bytecode,
     owner
   )
-  if (!pancakeV3PoolDeployer_address) {
-    pancakeV3PoolDeployer = await PancakeV3PoolDeployer.deploy()
+  if (!squadV3PoolDeployer_address) {
+    squadV3PoolDeployer = await SquadV3PoolDeployer.deploy()
 
-    pancakeV3PoolDeployer_address = pancakeV3PoolDeployer.address
-    console.log('pancakeV3PoolDeployer', pancakeV3PoolDeployer_address)
+    squadV3PoolDeployer_address = squadV3PoolDeployer.address
+    console.log('squadV3PoolDeployer', squadV3PoolDeployer_address)
   } else {
-    pancakeV3PoolDeployer = new ethers.Contract(
-      pancakeV3PoolDeployer_address,
-      artifacts.PancakeV3PoolDeployer.abi,
+    squadV3PoolDeployer = new ethers.Contract(
+      squadV3PoolDeployer_address,
+      artifacts.SquadV3PoolDeployer.abi,
       owner
     )
   }
 
-  let pancakeV3Factory_address = ''
-  let pancakeV3Factory
-  if (!pancakeV3Factory_address) {
-    const PancakeV3Factory = new ContractFactory(
-      artifacts.PancakeV3Factory.abi,
-      artifacts.PancakeV3Factory.bytecode,
+  let squadV3Factory_address = ''
+  let squadV3Factory
+  if (!squadV3Factory_address) {
+    const SquadV3Factory = new ContractFactory(
+      artifacts.SquadV3Factory.abi,
+      artifacts.SquadV3Factory.bytecode,
       owner
     )
-    pancakeV3Factory = await PancakeV3Factory.deploy(pancakeV3PoolDeployer_address)
+    squadV3Factory = await SquadV3Factory.deploy(squadV3PoolDeployer_address)
 
-    pancakeV3Factory_address = pancakeV3Factory.address
-    console.log('pancakeV3Factory', pancakeV3Factory_address)
+    squadV3Factory_address = squadV3Factory.address
+    console.log('squadV3Factory', squadV3Factory_address)
   } else {
-    pancakeV3Factory = new ethers.Contract(pancakeV3Factory_address, artifacts.PancakeV3Factory.abi, owner)
+    squadV3Factory = new ethers.Contract(squadV3Factory_address, artifacts.squadV3Factory.abi, owner)
   }
 
-  // Set FactoryAddress for pancakeV3PoolDeployer.
-  await pancakeV3PoolDeployer.setFactoryAddress(pancakeV3Factory_address);
+  // Set FactoryAddress for squadV3PoolDeployer.
+  await squadV3PoolDeployer.setFactoryAddress(squadV3Factory_address);
 
 
   const contracts = {
-    PancakeV3Factory: pancakeV3Factory_address,
-    PancakeV3PoolDeployer: pancakeV3PoolDeployer_address,
+    SquadV3Factory: squadV3Factory_address,
+    SquadV3PoolDeployer: squadV3PoolDeployer_address,
   }
 
   fs.writeFileSync(`./deployments/${networkName}.json`, JSON.stringify(contracts, null, 2))

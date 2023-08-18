@@ -1,8 +1,8 @@
 # Solidity API
 
-## IPancakeV3Factory
+## ISquadV3Factory
 
-The PancakeSwap V3 Factory facilitates creation of PancakeSwap V3 pools and control over the protocol fees
+The SquadSwap V3 Factory facilitates creation of SquadSwap V3 pools and control over the protocol fees
 
 ### TickSpacingExtraInfo
 

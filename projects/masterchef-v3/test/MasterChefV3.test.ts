@@ -3,13 +3,13 @@ import { ethers, upgrades } from "hardhat";
 import { time, mineUpTo, reset } from "@nomicfoundation/hardhat-network-helpers";
 import { TickMath } from "@uniswap/v3-sdk";
 
-import PancakeV3PoolDeployerArtifact from "../../v3-core/artifacts/contracts/PancakeV3PoolDeployer.sol/PancakeV3PoolDeployer.json";
-import PancakeV3FactoryArtifact from "../../v3-core/artifacts/contracts/PancakeV3Factory.sol/PancakeV3Factory.json";
-// import PancakeV3FactoryOwnerArtifact from "../../v3-core/artifacts/contracts/PancakeV3FactoryOwner.sol/PancakeV3FactoryOwner.json";
-import PancakeV3SwapRouterArtifact from "../../v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json";
+import SquadV3PoolDeployerArtifact from "../../v3-core/artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json";
+import SquadV3FactoryArtifact from "../../v3-core/artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json";
+// import SquadV3FactoryOwnerArtifact from "../../v3-core/artifacts/contracts/SquadV3FactoryOwner.sol/SquadV3FactoryOwner.json";
+import SquadV3SwapRouterArtifact from "../../v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json";
 import NftDescriptorOffchainArtifact from "../../v3-periphery/artifacts/contracts/NonfungibleTokenPositionDescriptorOffChain.sol/NonfungibleTokenPositionDescriptorOffChain.json";
 import NonfungiblePositionManagerArtifact from "../../v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json";
-import PancakeV3LmPoolDeployerArtifact from "../../v3-lm-pool/artifacts/contracts/PancakeV3LmPoolDeployer.sol/PancakeV3LmPoolDeployer.json";
+import SquadV3LmPoolDeployerArtifact from "../../v3-lm-pool/artifacts/contracts/SquadV3LmPoolDeployer.sol/SquadV3LmPoolDeployer.json";
 import TestLiquidityAmountsArtifact from "../../v3-periphery/artifacts/contracts/test/LiquidityAmountsTest.sol/LiquidityAmountsTest.json";
 
 import ERC20MockArtifact from "./ERC20Mock.json";
@@ -35,18 +35,18 @@ describe("MasterChefV3", function () {
     reset();
 
     // Deploy factory
-    const PancakeV3PoolDeployer = await ethers.getContractFactoryFromArtifact(PancakeV3PoolDeployerArtifact);
-    const pancakeV3PoolDeployer = await PancakeV3PoolDeployer.deploy();
+    const SquadV3PoolDeployer = await ethers.getContractFactoryFromArtifact(SquadV3PoolDeployerArtifact);
+    const squadV3PoolDeployer = await SquadV3PoolDeployer.deploy();
 
-    const PancakeV3Factory = await ethers.getContractFactoryFromArtifact(PancakeV3FactoryArtifact);
-    const pancakeV3Factory = await PancakeV3Factory.deploy(pancakeV3PoolDeployer.address);
+    const SquadV3Factory = await ethers.getContractFactoryFromArtifact(SquadV3FactoryArtifact);
+    const squadV3Factory = await SquadV3Factory.deploy(squadV3PoolDeployer.address);
 
-    await pancakeV3PoolDeployer.setFactoryAddress(pancakeV3Factory.address);
+    await squadV3PoolDeployer.setFactoryAddress(squadV3Factory.address);
 
-    const PancakeV3SwapRouter = await ethers.getContractFactoryFromArtifact(PancakeV3SwapRouterArtifact);
-    const pancakeV3SwapRouter = await PancakeV3SwapRouter.deploy(
-      pancakeV3PoolDeployer.address,
-      pancakeV3Factory.address,
+    const SquadV3SwapRouter = await ethers.getContractFactoryFromArtifact(SquadV3SwapRouterArtifact);
+    const squadV3SwapRouter = await SquadV3SwapRouter.deploy(
+      squadV3PoolDeployer.address,
+      squadV3Factory.address,
       WETH9Address
     );
 
@@ -54,19 +54,19 @@ describe("MasterChefV3", function () {
     // const NonfungibleTokenPositionDescriptor = await ethers.getContractFactoryFromArtifact(
     //   NftDescriptorOffchainArtifact
     // );
-    // const baseTokenUri = "https://nft.pancakeswap.com/v3/";
+    // const baseTokenUri = "https://nft.squadswap.com/v3/";
     // const nonfungibleTokenPositionDescriptor = await upgrades.deployProxy(NonfungibleTokenPositionDescriptor, [
     //   baseTokenUri,
     // ]);
     // await nonfungibleTokenPositionDescriptor.deployed();
     // TODO:
-    await PancakeV3SwapRouter.deploy(pancakeV3PoolDeployer.address, pancakeV3Factory.address, WETH9Address);
+    await SquadV3SwapRouter.deploy(squadV3PoolDeployer.address, squadV3Factory.address, WETH9Address);
 
     // Deploy NFT position manager
     const NonfungiblePositionManager = await ethers.getContractFactoryFromArtifact(NonfungiblePositionManagerArtifact);
     const nonfungiblePositionManager = await NonfungiblePositionManager.deploy(
-      pancakeV3PoolDeployer.address,
-      pancakeV3Factory.address,
+      squadV3PoolDeployer.address,
+      squadV3Factory.address,
       WETH9Address,
       // nonfungibleTokenPositionDescriptor.address
       ethers.constants.AddressZero
@@ -75,9 +75,9 @@ describe("MasterChefV3", function () {
     const ERC20Mock = await ethers.getContractFactoryFromArtifact(ERC20MockArtifact);
 
     // Deploy factory owner contract
-    // const PancakeV3FactoryOwner = await ethers.getContractFactoryFromArtifact(PancakeV3FactoryOwnerArtifact);
-    // const pancakeV3FactoryOwner = await PancakeV3FactoryOwner.deploy(pancakeV3Factory.address);
-    // await pancakeV3Factory.setOwner(pancakeV3FactoryOwner.address);
+    // const SquadV3FactoryOwner = await ethers.getContractFactoryFromArtifact(SquadV3FactoryOwnerArtifact);
+    // const squadV3FactoryOwner = await SquadV3FactoryOwner.deploy(squadV3Factory.address);
+    // await squadV3Factory.setOwner(squadV3FactoryOwner.address);
 
     // Prepare for master chef v3
     const CakeToken = await ethers.getContractFactoryFromArtifact(CakeTokenArtifact);
@@ -129,14 +129,14 @@ describe("MasterChefV3", function () {
     await masterChefV2.deposit(1, await dummyTokenV3.balanceOf(admin.address));
     const firstFarmingBlock = await time.latestBlock();
 
-    const PancakeV3LmPoolDeployer = await ethers.getContractFactoryFromArtifact(PancakeV3LmPoolDeployerArtifact);
-    const pancakeV3LmPoolDeployer = await PancakeV3LmPoolDeployer.deploy(
+    const SquadV3LmPoolDeployer = await ethers.getContractFactoryFromArtifact(SquadV3LmPoolDeployerArtifact);
+    const squadV3LmPoolDeployer = await SquadV3LmPoolDeployer.deploy(
       masterChefV3.address
-      // pancakeV3FactoryOwner.address
+      // squadV3FactoryOwner.address
     );
-    // await pancakeV3FactoryOwner.setLmPoolDeployer(pancakeV3LmPoolDeployer.address);
-    await pancakeV3Factory.setLmPoolDeployer(pancakeV3LmPoolDeployer.address);
-    await masterChefV3.setLMPoolDeployer(pancakeV3LmPoolDeployer.address);
+    // await squadV3FactoryOwner.setLmPoolDeployer(squadV3LmPoolDeployer.address);
+    await squadV3Factory.setLmPoolDeployer(squadV3LmPoolDeployer.address);
+    await masterChefV3.setLMPoolDeployer(squadV3LmPoolDeployer.address);
 
     // Deploy mock ERC20 tokens
     const tokenA = await ERC20Mock.deploy("Token A", "A");
@@ -157,10 +157,10 @@ describe("MasterChefV3", function () {
     await tokenD.mint(user1.address, ethers.utils.parseUnits("1000"));
     await tokenD.mint(user2.address, ethers.utils.parseUnits("1000"));
 
-    await tokenA.connect(admin).approve(pancakeV3SwapRouter.address, ethers.constants.MaxUint256);
-    await tokenB.connect(admin).approve(pancakeV3SwapRouter.address, ethers.constants.MaxUint256);
-    await tokenC.connect(admin).approve(pancakeV3SwapRouter.address, ethers.constants.MaxUint256);
-    await tokenD.connect(admin).approve(pancakeV3SwapRouter.address, ethers.constants.MaxUint256);
+    await tokenA.connect(admin).approve(squadV3SwapRouter.address, ethers.constants.MaxUint256);
+    await tokenB.connect(admin).approve(squadV3SwapRouter.address, ethers.constants.MaxUint256);
+    await tokenC.connect(admin).approve(squadV3SwapRouter.address, ethers.constants.MaxUint256);
+    await tokenD.connect(admin).approve(squadV3SwapRouter.address, ethers.constants.MaxUint256);
 
     await tokenA.connect(user1).approve(nonfungiblePositionManager.address, ethers.constants.MaxUint256);
     await tokenB.connect(user1).approve(nonfungiblePositionManager.address, ethers.constants.MaxUint256);
@@ -229,7 +229,7 @@ describe("MasterChefV3", function () {
     this.poolAddresses = poolAddresses;
     this.cakeToken = cakeToken;
     this.liquidityAmounts = liquidityAmounts;
-    this.swapRouter = pancakeV3SwapRouter;
+    this.swapRouter = squadV3SwapRouter;
 
     await network.provider.send("evm_setAutomine", [false]);
   });

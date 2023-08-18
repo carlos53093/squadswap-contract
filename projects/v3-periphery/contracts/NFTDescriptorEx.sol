@@ -2,10 +2,10 @@
 pragma solidity >=0.7.0;
 pragma abicoder v2;
 
-import '@pancakeswap/v3-core/contracts/interfaces/IPancakeV3Pool.sol';
-import '@pancakeswap/v3-core/contracts/libraries/TickMath.sol';
-import '@pancakeswap/v3-core/contracts/libraries/BitMath.sol';
-import '@pancakeswap/v3-core/contracts/libraries/FullMath.sol';
+import '@squadswap/v3-core/contracts/interfaces/ISquadV3Pool.sol';
+import '@squadswap/v3-core/contracts/libraries/TickMath.sol';
+import '@squadswap/v3-core/contracts/libraries/BitMath.sol';
+import '@squadswap/v3-core/contracts/libraries/FullMath.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
 import '@openzeppelin/contracts/math/SafeMath.sol';
 import '@openzeppelin/contracts/math/SignedSafeMath.sol';
@@ -136,7 +136,7 @@ contract NFTDescriptorEx {
         return
         string(
             abi.encodePacked(
-                'This NFT represents a liquidity position in a Pancake V3 ',
+                'This NFT represents a liquidity position in a squad V3 ',
                 quoteTokenSymbol,
                 '-',
                 baseTokenSymbol,
@@ -184,7 +184,7 @@ contract NFTDescriptorEx {
     return
         string(
             abi.encodePacked(
-                'Pancake - ',
+                'squad - ',
                 feeTier,
                 ' - ',
                 escapeQuotes(params.quoteTokenSymbol),

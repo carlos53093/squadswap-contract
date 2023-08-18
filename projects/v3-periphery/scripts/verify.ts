@@ -1,6 +1,6 @@
 import { verifyContract } from '../../../common/verify'
 import { sleep } from '../../../common/sleep'
-// import { configs } from '@pancakeswap/common/config'
+// import { configs } from '@squadswap/common/config'
 import { configs } from '../../../common/config';
 
 async function main() {
@@ -16,8 +16,8 @@ async function main() {
   // Verify swapRouter
   console.log('Verify swapRouter')
   await verifyContract(deployedContracts_v3_periphery.SwapRouter, [
-    deployedContracts_v3_core.PancakeV3PoolDeployer,
-    deployedContracts_v3_core.PancakeV3Factory,
+    deployedContracts_v3_core.SquadV3PoolDeployer,
+    deployedContracts_v3_core.SquadV3Factory,
     config.WNATIVE,
   ])
   await sleep(10000)
@@ -30,23 +30,23 @@ async function main() {
   // Verify NonfungiblePositionManager
   console.log('Verify NonfungiblePositionManager')
   await verifyContract(deployedContracts_v3_periphery.NonfungiblePositionManager, [
-    deployedContracts_v3_core.PancakeV3PoolDeployer,
-    deployedContracts_v3_core.PancakeV3Factory,
+    deployedContracts_v3_core.SquadV3PoolDeployer,
+    deployedContracts_v3_core.SquadV3Factory,
     config.WNATIVE,
     deployedContracts_v3_periphery.NonfungibleTokenPositionDescriptor,
   ])
   await sleep(10000)
 
-  // Verify pancakeInterfaceMulticall
-  console.log('Verify pancakeInterfaceMulticall')
-  await verifyContract(deployedContracts_v3_periphery.PancakeInterfaceMulticall)
+  // Verify squadInterfaceMulticall
+  console.log('Verify squadInterfaceMulticall')
+  await verifyContract(deployedContracts_v3_periphery.SquadInterfaceMulticall)
   await sleep(10000)
 
   // Verify v3Migrator
   console.log('Verify v3Migrator')
   await verifyContract(deployedContracts_v3_periphery.V3Migrator, [
-    deployedContracts_v3_core.PancakeV3PoolDeployer,
-    deployedContracts_v3_core.PancakeV3Factory,
+    deployedContracts_v3_core.SquadV3PoolDeployer,
+    deployedContracts_v3_core.SquadV3Factory,
     config.WNATIVE,
     deployedContracts_v3_periphery.NonfungiblePositionManager,
   ])
@@ -60,8 +60,8 @@ async function main() {
   // Verify QuoterV2
   console.log('Verify QuoterV2')
   await verifyContract(deployedContracts_v3_periphery.QuoterV2, [
-    deployedContracts_v3_core.PancakeV3PoolDeployer,
-    deployedContracts_v3_core.PancakeV3Factory,
+    deployedContracts_v3_core.SquadV3PoolDeployer,
+    deployedContracts_v3_core.SquadV3Factory,
     config.WNATIVE,
   ])
   await sleep(10000)

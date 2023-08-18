@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { ethers, run, network } from "hardhat";
 // import { configs } from "@pancakeswap/common/config";
-import { tryVerify } from "@pancakeswap/common/verify";
+// import { tryVerify } from "@pancakeswap/common/verify";
 import { writeFileSync } from "fs";
 import { configs } from '../../../common/config';
 

@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "PancakeV3PoolDeployer",
-  "sourceName": "contracts/PancakeV3PoolDeployer.sol",
+  "contractName": "SquadV3PoolDeployer",
+  "sourceName": "contracts/SquadV3PoolDeployer.sol",
   "abi": [
     {
       "inputs": [

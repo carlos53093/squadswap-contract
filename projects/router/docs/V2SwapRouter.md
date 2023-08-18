@@ -2,7 +2,7 @@
 
 ## V2SwapRouter
 
-Router for stateless execution of swaps against PancakeSwap V2
+Router for stateless execution of swaps against SquadSwap V2
 
 ### swapExactTokensForTokens
 

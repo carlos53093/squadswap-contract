@@ -1,6 +1,6 @@
 {
-  "name": "@pancakeswap/smart-router",
-  "description": "Pancake Smart Router",
+  "name": "@squadswap/smart-router",
+  "description": "Squad Smart Router",
   "version": "1.0.0",
   "license": "GPL-2.0-or-later",
   "publishConfig": {
@@ -55,8 +55,8 @@
     "web3": "^1.3.6",
     "hardhat-tracer": "^2.1.0",
     "@uniswap/v2-core": "1.0.1",
-    "@pancakeswap/v3-core": "*",
-    "@pancakeswap/v3-periphery": "*"
+    "@squadswap/v3-core": "*",
+    "@squadswap/v3-periphery": "*"
   },
   "dependencies": {}
 }

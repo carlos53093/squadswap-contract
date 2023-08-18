@@ -34,16 +34,16 @@ _Value to bit mask with path fee to determine if V2 or V3 route
 Transient storage variable used to check a safety condition in exact output swaps.
     uint256 private amountOutCached;_
 
-### pancakeV3SwapCallback
+### squadV3SwapCallback
 
 ```solidity
-function pancakeV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes path) external view
+function squadV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes path) external view
 ```
 
-Called to `msg.sender` after executing a swap via IPancakeV3Pool#swap.
+Called to `msg.sender` after executing a swap via IsquadV3Pool#swap.
 
 _In the implementation you must pay the pool tokens owed for the swap.
-The caller of this method must be checked to be a PancakeV3Pool deployed by the canonical PancakeV3Factory.
+The caller of this method must be checked to be a squadV3Pool deployed by the canonical squadV3Factory.
 amount0Delta and amount1Delta can both be 0 if no tokens were swapped._
 
 #### Parameters

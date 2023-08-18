@@ -2,9 +2,9 @@
 pragma solidity =0.7.6;
 pragma abicoder v2;
 
-import '@pancakeswap/v3-core/contracts/libraries/SafeCast.sol';
-import '@pancakeswap/v3-core/contracts/libraries/TickMath.sol';
-import '@pancakeswap/v3-periphery/contracts/libraries/Path.sol';
+import '@squadswap/v3-core/contracts/libraries/SafeCast.sol';
+import '@squadswap/v3-core/contracts/libraries/TickMath.sol';
+import '@squadswap/v3-periphery/contracts/libraries/Path.sol';
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
 
@@ -14,8 +14,8 @@ import './base/OracleSlippage.sol';
 import './libraries/Constants.sol';
 import './libraries/SmartRouterHelper.sol';
 
-/// @title PancakeSwap V3 Swap Router
-/// @notice Router for stateless execution of swaps against PancakeSwap V3
+/// @title SquadSwap V3 Swap Router
+/// @notice Router for stateless execution of swaps against SquadSwap V3
 abstract contract V3SwapRouter is IV3SwapRouter, PeripheryPaymentsWithFeeExtended, OracleSlippage, ReentrancyGuard {
     using Path for bytes;
     using SafeCast for uint256;
@@ -32,8 +32,8 @@ abstract contract V3SwapRouter is IV3SwapRouter, PeripheryPaymentsWithFeeExtende
         address payer;
     }
 
-    /// @inheritdoc IPancakeV3SwapCallback
-    function pancakeV3SwapCallback(
+    /// @inheritdoc ISquadV3SwapCallback
+    function squadV3SwapCallback(
         int256 amount0Delta,
         int256 amount1Delta,
         bytes calldata _data

@@ -119,19 +119,19 @@ const config: HardhatUserConfig = {
       },
     ],
     overrides: {
-      '@pancakeswap/v3-core/contracts/libraries/FullMath.sol': {
+      '@squadswap/v3-core/contracts/libraries/FullMath.sol': {
         version: '0.7.6',
         settings: {},
       },
-      '@pancakeswap/v3-core/contracts/libraries/TickBitmap.sol': {
+      '@squadswap/v3-core/contracts/libraries/TickBitmap.sol': {
         version: '0.7.6',
         settings: {},
       },
-      '@pancakeswap/v3-core/contracts/libraries/TickMath.sol': {
+      '@squadswap/v3-core/contracts/libraries/TickMath.sol': {
         version: '0.7.6',
         settings: {},
       },
-      '@pancakeswap/v3-periphery/contracts/libraries/PoolAddress.sol': {
+      '@squadswap/v3-periphery/contracts/libraries/PoolAddress.sol': {
         version: '0.7.6',
         settings: {},
       },

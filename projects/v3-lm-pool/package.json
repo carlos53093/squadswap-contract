@@ -1,8 +1,11 @@
 {
-  "name": "@pancakeswap/v3-lm-pool",
+  "name": "@squadswap/v3-lm-pool",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "compile": "hardhat compile",
     "test": "echo 'skip'"
@@ -15,7 +18,7 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@nomiclabs/hardhat-ethers": "^2.0.0",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
-    "@pancakeswap/v3-core": "*",
+    "@squadswap/v3-core": "*",
     "@typechain/ethers-v5": "^10.2.0",
     "@typechain/hardhat": "^6.1.5",
     "@types/chai": "^4.2.0",
