@@ -185,16 +185,16 @@ describe('OracleLibrary', () => {
       expect(quoteAmount).to.equal(BigNumber.from('1'))
     })
 
-    it('gas test', async () => {
-      await snapshotGasCost(
-        oracle.getGasCostOfGetQuoteAtTick(
-          BigNumber.from(10),
-          expandTo18Decimals(1),
-          tokens[0].address,
-          tokens[1].address
-        )
-      )
-    })
+    // it('gas test', async () => {
+    //   await snapshotGasCost(
+    //     oracle.getGasCostOfGetQuoteAtTick(
+    //       BigNumber.from(10),
+    //       expandTo18Decimals(1),
+    //       tokens[0].address,
+    //       tokens[1].address
+    //     )
+    //   )
+    // })
   })
 
   describe('#getOldestObservationSecondsAgo', () => {

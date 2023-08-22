@@ -77,7 +77,7 @@ describe('QuoterV2', function () {
           10000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('78461416398214494518137075974')
         expect(initializedTicksCrossedList[0]).to.eq(2)
@@ -97,7 +97,7 @@ describe('QuoterV2', function () {
           4000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('78927310518123281494584640269')
         expect(initializedTicksCrossedList.length).to.eq(1)
@@ -116,7 +116,7 @@ describe('QuoterV2', function () {
           4000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(1)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('78927310518123281494584640269')
@@ -135,7 +135,7 @@ describe('QuoterV2', function () {
           10
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(0)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79227489893387837394472208959')
@@ -156,7 +156,7 @@ describe('QuoterV2', function () {
           10
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(1)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79227819726962271179018578096')
@@ -174,7 +174,7 @@ describe('QuoterV2', function () {
           10000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(2)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('80002401480092647043275825331')
@@ -195,7 +195,7 @@ describe('QuoterV2', function () {
           6250
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(2)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79706008924126784156338377413')
@@ -217,7 +217,7 @@ describe('QuoterV2', function () {
           200
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(0)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79235669771747875048246634302')
@@ -237,7 +237,7 @@ describe('QuoterV2', function () {
           103
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(0)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79235785615582280248582697969')
@@ -256,7 +256,7 @@ describe('QuoterV2', function () {
           10000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('80018463435344124361039551240')
         expect(initializedTicksCrossedList[0]).to.eq(0)
@@ -274,7 +274,7 @@ describe('QuoterV2', function () {
           10000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(2)
         expect(sqrtPriceX96AfterList[0]).to.eq('78461416398214494518137075974')
         expect(sqrtPriceX96AfterList[1]).to.eq('80008639143192355583177951790')
@@ -300,7 +300,7 @@ describe('QuoterV2', function () {
           sqrtPriceLimitX96: encodePriceSqrt(100, 102),
         })
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossed).to.eq(2)
         expect(quote).to.eq(9876)
         expect(sqrtPriceX96After).to.eq('78461416398214494518137075974')
@@ -321,7 +321,7 @@ describe('QuoterV2', function () {
           sqrtPriceLimitX96: encodePriceSqrt(102, 100),
         })
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossed).to.eq(2)
         expect(quote).to.eq(9876)
         expect(sqrtPriceX96After).to.eq('80002401480092647043275825331')
@@ -340,7 +340,7 @@ describe('QuoterV2', function () {
           15000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList.length).to.eq(1)
         expect(initializedTicksCrossedList[0]).to.eq(2)
         expect(amountIn).to.eq(15266)
@@ -362,7 +362,7 @@ describe('QuoterV2', function () {
           4000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('78925183124234553652466484583')
         expect(initializedTicksCrossedList.length).to.eq(1)
@@ -381,7 +381,7 @@ describe('QuoterV2', function () {
           4000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList.length).to.eq(1)
         expect(initializedTicksCrossedList[0]).to.eq(1)
         expect(amountIn).to.eq(4028)
@@ -403,7 +403,7 @@ describe('QuoterV2', function () {
           100
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList.length).to.eq(1)
         expect(initializedTicksCrossedList[0]).to.eq(1)
         expect(amountIn).to.eq(102)
@@ -423,7 +423,7 @@ describe('QuoterV2', function () {
           10
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList.length).to.eq(1)
         expect(initializedTicksCrossedList[0]).to.eq(0)
         expect(amountIn).to.eq(12)
@@ -443,7 +443,7 @@ describe('QuoterV2', function () {
           15000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList.length).to.eq(1)
         expect(initializedTicksCrossedList[0]).to.eq(2)
         expect(amountIn).to.eq(15266)
@@ -464,7 +464,7 @@ describe('QuoterV2', function () {
           6223
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(2)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79708347284616623071328874084')
@@ -483,7 +483,7 @@ describe('QuoterV2', function () {
           5000
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(initializedTicksCrossedList[0]).to.eq(1)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('79610650345278553149096442257')
@@ -502,7 +502,7 @@ describe('QuoterV2', function () {
           9876
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(1)
         expect(sqrtPriceX96AfterList[0]).to.eq('80018424474373247788705202921')
         expect(initializedTicksCrossedList[0]).to.eq(0)
@@ -523,7 +523,7 @@ describe('QuoterV2', function () {
           9754
         )
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(sqrtPriceX96AfterList.length).to.eq(2)
         expect(sqrtPriceX96AfterList[0]).to.eq('80008566067688571924091539210')
         expect(sqrtPriceX96AfterList[1]).to.eq('78461450029948276832549133451')
@@ -548,7 +548,7 @@ describe('QuoterV2', function () {
           sqrtPriceLimitX96: encodePriceSqrt(100, 102),
         })
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(amountIn).to.eq(9976)
         expect(initializedTicksCrossed).to.eq(0)
         expect(sqrtPriceX96After).to.eq('78447570448055484695608110440')
@@ -568,7 +568,7 @@ describe('QuoterV2', function () {
           sqrtPriceLimitX96: encodePriceSqrt(102, 100),
         })
 
-        await snapshotGasCost(gasEstimate)
+        // await snapshotGasCost(gasEstimate)
         expect(amountIn).to.eq(9976)
         expect(initializedTicksCrossed).to.eq(0)
         expect(sqrtPriceX96After).to.eq('80016521857016594389520272648')

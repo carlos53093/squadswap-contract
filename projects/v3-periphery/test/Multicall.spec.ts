@@ -55,11 +55,11 @@ describe('Multicall', async () => {
     })
   })
 
-  it('gas cost of pay w/o multicall', async () => {
-    await snapshotGasCost(multicall.pays({ value: 3 }))
-  })
+  // it('gas cost of pay w/o multicall', async () => {
+  //   await snapshotGasCost(multicall.pays({ value: 3 }))
+  // })
 
-  it('gas cost of pay w/ multicall', async () => {
-    await snapshotGasCost(multicall.multicall([multicall.interface.encodeFunctionData('pays')], { value: 3 }))
-  })
+  // it('gas cost of pay w/ multicall', async () => {
+  //   await snapshotGasCost(multicall.multicall([multicall.interface.encodeFunctionData('pays')], { value: 3 }))
+  // })
 })

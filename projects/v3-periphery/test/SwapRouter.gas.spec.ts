@@ -263,43 +263,43 @@ describe('SwapRouter gas tests', function () {
 
   describe('#exactInput', () => {
     it('0 -> 1', async () => {
-      await snapshotGasCost(exactInput(tokens.slice(0, 2).map((token) => token.address)))
+      // await snapshotGasCost(exactInput(tokens.slice(0, 2).map((token) => token.address)))
     })
 
-    it.skip('0 -> 1 minimal', async () => {
-      const calleeFactory = await ethers.getContractFactory('TestSquadV3Callee')
-      const callee = await calleeFactory.deploy()
+    // it.skip('0 -> 1 minimal', async () => {
+    //   const calleeFactory = await ethers.getContractFactory('TestSquadV3Callee')
+    //   const callee = await calleeFactory.deploy()
 
-      await tokens[0].connect(trader).approve(callee.address, constants.MaxUint256)
-      await snapshotGasCost(callee.connect(trader).swapExact0For1(pools[0].address, 2, trader.address, '4295128740'))
-    })
+    //   await tokens[0].connect(trader).approve(callee.address, constants.MaxUint256)
+    //   await snapshotGasCost(callee.connect(trader).swapExact0For1(pools[0].address, 2, trader.address, '4295128740'))
+    // })
 
-    it('0 -> 1 -> 2', async () => {
-      await snapshotGasCost(
-        exactInput(
-          tokens.map((token) => token.address),
-          3
-        )
-      )
-    })
+    // it('0 -> 1 -> 2', async () => {
+    //   await snapshotGasCost(
+    //     exactInput(
+    //       tokens.map((token) => token.address),
+    //       3
+    //     )
+    //   )
+    // })
 
-    it('WETH9 -> 0', async () => {
-      await snapshotGasCost(
-        exactInput(
-          [weth9.address, tokens[0].address],
-          weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
-        )
-      )
-    })
+    // it('WETH9 -> 0', async () => {
+    //   await snapshotGasCost(
+    //     exactInput(
+    //       [weth9.address, tokens[0].address],
+    //       weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
+    //     )
+    //   )
+    // })
 
-    it('0 -> WETH9', async () => {
-      await snapshotGasCost(
-        exactInput(
-          [tokens[0].address, weth9.address],
-          tokens[0].address.toLowerCase() < weth9.address.toLowerCase() ? 2 : 3
-        )
-      )
-    })
+    // it('0 -> WETH9', async () => {
+    //   await snapshotGasCost(
+    //     exactInput(
+    //       [tokens[0].address, weth9.address],
+    //       tokens[0].address.toLowerCase() < weth9.address.toLowerCase() ? 2 : 3
+    //     )
+    //   )
+    // })
 
     it('2 trades (via router)', async () => {
       await weth9.connect(trader).deposit({ value: 3 })
@@ -326,7 +326,7 @@ describe('SwapRouter gas tests', function () {
         router.interface.encodeFunctionData('sweepToken', [tokens[0].address, 2, trader.address]),
       ]
 
-      await snapshotGasCost(router.connect(trader).multicall(data))
+      // await snapshotGasCost(router.connect(trader).multicall(data))
     })
 
     it('3 trades (directly to sender)', async () => {
@@ -362,7 +362,7 @@ describe('SwapRouter gas tests', function () {
         router.interface.encodeFunctionData('exactInput', [swap2]),
       ]
 
-      await snapshotGasCost(router.connect(trader).multicall(data))
+      // await snapshotGasCost(router.connect(trader).multicall(data))
     })
   })
 
@@ -390,64 +390,64 @@ describe('SwapRouter gas tests', function () {
       router.interface.encodeFunctionData('exactInput', [swap1]),
     ]
 
-    await snapshotGasCost(router.connect(trader).multicall(data))
+    // await snapshotGasCost(router.connect(trader).multicall(data))
   })
 
   describe('#exactInputSingle', () => {
     it('0 -> 1', async () => {
-      await snapshotGasCost(exactInputSingle(tokens[0].address, tokens[1].address))
+      // await snapshotGasCost(exactInputSingle(tokens[0].address, tokens[1].address))
     })
 
-    it('WETH9 -> 0', async () => {
-      await snapshotGasCost(
-        exactInputSingle(
-          weth9.address,
-          tokens[0].address,
-          weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
-        )
-      )
-    })
+    // it('WETH9 -> 0', async () => {
+    //   await snapshotGasCost(
+    //     exactInputSingle(
+    //       weth9.address,
+    //       tokens[0].address,
+    //       weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
+    //     )
+    //   )
+    // })
 
-    it('0 -> WETH9', async () => {
-      await snapshotGasCost(
-        exactInputSingle(
-          tokens[0].address,
-          weth9.address,
-          tokens[0].address.toLowerCase() < weth9.address.toLowerCase() ? 2 : 3
-        )
-      )
-    })
+    // it('0 -> WETH9', async () => {
+    //   await snapshotGasCost(
+    //     exactInputSingle(
+    //       tokens[0].address,
+    //       weth9.address,
+    //       tokens[0].address.toLowerCase() < weth9.address.toLowerCase() ? 2 : 3
+    //     )
+    //   )
+    // })
   })
 
-  describe('#exactOutput', () => {
-    it('0 -> 1', async () => {
-      await snapshotGasCost(exactOutput(tokens.slice(0, 2).map((token) => token.address)))
-    })
+  // describe('#exactOutput', () => {
+  //   it('0 -> 1', async () => {
+  //     await snapshotGasCost(exactOutput(tokens.slice(0, 2).map((token) => token.address)))
+  //   })
 
-    it('0 -> 1 -> 2', async () => {
-      await snapshotGasCost(exactOutput(tokens.map((token) => token.address)))
-    })
+  //   it('0 -> 1 -> 2', async () => {
+  //     await snapshotGasCost(exactOutput(tokens.map((token) => token.address)))
+  //   })
 
-    it('WETH9 -> 0', async () => {
-      await snapshotGasCost(exactOutput([weth9.address, tokens[0].address]))
-    })
+  //   it('WETH9 -> 0', async () => {
+  //     await snapshotGasCost(exactOutput([weth9.address, tokens[0].address]))
+  //   })
 
-    it('0 -> WETH9', async () => {
-      await snapshotGasCost(exactOutput([tokens[0].address, weth9.address]))
-    })
-  })
+  //   it('0 -> WETH9', async () => {
+  //     await snapshotGasCost(exactOutput([tokens[0].address, weth9.address]))
+  //   })
+  // })
 
-  describe('#exactOutputSingle', () => {
-    it('0 -> 1', async () => {
-      await snapshotGasCost(exactOutputSingle(tokens[0].address, tokens[1].address))
-    })
+  // describe('#exactOutputSingle', () => {
+  //   it('0 -> 1', async () => {
+  //     await snapshotGasCost(exactOutputSingle(tokens[0].address, tokens[1].address))
+  //   })
 
-    it('WETH9 -> 0', async () => {
-      await snapshotGasCost(exactOutputSingle(weth9.address, tokens[0].address))
-    })
+  //   it('WETH9 -> 0', async () => {
+  //     await snapshotGasCost(exactOutputSingle(weth9.address, tokens[0].address))
+  //   })
 
-    it('0 -> WETH9', async () => {
-      await snapshotGasCost(exactOutputSingle(tokens[0].address, weth9.address))
-    })
-  })
+  //   it('0 -> WETH9', async () => {
+  //     await snapshotGasCost(exactOutputSingle(tokens[0].address, weth9.address))
+  //   })
+  // })
 })

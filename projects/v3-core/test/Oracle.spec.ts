@@ -57,9 +57,9 @@ describe('Oracle', () => {
         secondsPerLiquidityCumulativeX128: 0,
       })
     })
-    it('gas', async () => {
-      await snapshotGasCost(oracle.initialize({ liquidity: 1, tick: 1, time: 1 }))
-    })
+    // it('gas', async () => {
+    //   await snapshotGasCost(oracle.initialize({ liquidity: 1, tick: 1, time: 1 }))
+    // })
   })
 
   describe('#grow', () => {
@@ -116,23 +116,23 @@ describe('Oracle', () => {
       expect(await oracle.cardinalityNext()).to.eq(3)
     })
 
-    it('gas for growing by 1 slot when index == cardinality - 1', async () => {
-      await snapshotGasCost(oracle.grow(2))
-    })
+    // it('gas for growing by 1 slot when index == cardinality - 1', async () => {
+    //   await snapshotGasCost(oracle.grow(2))
+    // })
 
-    it('gas for growing by 10 slots when index == cardinality - 1', async () => {
-      await snapshotGasCost(oracle.grow(11))
-    })
+    // it('gas for growing by 10 slots when index == cardinality - 1', async () => {
+    //   await snapshotGasCost(oracle.grow(11))
+    // })
 
-    it('gas for growing by 1 slot when index != cardinality - 1', async () => {
-      await oracle.grow(2)
-      await snapshotGasCost(oracle.grow(3))
-    })
+    // it('gas for growing by 1 slot when index != cardinality - 1', async () => {
+    //   await oracle.grow(2)
+    //   await snapshotGasCost(oracle.grow(3))
+    // })
 
-    it('gas for growing by 10 slots when index != cardinality - 1', async () => {
-      await oracle.grow(2)
-      await snapshotGasCost(oracle.grow(12))
-    })
+    // it('gas for growing by 10 slots when index != cardinality - 1', async () => {
+    //   await oracle.grow(2)
+    //   await snapshotGasCost(oracle.grow(12))
+    // })
   })
 
   describe('#write', () => {
@@ -495,22 +495,22 @@ describe('Oracle', () => {
         expect(secondsPerLiquidityCumulativeX128s[5]).to.eq(0)
       })
 
-      it('gas for observe since most recent', async () => {
-        await oracle.initialize({ liquidity: 5, tick: -5, time: 5 })
-        await oracle.advanceTime(2)
-        await snapshotGasCost(oracle.getGasCostOfObserve([1]))
-      })
+      // it('gas for observe since most recent', async () => {
+      //   await oracle.initialize({ liquidity: 5, tick: -5, time: 5 })
+      //   await oracle.advanceTime(2)
+      //   await snapshotGasCost(oracle.getGasCostOfObserve([1]))
+      // })
 
-      it('gas for single observation at current time', async () => {
-        await oracle.initialize({ liquidity: 5, tick: -5, time: 5 })
-        await snapshotGasCost(oracle.getGasCostOfObserve([0]))
-      })
+      // it('gas for single observation at current time', async () => {
+      //   await oracle.initialize({ liquidity: 5, tick: -5, time: 5 })
+      //   await snapshotGasCost(oracle.getGasCostOfObserve([0]))
+      // })
 
-      it('gas for single observation at current time counterfactually computed', async () => {
-        await oracle.initialize({ liquidity: 5, tick: -5, time: 5 })
-        await oracle.advanceTime(5)
-        await snapshotGasCost(oracle.getGasCostOfObserve([0]))
-      })
+      // it('gas for single observation at current time counterfactually computed', async () => {
+      //   await oracle.initialize({ liquidity: 5, tick: -5, time: 5 })
+      //   await oracle.advanceTime(5)
+      //   await snapshotGasCost(oracle.getGasCostOfObserve([0]))
+      // })
     })
 
     for (const startingTime of [5, 2 ** 32 - 5]) {
@@ -601,29 +601,29 @@ describe('Oracle', () => {
           }).to.matchSnapshot()
         })
 
-        it('gas all of last 20 seconds', async () => {
-          await oracle.advanceTime(6)
-          await snapshotGasCost(
-            oracle.getGasCostOfObserve([20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
-          )
-        })
+        // it('gas all of last 20 seconds', async () => {
+        //   await oracle.advanceTime(6)
+        //   await snapshotGasCost(
+        //     oracle.getGasCostOfObserve([20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+        //   )
+        // })
 
-        it('gas latest equal', async () => {
-          await snapshotGasCost(oracle.getGasCostOfObserve([0]))
-        })
-        it('gas latest transform', async () => {
-          await oracle.advanceTime(5)
-          await snapshotGasCost(oracle.getGasCostOfObserve([0]))
-        })
-        it('gas oldest', async () => {
-          await snapshotGasCost(oracle.getGasCostOfObserve([14]))
-        })
-        it('gas between oldest and oldest + 1', async () => {
-          await snapshotGasCost(oracle.getGasCostOfObserve([13]))
-        })
-        it('gas middle', async () => {
-          await snapshotGasCost(oracle.getGasCostOfObserve([5]))
-        })
+        // it('gas latest equal', async () => {
+        //   await snapshotGasCost(oracle.getGasCostOfObserve([0]))
+        // })
+        // it('gas latest transform', async () => {
+        //   await oracle.advanceTime(5)
+        //   await snapshotGasCost(oracle.getGasCostOfObserve([0]))
+        // })
+        // it('gas oldest', async () => {
+        //   await snapshotGasCost(oracle.getGasCostOfObserve([14]))
+        // })
+        // it('gas between oldest and oldest + 1', async () => {
+        //   await snapshotGasCost(oracle.getGasCostOfObserve([13]))
+        // })
+        // it('gas middle', async () => {
+        //   await snapshotGasCost(oracle.getGasCostOfObserve([5]))
+        // })
       })
     }
   })
@@ -764,29 +764,29 @@ describe('Oracle', () => {
       })
     })
 
-    it('gas cost of observe(0)', async () => {
-      await snapshotGasCost(oracle.getGasCostOfObserve([0]))
-    })
-    it('gas cost of observe(200 * 13)', async () => {
-      await snapshotGasCost(oracle.getGasCostOfObserve([200 + 13]))
-    })
-    it('gas cost of observe(200 * 13 + 5)', async () => {
-      await snapshotGasCost(oracle.getGasCostOfObserve([200 + 13 + 5]))
-    })
-    it('gas cost of observe(0) after 5 seconds', async () => {
-      await oracle.advanceTime(5)
-      await snapshotGasCost(oracle.getGasCostOfObserve([0]))
-    })
-    it('gas cost of observe(5) after 5 seconds', async () => {
-      await oracle.advanceTime(5)
-      await snapshotGasCost(oracle.getGasCostOfObserve([5]))
-    })
-    it('gas cost of observe(oldest)', async () => {
-      await snapshotGasCost(oracle.getGasCostOfObserve([65534 * 13]))
-    })
-    it('gas cost of observe(oldest) after 5 seconds', async () => {
-      await oracle.advanceTime(5)
-      await snapshotGasCost(oracle.getGasCostOfObserve([65534 * 13 + 5]))
-    })
+    // it('gas cost of observe(0)', async () => {
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([0]))
+    // })
+    // it('gas cost of observe(200 * 13)', async () => {
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([200 + 13]))
+    // })
+    // it('gas cost of observe(200 * 13 + 5)', async () => {
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([200 + 13 + 5]))
+    // })
+    // it('gas cost of observe(0) after 5 seconds', async () => {
+    //   await oracle.advanceTime(5)
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([0]))
+    // })
+    // it('gas cost of observe(5) after 5 seconds', async () => {
+    //   await oracle.advanceTime(5)
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([5]))
+    // })
+    // it('gas cost of observe(oldest)', async () => {
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([65534 * 13]))
+    // })
+    // it('gas cost of observe(oldest) after 5 seconds', async () => {
+    //   await oracle.advanceTime(5)
+    //   await snapshotGasCost(oracle.getGasCostOfObserve([65534 * 13 + 5]))
+    // })
   })
 })

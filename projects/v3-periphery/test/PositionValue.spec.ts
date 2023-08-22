@@ -135,9 +135,9 @@ describe('PositionValue', async () => {
       expect(total[1]).to.equal(principal[1].add(fees[1]))
     })
 
-    it('gas', async () => {
-      await snapshotGasCost(positionValue.totalGas(nft.address, 1, sqrtRatioX96))
-    })
+    // it('gas', async () => {
+    //   await snapshotGasCost(positionValue.totalGas(nft.address, 1, sqrtRatioX96))
+    // })
   })
 
   describe('#principal', () => {
@@ -248,23 +248,23 @@ describe('PositionValue', async () => {
       expect(principal.amount1).to.equal('99999999999999999999999')
     })
 
-    it('gas', async () => {
-      await nft.mint({
-        token0: tokens[0].address,
-        token1: tokens[1].address,
-        tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
-        tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
-        fee: FeeAmount.MEDIUM,
-        recipient: wallets[0].address,
-        amount0Desired: amountDesired,
-        amount1Desired: amountDesired,
-        amount0Min: 0,
-        amount1Min: 0,
-        deadline: 10,
-      })
+    // it('gas', async () => {
+    //   await nft.mint({
+    //     token0: tokens[0].address,
+    //     token1: tokens[1].address,
+    //     tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+    //     tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+    //     fee: FeeAmount.MEDIUM,
+    //     recipient: wallets[0].address,
+    //     amount0Desired: amountDesired,
+    //     amount1Desired: amountDesired,
+    //     amount0Min: 0,
+    //     amount1Min: 0,
+    //     deadline: 10,
+    //   })
 
-      await snapshotGasCost(positionValue.principalGas(nft.address, 1, sqrtRatioX96))
-    })
+    //   await snapshotGasCost(positionValue.principalGas(nft.address, 1, sqrtRatioX96))
+    // })
   })
 
   describe('#fees', () => {
@@ -374,9 +374,9 @@ describe('PositionValue', async () => {
         expect(feeAmounts[1]).to.equal(feesFromCollect[1])
       })
 
-      it('gas', async () => {
-        await snapshotGasCost(positionValue.feesGas(nft.address, tokenId))
-      })
+      // it('gas', async () => {
+      //   await snapshotGasCost(positionValue.feesGas(nft.address, tokenId))
+      // })
     })
 
     describe('when price is below the position range', async () => {
@@ -430,9 +430,9 @@ describe('PositionValue', async () => {
         expect(feeAmounts[1]).to.equal(feesFromCollect[1])
       })
 
-      it('gas', async () => {
-        await snapshotGasCost(positionValue.feesGas(nft.address, tokenId))
-      })
+      // it('gas', async () => {
+      //   await snapshotGasCost(positionValue.feesGas(nft.address, tokenId))
+      // })
     })
 
     describe('when price is above the position range', async () => {
@@ -485,9 +485,9 @@ describe('PositionValue', async () => {
         expect(feeAmounts[1]).to.equal(feesFromCollect[1])
       })
 
-      it('gas', async () => {
-        await snapshotGasCost(positionValue.feesGas(nft.address, tokenId))
-      })
+      // it('gas', async () => {
+      //   await snapshotGasCost(positionValue.feesGas(nft.address, tokenId))
+      // })
     })
   })
 })

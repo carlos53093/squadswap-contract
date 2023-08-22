@@ -11,6 +11,13 @@ module.exports = {
     "SquadPair.sol",
     "SquadRouter.sol",
     "SquadRouter01.sol",
+    "V2SwapRouter.sol",
+    "StableSwapRouter.sol",
     "utils/MockERC20.sol",
+    "contracts/base/ApproveAndCall.sol"
   ],
+  configureYulOptimizer: true,
+  solcOptimizerDetails: {
+    yul: true,
+  },
 };

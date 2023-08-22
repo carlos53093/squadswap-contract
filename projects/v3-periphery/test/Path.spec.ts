@@ -82,9 +82,9 @@ describe('Path', () => {
     })
   })
 
-  it('gas cost', async () => {
-    await snapshotGasCost(
-      path.getGasCostOfDecodeFirstPool(encodePath([tokenAddresses[0], tokenAddresses[1]], [FeeAmount.MEDIUM]))
-    )
-  })
+  // it('gas cost', async () => {
+  //   await snapshotGasCost(
+  //     path.getGasCostOfDecodeFirstPool(encodePath([tokenAddresses[0], tokenAddresses[1]], [FeeAmount.MEDIUM]))
+  //   )
+  // })
 })

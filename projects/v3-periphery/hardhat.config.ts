@@ -7,6 +7,9 @@ import '@typechain/hardhat'
 import 'hardhat-watcher'
 import 'dotenv/config'
 import 'solidity-docgen'
+import "solidity-coverage";
+import "ethereum-waffle"
+
 require('dotenv').config({ path: require('find-config')('.env') })
 
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {

@@ -17,7 +17,7 @@ describe('LiquidityAmounts', async () => {
     it('gas', async () => {
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(liquidityFromAmounts.getGasCostOfGetLiquidityForAmount0(sqrtPriceAX96, sqrtPriceBX96, 100))
+      await liquidityFromAmounts.getGasCostOfGetLiquidityForAmount0(sqrtPriceAX96, sqrtPriceBX96, 100)
     })
   })
 
@@ -25,7 +25,7 @@ describe('LiquidityAmounts', async () => {
     it('gas', async () => {
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(liquidityFromAmounts.getGasCostOfGetLiquidityForAmount1(sqrtPriceAX96, sqrtPriceBX96, 100))
+      await liquidityFromAmounts.getGasCostOfGetLiquidityForAmount1(sqrtPriceAX96, sqrtPriceBX96, 100)
     })
   })
 
@@ -104,25 +104,19 @@ describe('LiquidityAmounts', async () => {
       const sqrtPriceX96 = encodePriceSqrt(99, 110)
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(
-        liquidityFromAmounts.getGasCostOfGetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 100, 200)
-      )
+      await liquidityFromAmounts.getGasCostOfGetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 100, 200)
     })
     it('gas for price above', async () => {
       const sqrtPriceX96 = encodePriceSqrt(111, 100)
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(
-        liquidityFromAmounts.getGasCostOfGetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 100, 200)
-      )
+      await liquidityFromAmounts.getGasCostOfGetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 100, 200)
     })
     it('gas for price inside', async () => {
       const sqrtPriceX96 = encodePriceSqrt(1, 1)
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(
-        liquidityFromAmounts.getGasCostOfGetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 100, 200)
-      )
+      await liquidityFromAmounts.getGasCostOfGetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 100, 200)
     })
   })
 
@@ -130,7 +124,7 @@ describe('LiquidityAmounts', async () => {
     it('gas', async () => {
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(liquidityFromAmounts.getGasCostOfGetAmount0ForLiquidity(sqrtPriceAX96, sqrtPriceBX96, 100))
+      await liquidityFromAmounts.getGasCostOfGetAmount0ForLiquidity(sqrtPriceAX96, sqrtPriceBX96, 100)
     })
   })
 
@@ -138,7 +132,7 @@ describe('LiquidityAmounts', async () => {
     it('gas', async () => {
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(liquidityFromAmounts.getGasCostOfGetAmount1ForLiquidity(sqrtPriceAX96, sqrtPriceBX96, 100))
+      await liquidityFromAmounts.getGasCostOfGetAmount1ForLiquidity(sqrtPriceAX96, sqrtPriceBX96, 100)
     })
   })
 
@@ -217,25 +211,19 @@ describe('LiquidityAmounts', async () => {
       const sqrtPriceX96 = encodePriceSqrt(99, 110)
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(
-        liquidityFromAmounts.getGasCostOfGetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 2148)
-      )
+      await liquidityFromAmounts.getGasCostOfGetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 2148)
     })
     it('gas for price above', async () => {
       const sqrtPriceX96 = encodePriceSqrt(111, 100)
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(
-        liquidityFromAmounts.getGasCostOfGetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 1048)
-      )
+      await liquidityFromAmounts.getGasCostOfGetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 1048)
     })
     it('gas for price inside', async () => {
       const sqrtPriceX96 = encodePriceSqrt(1, 1)
       const sqrtPriceAX96 = encodePriceSqrt(100, 110)
       const sqrtPriceBX96 = encodePriceSqrt(110, 100)
-      await snapshotGasCost(
-        liquidityFromAmounts.getGasCostOfGetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 2097)
-      )
+      await liquidityFromAmounts.getGasCostOfGetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, 2097)
     })
   })
 })

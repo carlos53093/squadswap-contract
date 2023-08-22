@@ -5,3 +5,9 @@ exports[`PancakeV3Factory #createPool gas 1`] = `4729417`;
 exports[`PancakeV3Factory factory bytecode size 1`] = `5151`;
 
 exports[`PancakeV3Factory pool bytecode size 1`] = `22962`;
+
+exports[`SquadV3Factory #createPool gas 1`] = `14369483`;
+
+exports[`SquadV3Factory factory bytecode size 1`] = `11228`;
+
+exports[`SquadV3Factory pool bytecode size 1`] = `70890`;

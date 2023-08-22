@@ -46,7 +46,7 @@ describe('CallbackValidation', () => {
   })
 
   beforeEach('load fixture', async () => {
-    ;({ callbackValidation, tokens, factory, deployer } = await loadFixture(callbackValidationFixture))
+    ({ callbackValidation, tokens, factory, deployer } = await loadFixture(callbackValidationFixture))
   })
 
   it('reverts when called from an address other than the associated SquadV3Pool', async () => {

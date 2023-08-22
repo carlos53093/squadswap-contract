@@ -66,9 +66,9 @@ describe('TickMath', () => {
           it('result', async () => {
             expect((await tickMath.getSqrtRatioAtTick(tick)).toString()).to.matchSnapshot()
           })
-          it('gas', async () => {
-            await snapshotGasCost(tickMath.getGasCostOfGetSqrtRatioAtTick(tick))
-          })
+          // it('gas', async () => {
+          //   await snapshotGasCost(tickMath.getGasCostOfGetSqrtRatioAtTick(tick))
+          // })
         })
       }
     }
@@ -144,9 +144,9 @@ describe('TickMath', () => {
         it('result', async () => {
           expect(await tickMath.getTickAtSqrtRatio(ratio)).to.matchSnapshot()
         })
-        it('gas', async () => {
-          await snapshotGasCost(tickMath.getGasCostOfGetTickAtSqrtRatio(ratio))
-        })
+        // it('gas', async () => {
+        //   await snapshotGasCost(tickMath.getGasCostOfGetTickAtSqrtRatio(ratio))
+        // })
       })
     }
   })

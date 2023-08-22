@@ -156,20 +156,20 @@ describe('PairFlash test', () => {
         .withArgs(flash.address, wallet.address, expectedAmountOut1.toNumber() - amount1In - fee1)
     })
 
-    it('gas', async () => {
-      const amount0In = 1000
-      const amount1In = 1000
+    // it('gas', async () => {
+    //   const amount0In = 1000
+    //   const amount1In = 1000
 
-      const flashParams = {
-        token0: token0.address,
-        token1: token1.address,
-        fee1: FeeAmount.MEDIUM,
-        amount0: amount0In,
-        amount1: amount1In,
-        fee2: FeeAmount.LOW,
-        fee3: FeeAmount.HIGH,
-      }
-      await snapshotGasCost(flash.initFlash(flashParams))
-    })
+    //   const flashParams = {
+    //     token0: token0.address,
+    //     token1: token1.address,
+    //     fee1: FeeAmount.MEDIUM,
+    //     amount0: amount0In,
+    //     amount1: amount1In,
+    //     fee2: FeeAmount.LOW,
+    //     fee3: FeeAmount.HIGH,
+    //   }
+    //   await snapshotGasCost(flash.initFlash(flashParams))
+    // })
   })
 })

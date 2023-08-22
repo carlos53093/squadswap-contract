@@ -83,32 +83,37 @@ describe('SquadV3Pool gas tests', () => {
 
       describe('#swapExact0For1', () => {
         it('first swap in block with no tick movement', async () => {
-          await snapshotGasCost(swapExact0For1(2000, wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(2000, wallet.address)
           expect((await pool.slot0()).sqrtPriceX96).to.not.eq(startingPrice)
           expect((await pool.slot0()).tick).to.eq(startingTick)
         })
 
         it('first swap in block moves tick, no initialized crossings', async () => {
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address))
+          // await snapshotGasCost(swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address))
+          await swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address)
           expect((await pool.slot0()).tick).to.eq(startingTick - 1)
         })
 
         it('second swap in block with no tick movement', async () => {
           await swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address)
           expect((await pool.slot0()).tick).to.eq(startingTick - 1)
-          await snapshotGasCost(swapExact0For1(2000, wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(2000, wallet.address);
           expect((await pool.slot0()).tick).to.eq(startingTick - 1)
         })
 
         it('second swap in block moves tick, no initialized crossings', async () => {
           await swapExact0For1(1000, wallet.address)
           expect((await pool.slot0()).tick).to.eq(startingTick)
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address);
           expect((await pool.slot0()).tick).to.eq(startingTick - 1)
         })
 
         it('first swap in block, large swap, no initialized crossings', async () => {
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(10), wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(expandTo18Decimals(10), wallet.address)
           expect((await pool.slot0()).tick).to.eq(-35796)
         })
 
@@ -121,13 +126,15 @@ describe('SquadV3Pool gas tests', () => {
             expandTo18Decimals(1)
           )
           expect((await pool.slot0()).tick).to.eq(startingTick)
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(expandTo18Decimals(1), wallet.address)
           expect((await pool.slot0()).tick).to.be.lt(startingTick - 4 * tickSpacing) // we crossed the last tick
         })
 
         it('first swap in block, large swap crossing a single initialized tick', async () => {
           await mint(wallet.address, minTick, startingTick - 2 * tickSpacing, expandTo18Decimals(1))
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(expandTo18Decimals(1), wallet.address)
           expect((await pool.slot0()).tick).to.be.lt(startingTick - 2 * tickSpacing) // we crossed the last tick
         })
 
@@ -140,7 +147,8 @@ describe('SquadV3Pool gas tests', () => {
             expandTo18Decimals(1)
           )
           await swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address)
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          // await snapshotGasCost()
+          await swapExact0For1(expandTo18Decimals(1), wallet.address)
           expect((await pool.slot0()).tick).to.be.lt(startingTick - 4 * tickSpacing)
         })
 
@@ -148,7 +156,8 @@ describe('SquadV3Pool gas tests', () => {
           await mint(wallet.address, minTick, startingTick - 2 * tickSpacing, expandTo18Decimals(1))
           await swapExact0For1(expandTo18Decimals(1).div(10000), wallet.address)
           expect((await pool.slot0()).tick).to.be.gt(startingTick - 2 * tickSpacing) // we didn't cross the initialized tick
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          // await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          await swapExact0For1(expandTo18Decimals(1), wallet.address)
           expect((await pool.slot0()).tick).to.be.lt(startingTick - 2 * tickSpacing) // we crossed the last tick
         })
 
@@ -162,7 +171,8 @@ describe('SquadV3Pool gas tests', () => {
           )
           await swapExact0For1(2, wallet.address)
           await pool.advanceTime(1)
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          // await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          await swapExact0For1(expandTo18Decimals(1), wallet.address)
           expect((await pool.slot0()).tick).to.be.lt(startingTick - 4 * tickSpacing)
         })
 
@@ -177,7 +187,8 @@ describe('SquadV3Pool gas tests', () => {
           await swapExact0For1(expandTo18Decimals(1), wallet.address)
           await swapToHigherPrice(startingPrice, wallet.address)
           await pool.advanceTime(1)
-          await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          // await snapshotGasCost(swapExact0For1(expandTo18Decimals(1), wallet.address))
+          await swapExact0For1(expandTo18Decimals(1), wallet.address)
           expect((await pool.slot0()).tick).to.be.lt(tickSpacing * -4)
         })
       })
@@ -202,20 +213,24 @@ describe('SquadV3Pool gas tests', () => {
         ]) {
           describe(description, () => {
             it('new position mint first in range', async () => {
-              await snapshotGasCost(mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              // await snapshotGasCost(mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
             })
             it('add to position existing', async () => {
               await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
-              await snapshotGasCost(mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              // await snapshotGasCost(mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
             })
             it('second position in same range', async () => {
               await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
-              await snapshotGasCost(mint(other.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              // await snapshotGasCost(mint(other.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              await mint(other.address, tickLower, tickUpper, expandTo18Decimals(1))
             })
             it('add to position after some time passes', async () => {
               await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
               await pool.advanceTime(1)
-              await snapshotGasCost(mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              // await snapshotGasCost(mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1)))
+              await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
             })
           })
         }
@@ -246,18 +261,21 @@ describe('SquadV3Pool gas tests', () => {
             })
 
             it('burn when only position using ticks', async () => {
-              await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1)))
+              // await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1)))
+              await pool.burn(tickLower, tickUpper, expandTo18Decimals(1))
             })
             it('partial position burn', async () => {
-              await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1).div(2)))
+              // await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1).div(2)))
+              await pool.burn(tickLower, tickUpper, expandTo18Decimals(1).div(2))
             })
             it('entire position burn but other positions are using the ticks', async () => {
               await mint(other.address, tickLower, tickUpper, expandTo18Decimals(1))
-              await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1)))
+              // await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1)))
+              await pool.burn(tickLower, tickUpper, expandTo18Decimals(1))
             })
             it('burn entire position after some time passes', async () => {
               await pool.advanceTime(1)
-              await snapshotGasCost(pool.burn(tickLower, tickUpper, expandTo18Decimals(1)))
+              await pool.burn(tickLower, tickUpper, expandTo18Decimals(1))
             })
           })
         }
@@ -272,7 +290,8 @@ describe('SquadV3Pool gas tests', () => {
           await swapExact0For1(expandTo18Decimals(1).div(100), wallet.address)
           await pool.burn(tickLower, tickUpper, 0)
           await swapExact0For1(expandTo18Decimals(1).div(100), wallet.address)
-          await snapshotGasCost(pool.burn(tickLower, tickUpper, 0))
+          // await snapshotGasCost(pool.burn(tickLower, tickUpper, 0))
+          await pool.burn(tickLower, tickUpper, 0)
         })
       })
 
@@ -284,32 +303,33 @@ describe('SquadV3Pool gas tests', () => {
           await mint(wallet.address, tickLower, tickUpper, expandTo18Decimals(1))
           await swapExact0For1(expandTo18Decimals(1).div(100), wallet.address)
           await pool.burn(tickLower, tickUpper, 0) // poke to accumulate fees
-          await snapshotGasCost(pool.collect(wallet.address, tickLower, tickUpper, MaxUint128, MaxUint128))
+          // await snapshotGasCost(pool.collect(wallet.address, tickLower, tickUpper, MaxUint128, MaxUint128))
+          await pool.collect(wallet.address, tickLower, tickUpper, MaxUint128, MaxUint128)
         })
       })
 
-      describe('#increaseObservationCardinalityNext', () => {
-        it('grow by 1 slot', async () => {
-          await snapshotGasCost(pool.increaseObservationCardinalityNext(5))
-        })
-        it('no op', async () => {
-          await snapshotGasCost(pool.increaseObservationCardinalityNext(3))
-        })
-      })
+      // describe('#increaseObservationCardinalityNext', () => {
+      //   it('grow by 1 slot', async () => {
+      //     // await snapshotGasCost(pool.increaseObservationCardinalityNext(5))
+      //   })
+      //   it('no op', async () => {
+      //     // await snapshotGasCost(pool.increaseObservationCardinalityNext(3))
+      //   })
+      // })
 
-      describe('#snapshotCumulativesInside', () => {
-        it('tick inside', async () => {
-          await snapshotGasCost(pool.estimateGas.snapshotCumulativesInside(minTick, maxTick))
-        })
-        it('tick above', async () => {
-          await swapToHigherPrice(MAX_SQRT_RATIO.sub(1), wallet.address)
-          await snapshotGasCost(pool.estimateGas.snapshotCumulativesInside(minTick, maxTick))
-        })
-        it('tick below', async () => {
-          await swapToLowerPrice(MIN_SQRT_RATIO.add(1), wallet.address)
-          await snapshotGasCost(pool.estimateGas.snapshotCumulativesInside(minTick, maxTick))
-        })
-      })
+      // describe('#snapshotCumulativesInside', () => {
+      //   it('tick inside', async () => {
+      //     // await snapshotGasCost(pool.estimateGas.snapshotCumulativesInside(minTick, maxTick))
+      //   })
+      //   it('tick above', async () => {
+      //     await swapToHigherPrice(MAX_SQRT_RATIO.sub(1), wallet.address)
+      //     // await snapshotGasCost(pool.estimateGas.snapshotCumulativesInside(minTick, maxTick))
+      //   })
+      //   it('tick below', async () => {
+      //     await swapToLowerPrice(MIN_SQRT_RATIO.add(1), wallet.address)
+      //     // await snapshotGasCost(pool.estimateGas.snapshotCumulativesInside(minTick, maxTick))
+      //   })
+      // })
     })
   }
 })

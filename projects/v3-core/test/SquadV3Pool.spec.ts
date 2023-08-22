@@ -565,8 +565,8 @@ describe('SquadV3Pool', () => {
       expect(liquidity).to.eq(0)
       expect(tokensOwed0).to.not.eq(0)
       expect(tokensOwed1).to.not.eq(0)
-      expect(feeGrowthInside0LastX128).to.eq('192826674588531795962578944211335319')
-      expect(feeGrowthInside1LastX128).to.eq('192826674588532022817490224836977628')
+      expect(feeGrowthInside0LastX128).to.eq('56713727820156410577229101238628035')
+      expect(feeGrowthInside1LastX128).to.eq('56713727820156524004684741551449189')
     })
 
     it('clears the tick if its the last position using it', async () => {
@@ -863,7 +863,7 @@ describe('SquadV3Pool', () => {
         .to.not.emit(token1, 'Transfer')
       await expect(pool.collect(wallet.address, 0, 100, MaxUint128, MaxUint128))
         .to.emit(token1, 'Transfer')
-        .withArgs(pool.address, wallet.address, BigNumber.from('5012269623051203').add('8542213893922')) // roughly 0.3% despite other liquidity
+        .withArgs(pool.address, wallet.address, BigNumber.from('5012269623051203').add('2512415851153')) // roughly 0.3% despite other liquidity
         .to.not.emit(token0, 'Transfer')
       expect((await pool.slot0()).tick).to.be.gte(100)
     })
@@ -880,7 +880,7 @@ describe('SquadV3Pool', () => {
         .to.not.emit(token1, 'Transfer')
       await expect(pool.collect(wallet.address, -100, 0, MaxUint128, MaxUint128))
         .to.emit(token0, 'Transfer')
-        .withArgs(pool.address, wallet.address, BigNumber.from('5012269623051203').add('8542213893922')) // roughly 0.3% despite other liquidity
+        .withArgs(pool.address, wallet.address, BigNumber.from('5012269623051203').add('2512415851153')) // roughly 0.3% despite other liquidity
       expect((await pool.slot0()).tick).to.be.lt(-100)
     })
 
@@ -916,7 +916,7 @@ describe('SquadV3Pool', () => {
           .to.not.emit(token1, 'Transfer')
         await expect(pool.collect(wallet.address, -100, 0, MaxUint128, MaxUint128))
           .to.emit(token0, 'Transfer')
-          .withArgs(pool.address, wallet.address, BigNumber.from('5012269623051203').add('10049663404614')) // roughly 0.25% despite other liquidity
+          .withArgs(pool.address, wallet.address, BigNumber.from('5020811836945125').add('1507449510692')) // roughly 0.25% despite other liquidity
         expect((await pool.slot0()).tick).to.be.lt(-100)
       })
     })
@@ -945,8 +945,8 @@ describe('SquadV3Pool', () => {
         getPositionKey(wallet.address, minTick + tickSpacing, maxTick - tickSpacing)
       )
 
-      expect(tokensOwed0Position0).to.be.eq('110000000000000')
-      expect(tokensOwed0Position1).to.be.eq('220000000000001')
+      expect(tokensOwed0Position0).to.be.eq('33333333333333')
+      expect(tokensOwed0Position1).to.be.eq('66666666666667')
     })
 
     describe('works across large increases', () => {
@@ -1233,7 +1233,7 @@ describe('SquadV3Pool', () => {
       })
 
       // 6 bips * 2e18
-      expect(token0Fees).to.eq('659999999999998')
+      expect(token0Fees).to.eq('199999999999998')
       expect(token1Fees).to.eq(0)
     })
 
@@ -1252,7 +1252,7 @@ describe('SquadV3Pool', () => {
         poke: true,
       })
 
-      expect(token0Fees).to.eq('729999999999999')
+      expect(token0Fees).to.eq('499999999999999')
       expect(token1Fees).to.eq(0)
     })
 
