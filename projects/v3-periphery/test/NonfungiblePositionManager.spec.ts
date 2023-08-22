@@ -89,6 +89,7 @@ describe('NonfungiblePositionManager', () => {
       )
       const code = await wallet.provider.getCode(expectedAddress)
       expect(code).to.eq('0x')
+      console.log("-------------address-----------------",nft.address)
       await nft.createAndInitializePoolIfNecessary(
         tokens[0].address,
         tokens[1].address,
@@ -157,16 +158,22 @@ describe('NonfungiblePositionManager', () => {
       await nft.multicall([createAndInitializePoolIfNecessaryData], { value: expandTo18Decimals(1) })
     })
 
-    // it('gas', async () => {
-    //   await snapshotGasCost(
-    //     nft.createAndInitializePoolIfNecessary(
-    //       tokens[0].address,
-    //       tokens[1].address,
-    //       FeeAmount.MEDIUM,
-    //       encodePriceSqrt(1, 1)
-    //     )
-    //   )
-    // })
+    it('gas', async () => {
+      // await snapshotGasCost(
+      //   nft.createAndInitializePoolIfNecessary(
+      //     tokens[0].address,
+      //     tokens[1].address,
+      //     FeeAmount.MEDIUM,
+      //     encodePriceSqrt(1, 1)
+      //   )
+      // )
+      await nft.createAndInitializePoolIfNecessary(
+        tokens[0].address,
+        tokens[1].address,
+        FeeAmount.MEDIUM,
+        encodePriceSqrt(1, 1)
+      )
+    })
   })
 
   describe('#mint', () => {
@@ -310,22 +317,35 @@ describe('NonfungiblePositionManager', () => {
         encodePriceSqrt(1, 1)
       )
 
-    //   await snapshotGasCost(
-    //     nft.mint({
-    //       token0: tokens[0].address,
-    //       token1: tokens[1].address,
-    //       tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
-    //       tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
-    //       fee: FeeAmount.MEDIUM,
-    //       recipient: wallet.address,
-    //       amount0Desired: 100,
-    //       amount1Desired: 100,
-    //       amount0Min: 0,
-    //       amount1Min: 0,
-    //       deadline: 10,
-    //     })
-    //   )
-    // })
+      // await snapshotGasCost(
+      //   nft.mint({
+      //     token0: tokens[0].address,
+      //     token1: tokens[1].address,
+      //     tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+      //     tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+      //     fee: FeeAmount.MEDIUM,
+      //     recipient: wallet.address,
+      //     amount0Desired: 100,
+      //     amount1Desired: 100,
+      //     amount0Min: 0,
+      //     amount1Min: 0,
+      //     deadline: 10,
+      //   })
+      // )
+      await nft.mint({
+        token0: tokens[0].address,
+        token1: tokens[1].address,
+        tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+        tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+        fee: FeeAmount.MEDIUM,
+        recipient: wallet.address,
+        amount0Desired: 100,
+        amount1Desired: 100,
+        amount0Min: 0,
+        amount1Min: 0,
+        deadline: 10,
+      })
+    })
 
     it('gas first mint for pool using eth with zero refund', async () => {
       const [token0, token1] = sortedTokens(weth9, tokens[0])
@@ -359,6 +379,27 @@ describe('NonfungiblePositionManager', () => {
       //     { value: 100 }
       //   )
       // )
+      await nft.multicall(
+        [
+          nft.interface.encodeFunctionData('mint', [
+            {
+              token0: token0.address,
+              token1: token1.address,
+              tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+              tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+              fee: FeeAmount.MEDIUM,
+              recipient: wallet.address,
+              amount0Desired: 100,
+              amount1Desired: 100,
+              amount0Min: 0,
+              amount1Min: 0,
+              deadline: 10,
+            },
+          ]),
+          nft.interface.encodeFunctionData('refundETH'),
+        ],
+        { value: 100 }
+      )
     })
 
     it('gas first mint for pool using eth with non-zero refund', async () => {
@@ -393,6 +434,27 @@ describe('NonfungiblePositionManager', () => {
       //     { value: 1000 }
       //   )
       // )
+      await nft.multicall(
+        [
+          nft.interface.encodeFunctionData('mint', [
+            {
+              token0: token0.address,
+              token1: token1.address,
+              tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+              tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+              fee: FeeAmount.MEDIUM,
+              recipient: wallet.address,
+              amount0Desired: 100,
+              amount1Desired: 100,
+              amount0Min: 0,
+              amount1Min: 0,
+              deadline: 10,
+            },
+          ]),
+          nft.interface.encodeFunctionData('refundETH'),
+        ],
+        { value: 1000 }
+      )
     })
 
     it('gas mint on same ticks', async () => {
@@ -432,6 +494,19 @@ describe('NonfungiblePositionManager', () => {
       //     deadline: 10,
       //   })
       // )
+      await nft.mint({
+          token0: tokens[0].address,
+          token1: tokens[1].address,
+          tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+          tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+          fee: FeeAmount.MEDIUM,
+          recipient: wallet.address,
+          amount0Desired: 100,
+          amount1Desired: 100,
+          amount0Min: 0,
+          amount1Min: 0,
+          deadline: 10,
+        })
     })
 
     it('gas mint for same pool, different ticks', async () => {
@@ -471,6 +546,20 @@ describe('NonfungiblePositionManager', () => {
       //     deadline: 10,
       //   })
       // )
+
+        await nft.mint({
+          token0: tokens[0].address,
+          token1: tokens[1].address,
+          tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]) + TICK_SPACINGS[FeeAmount.MEDIUM],
+          tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]) - TICK_SPACINGS[FeeAmount.MEDIUM],
+          fee: FeeAmount.MEDIUM,
+          recipient: wallet.address,
+          amount0Desired: 100,
+          amount1Desired: 100,
+          amount0Min: 0,
+          amount1Min: 0,
+          deadline: 10,
+        })
     })
   })
 
@@ -557,18 +646,26 @@ describe('NonfungiblePositionManager', () => {
       await nft.multicall([increaseLiquidityData, refundETHData], { value: expandTo18Decimals(1) })
     })
 
-    // it('gas', async () => {
-    //   await snapshotGasCost(
-    //     nft.increaseLiquidity({
-    //       tokenId: tokenId,
-    //       amount0Desired: 100,
-    //       amount1Desired: 100,
-    //       amount0Min: 0,
-    //       amount1Min: 0,
-    //       deadline: 1,
-    //     })
-    //   )
-    // })
+    it('gas', async () => {
+      // await snapshotGasCost(
+      //   nft.increaseLiquidity({
+      //     tokenId: tokenId,
+      //     amount0Desired: 100,
+      //     amount1Desired: 100,
+      //     amount0Min: 0,
+      //     amount1Min: 0,
+      //     deadline: 1,
+      //   })
+      // )
+      await nft.increaseLiquidity({
+        tokenId: tokenId,
+        amount0Desired: 100,
+        amount1Desired: 100,
+        amount0Min: 0,
+        amount1Min: 0,
+        deadline: 1,
+      })
+    })
   })
 
   describe('#decreaseLiquidity', () => {
@@ -1305,4 +1402,4 @@ describe('NonfungiblePositionManager', () => {
     })
   })
 })
-})
+
