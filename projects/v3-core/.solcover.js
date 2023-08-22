@@ -1,6 +1,25 @@
 module.exports = {
   skipFiles: [
-
+    '/test/BitMathEchidnaTest.sol',
+    '/test/FullMathEchidnaTest.sol',
+    '/test/OracleEchidnaTest.sol',
+    '/test/LowGasSafeMathEchidnaTest.sol',
+    '/test/SwapMathEchidnaTest.sol',
+    '/test/OutputCodeHash.sol',
+    '/test/SqrtPriceMathEchidnaTest.sol',
+    '/test/TickBitmapEchidnaTest.sol',
+    '/test/TickEchidnaTest.sol',
+    '/test/TickOverflowSafetyEchidnaTest.sol',
+    '/test/UnsafeMathEchidnaTest.sol',
+    '/test/BitMathTest.sol',
+    '/test/OracleTest.sol',
+    '/test/SquadV3PoolSwapTest.sol',
+    '/test/TestERC20.sol',
+    '/test/TestSquadV3Callee.sol',
+    '/test/TestSquadV3ReentrantCallee.sol',
+    '/test/TestSquadV3Router.sol',
+    '/test/TestSquadV3SwapPay.sol',
+    '/test/TickBitmapTest.sol',
   ],
   configureYulOptimizer: true,
   solcOptimizerDetails: {

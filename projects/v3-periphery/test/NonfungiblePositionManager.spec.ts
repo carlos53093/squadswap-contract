@@ -1402,4 +1402,3 @@ describe('NonfungiblePositionManager', () => {
     })
   })
 })
-

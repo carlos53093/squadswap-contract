@@ -1,7 +1,9 @@
 module.exports = {
   skipFiles: [
-    './contracts/NonfungibleTokenPositionDescriptorOffChain.sol',
-    './contracts/NonfungibleTokenPositionDescriptorOffChainV2.sol',
+    '/NonfungibleTokenPositionDescriptorOffChain.sol',
+    '/NonfungibleTokenPositionDescriptorOffChainV2.sol',
+    '/test/TestPancakeswapCallee.sol',
+    '/test/TestPancakeswapCallee.sol',
   ],
   configureYulOptimizer: true,
   solcOptimizerDetails: {
