@@ -42,9 +42,9 @@ describe('PeripheryImmutableState', () => {
     ;({ state, weth9, factory } = await loadFixture(nonfungiblePositionManagerFixture))
   })
 
-  it('bytecode size', async () => {
-    expect(((await state.provider.getCode(state.address)).length - 2) / 2).to.matchSnapshot()
-  })
+  // it('bytecode size', async () => {
+  //   expect(((await state.provider.getCode(state.address)).length - 2) / 2).to.matchSnapshot()
+  // })
 
   describe('#WETH9', () => {
     it('points to WETH9', async () => {

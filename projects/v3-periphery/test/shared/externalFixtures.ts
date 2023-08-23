@@ -1,11 +1,11 @@
 import {
   abi as FACTORY_ABI,
   bytecode as FACTORY_BYTECODE,
-} from '../../../v3-core/artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'
+} from '@squadswap/v3-core/artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'
 import {
   abi as DEPLOYER_ABI,
   bytecode as DEPLOYER_BYTECODE,
-} from '../../../v3-core/artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json'
+} from '@squadswap/v3-core/artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json'
 import { abi as FACTORY_V2_ABI, bytecode as FACTORY_V2_BYTECODE } from '@uniswap/v2-core/build/UniswapV2Factory.json'
 import { Fixture } from 'ethereum-waffle'
 import { ethers, waffle } from 'hardhat'

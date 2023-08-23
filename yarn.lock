@@ -1972,6 +1972,30 @@
   dependencies:
     antlr4ts "^0.5.0-alpha.4"
 
+"@squadswap/v3-core@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@squadswap/v3-core/-/v3-core-1.0.7.tgz#58d92030d725a4a687c65adf680680a100b1a62b"
+  integrity sha512-aMvYAWYVS3yXpQl+GpMSFwUMlCpP/U6I2N3EBER1xP7j/5uXq+ecYsE16hxOUkXqpKhRjYoB1e9WaI8NuyKC3g==
+  dependencies:
+    solidity-coverage "^0.8.4"
+
+"@squadswap/v3-lm-pool@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@squadswap/v3-lm-pool/-/v3-lm-pool-1.0.2.tgz#5a5bf4db6c2e5511840d61d33a5838509caa19ba"
+  integrity sha512-RPknlUM8Q+kvzVWfmqj47OeZkNqt9xls6jjXGUgrj5xKAPUQufhvv7xj1HCD/6ms58PZGdpl2o+Sm2xLNjXwIg==
+
+"@squadswap/v3-periphery@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@squadswap/v3-periphery/-/v3-periphery-1.0.4.tgz#6a984d9ffa8bfc9c8f8fe454296435008b557c2a"
+  integrity sha512-8h5Szuu6Wq/R3UsswAdi7+f4dFN4w23qhin2kqFWoC6yzCqBFHgTfDCzADl4R/87jvow5d/7opXcj5WCWp1HfA==
+  dependencies:
+    "@openzeppelin/contracts" "3.4.2-solc-0.7"
+    "@openzeppelin/contracts-upgradeable" "3.4.2-solc-0.7"
+    "@uniswap/lib" "^4.0.1-alpha"
+    "@uniswap/v2-core" "1.0.1"
+    base64-sol "1.0.1"
+    ethereum-waffle "4.0.10"
+
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-4.0.6.tgz#b4a914bb62e7c272d4e5989fe4440f812ab1d807"

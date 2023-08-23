@@ -2,7 +2,7 @@ import { ethers, network } from 'hardhat'
 // import { configs } from '@squadswap/common/config'
 // import { tryVerify } from '@squadswap/common/verify'
 import fs from 'fs'
-import { abi } from '../../v3-core/artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'
+import { abi } from '@squadswap/v3-core/artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'
 import { configs } from '../../../common/config';
 
 import { parseEther } from 'ethers/lib/utils'

@@ -20,7 +20,7 @@ import snapshotGasCost from './shared/snapshotGasCost'
 
 import { expect } from './shared/expect'
 
-import { abi as ISquadV3PoolABI } from '../../v3-core/artifacts/contracts/interfaces/ISquadV3Pool.sol/ISquadV3Pool.json'
+import { abi as ISquadV3PoolABI } from '@squadswap/v3-core/artifacts/contracts/interfaces/ISquadV3Pool.sol/ISquadV3Pool.json'
 
 describe('PositionValue', async () => {
   const [...wallets] = waffle.provider.getWallets()

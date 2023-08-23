@@ -1,4 +1,4 @@
-import { abi as ISquadV3PoolABI } from '../../v3-core/artifacts/contracts/interfaces/ISquadV3Pool.sol/ISquadV3Pool.json'
+import { abi as ISquadV3PoolABI } from '@squadswap/v3-core/artifacts/contracts/interfaces/ISquadV3Pool.sol/ISquadV3Pool.json'
 import { Fixture } from 'ethereum-waffle'
 import { BigNumber, constants, ContractTransaction, Wallet } from 'ethers'
 import { ethers, waffle } from 'hardhat'

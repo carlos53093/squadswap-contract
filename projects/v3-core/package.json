@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.5",
+  "version": "1.0.7",
   "keywords": [
     "squadswap",
     "core",
@@ -17,16 +17,17 @@
     "artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json",
     "artifacts/contracts/SquadV3Pool.sol/SquadV3Pool.json",
     "artifacts/contracts/interfaces/**/*.json",
-    "!artifacts/contracts/interfaces/**/*.dbg.json"
+    "!artifacts/contracts/interfaces/**/*.dbg.json",
+    "artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json"
   ],
   "engines": {
     "node": ">=10"
   },
   "devDependencies": {
-    "@squadswap/v3-lm-pool": "*",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "^2.1.8",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@squadswap/v3-lm-pool": "1.0.2",
     "@typechain/ethers-v5": "^10.2.0",
     "@types/chai": "^4.2.6",
     "@types/mocha": "^5.2.7",

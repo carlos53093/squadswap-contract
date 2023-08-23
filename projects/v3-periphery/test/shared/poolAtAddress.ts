@@ -1,4 +1,4 @@
-import { abi as POOL_ABI } from '../../../v3-core/artifacts/contracts/SquadV3Pool.sol/SquadV3Pool.json'
+import { abi as POOL_ABI } from '@squadswap/v3-core/artifacts/contracts/SquadV3Pool.sol/SquadV3Pool.json'
 import { Contract, Wallet } from 'ethers'
 import { ISquadV3Pool } from '../../typechain-types'
 

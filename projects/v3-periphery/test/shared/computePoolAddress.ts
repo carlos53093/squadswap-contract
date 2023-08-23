@@ -1,4 +1,4 @@
-import { bytecode } from '../../../v3-core/artifacts/contracts/SquadV3Pool.sol/SquadV3Pool.json'
+import { bytecode } from '@squadswap/v3-core/artifacts/contracts/SquadV3Pool.sol/SquadV3Pool.json'
 import { utils } from 'ethers'
 
 export const POOL_BYTECODE_HASH = utils.keccak256(bytecode)

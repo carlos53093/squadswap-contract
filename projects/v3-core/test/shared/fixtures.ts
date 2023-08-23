@@ -7,7 +7,7 @@ import { SquadV3PoolDeployer } from '../../typechain-types/contracts/SquadV3Pool
 import { TestSquadV3Callee } from '../../typechain-types/contracts/test/TestSquadV3Callee'
 import { TestSquadV3Router } from '../../typechain-types/contracts/test/TestSquadV3Router'
 import { MockTimeSquadV3PoolDeployer } from '../../typechain-types/contracts/test/MockTimeSquadV3PoolDeployer'
-import SquadV3LmPoolArtifact from '../../../v3-lm-pool/artifacts/contracts/SquadV3LmPool.sol/SquadV3LmPool.json'
+import SquadV3LmPoolArtifact from '@squadswap/v3-lm-pool/artifacts/contracts/SquadV3LmPool.sol/SquadV3LmPool.json'
 
 import { Fixture } from 'ethereum-waffle'
 

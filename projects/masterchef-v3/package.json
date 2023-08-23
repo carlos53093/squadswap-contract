@@ -1,6 +1,6 @@
 {
   "name": "@squadswap/masterchef-v3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Squad MasterChef V3",
   "publishConfig": {
     "access": "public"
@@ -25,11 +25,6 @@
     "coverage": "npx hardhat coverage --testfiles './test/*.ts' --solcoverjs ./.solcover.js"
   },
   "devDependencies": {
-    "@squadswap/v3-core": "*",
-    "@squadswap/v3-lm-pool": "*",
-    "@squadswap/v3-periphery": "*",
-    "ethereum-waffle": "^4.0.10",
-    "solidity-coverage": "0.8.4",
     "@chainlink/contracts": "^0.6.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
@@ -43,6 +38,7 @@
     "@openzeppelin/test-helpers": "^0.5.11",
     "@pancakeswap/eslint-config-pancake": "^1.2.0",
     "@pancakeswap/pancake-swap-lib": "0.0.4",
+    "@squadswap/v3-periphery": "^1.0.4",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.35",
@@ -50,6 +46,7 @@
     "chai": "^4.2.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
+    "ethereum-waffle": "^4.0.10",
     "ethers": "^5.0.23",
     "hardhat": "^2.12.6",
     "hardhat-abi-exporter": "2.0.6",
@@ -57,8 +54,13 @@
     "hardhat-watcher": "^2.1.1",
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.17",
+    "solidity-coverage": "0.8.4",
     "ts-node": "^9.1.1",
     "typescript": "^5.1.6",
     "web3": "^1.3.6"
+  },
+  "dependencies": {
+    "@squadswap/v3-core": "1.0.7",
+    "@squadswap/v3-lm-pool": "1.0.2"
   }
 }
