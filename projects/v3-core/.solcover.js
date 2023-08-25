@@ -20,6 +20,11 @@ module.exports = {
     '/test/TestSquadV3Router.sol',
     '/test/TestSquadV3SwapPay.sol',
     '/test/TickBitmapTest.sol',
+    '/test/TickMathEchidnaTest.sol',
+    '/test/SqrtPriceMathTest.sol',
+    '/test/SwapMathTest.sol',
+    '/test/TickMathTest.sol',
+    '/test/TickTest.sol',
   ],
   configureYulOptimizer: true,
   solcOptimizerDetails: {

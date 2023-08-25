@@ -15,6 +15,10 @@ async function main() {
   await verifyContract(deployedContracts.SquadV3Factory, [deployedContracts.SquadV3PoolDeployer])
   await sleep(10000)
 
+  console.log('Verify feeManager')
+  await verifyContract(deployedContracts.FeeManager)
+  await sleep(10000)
+
   // await verifyContract('0x5Ecb5717120E1A10Ec778322eC82Ba781E5420E0')
   // await sleep(10000)
 }

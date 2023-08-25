@@ -55,10 +55,20 @@ async function main() {
   // Set FactoryAddress for squadV3PoolDeployer.
   await squadV3PoolDeployer.setFactoryAddress(squadV3Factory_address);
 
+  const FeeManager = new ContractFactory(
+    artifacts.FeeManager.abi,
+    artifacts.FeeManager.bytecode,
+    owner
+  )
+  const feeManager = await FeeManager.deploy()
+  await feeManager.setFactory(squadV3Factory_address)
+
+  await squadV3Factory.changeFeeManager(feeManager.address)
 
   const contracts = {
     SquadV3Factory: squadV3Factory_address,
     SquadV3PoolDeployer: squadV3PoolDeployer_address,
+    FeeManager: feeManager.address
   }
 
   fs.writeFileSync(`./deployments/${networkName}.json`, JSON.stringify(contracts, null, 2))

@@ -31,13 +31,14 @@ import { TestSquadV3Callee } from '../typechain-types/contracts/test/TestSquadV3
 import { TestSquadV3ReentrantCallee } from '../typechain-types/contracts/test/TestSquadV3ReentrantCallee'
 import { TickMathTest } from '../typechain-types/contracts/test/TickMathTest'
 import { SwapMathTest } from '../typechain-types/contracts/test/SwapMathTest'
+import { FeeManager } from '../typechain-types/contracts/FeeManger.sol/FeeManager'
 
 const createFixtureLoader = waffle.createFixtureLoader
 
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
 
 describe('SquadV3Pool', () => {
-  let wallet: Wallet, other: Wallet
+  let wallet: Wallet, other: Wallet, tradeWallet: Wallet, squadWallet: Wallet, teamWallet: Wallet, burnWallet: Wallet
 
   let token0: TestERC20
   let token1: TestERC20
@@ -45,6 +46,7 @@ describe('SquadV3Pool', () => {
 
   let factory: SquadV3Factory
   let pool: MockTimeSquadV3Pool
+  let feeManager: FeeManager
 
   let swapTarget: TestSquadV3Callee
 
@@ -68,12 +70,12 @@ describe('SquadV3Pool', () => {
   let createPool: ThenArg<ReturnType<typeof poolFixture>>['createPool']
 
   before('create fixture loader', async () => {
-    ;[wallet, other] = await (ethers as any).getSigners()
-    loadFixture = createFixtureLoader([wallet, other])
+    ;[wallet, other, tradeWallet, squadWallet, teamWallet, burnWallet] = await (ethers as any).getSigners()
+    loadFixture = createFixtureLoader([wallet, other, tradeWallet, squadWallet, teamWallet, burnWallet])
   })
 
   beforeEach('deploy fixture', async () => {
-    ;({ token0, token1, token2, factory, createPool, swapTargetCallee: swapTarget } = await loadFixture(poolFixture))
+    ;({ token0, token1, token2, factory, feeManager, createPool, swapTargetCallee: swapTarget } = await loadFixture(poolFixture))
 
     const oldCreatePool = createPool
     createPool = async (_feeAmount, _tickSpacing) => {
@@ -102,6 +104,9 @@ describe('SquadV3Pool', () => {
 
     // default to the 30 bips pool
     pool = await createPool(FeeAmount.MEDIUM, TICK_SPACINGS[FeeAmount.MEDIUM])
+    await feeManager.setWallets(tradeWallet.address, squadWallet.address, teamWallet.address, burnWallet.address)
+    await feeManager.setSquadToken(token0.address)
+    await feeManager.setRates(250, 250, 250, 250)
   })
 
   it('constructor initializes immutables', async () => {
@@ -109,6 +114,7 @@ describe('SquadV3Pool', () => {
     expect(await pool.token0()).to.eq(token0.address)
     expect(await pool.token1()).to.eq(token1.address)
     expect(await pool.maxLiquidityPerTick()).to.eq(getMaxLiquidityPerTick(tickSpacing))
+    expect(await feeManager.factory()).to.eq(factory.address)
   })
 
   describe('#initialize', () => {
@@ -947,6 +953,31 @@ describe('SquadV3Pool', () => {
 
       expect(tokensOwed0Position0).to.be.eq('33333333333333')
       expect(tokensOwed0Position1).to.be.eq('66666666666667')
+    })
+
+    it('collect protocol fee using feeManager controller', async()=>{
+      await mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))
+      await mint(wallet.address, minTick + tickSpacing, maxTick - tickSpacing, expandTo18Decimals(2))
+
+      await swapExact0For1(expandTo18Decimals(10), wallet.address)
+      await swapExact0For1(expandTo18Decimals(10), wallet.address)
+      await swapExact0For1(expandTo18Decimals(10), wallet.address)
+
+      await swapExact1For0(expandTo18Decimals(1), wallet.address)
+      await swapExact1For0(expandTo18Decimals(1), wallet.address)
+      await swapExact1For0(expandTo18Decimals(1), wallet.address)
+
+
+      await feeManager.collectFee(pool.address, "170141183460469231731687303715884105727", "170141183460469231731687303715884105727")
+      expect(await token0.balanceOf(tradeWallet.address)).to.be.eq('3000000000000000')
+      expect(await token0.balanceOf(squadWallet.address)).to.be.eq('3000000000000000')
+      expect(await token0.balanceOf(teamWallet.address)).to.be.eq('3000000000000000')
+      expect(await token0.balanceOf(burnWallet.address)).to.be.eq('3000000000000001')
+
+      expect( await token1.balanceOf(tradeWallet.address)).to.be.eq('299999999999999')
+      expect( await token1.balanceOf(squadWallet.address)).to.be.eq('299999999999999')
+      expect( await token1.balanceOf(teamWallet.address)).to.be.eq('299999999999999')
+      expect( await token1.balanceOf(burnWallet.address)).to.be.eq('300000000000002')
     })
 
     describe('works across large increases', () => {

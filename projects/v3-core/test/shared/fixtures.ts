@@ -1,3 +1,4 @@
+import { FeeManager } from './../../typechain-types/contracts/FeeManger.sol/FeeManager';
 import { BigNumber } from 'ethers'
 import { ethers } from 'hardhat'
 import { MockTimeSquadV3Pool } from '../../typechain-types/contracts/test/MockTimeSquadV3Pool'
@@ -12,7 +13,11 @@ import SquadV3LmPoolArtifact from '@squadswap/v3-lm-pool/artifacts/contracts/Squ
 import { Fixture } from 'ethereum-waffle'
 
 interface FactoryFixture {
-  factory: SquadV3Factory
+  factory: SquadV3Factory,
+}
+
+interface FeeManagerFixture {
+  feeManager: FeeManager,
 }
 
 interface DeployerFixture {
@@ -25,6 +30,14 @@ async function factoryFixture(): Promise<FactoryFixture> {
   const factory = (await factoryFactory.deploy(deployer.address)) as SquadV3Factory
   return { factory }
 }
+
+async function feeManagerFixture(factory: string): Promise<FeeManagerFixture> {
+  const feeManagerFactory = await ethers.getContractFactory('FeeManager')
+  const feeManager = (await feeManagerFactory.deploy()) as FeeManager
+  feeManager.setFactory(factory)
+  return { feeManager }
+}
+
 async function deployerFixture(): Promise<DeployerFixture> {
   const deployerFactory = await ethers.getContractFactory('SquadV3PoolDeployer')
   const deployer = (await deployerFactory.deploy()) as SquadV3PoolDeployer
@@ -50,7 +63,7 @@ async function tokensFixture(): Promise<TokensFixture> {
   return { token0, token1, token2 }
 }
 
-type TokensAndFactoryFixture = FactoryFixture & TokensFixture
+type TokensAndFactoryFixture = FactoryFixture & TokensFixture & FeeManagerFixture
 
 interface PoolFixture extends TokensAndFactoryFixture {
   swapTargetCallee: TestSquadV3Callee
@@ -69,6 +82,8 @@ export const TEST_POOL_START_TIME = 1601906400
 export const poolFixture: Fixture<PoolFixture> = async function (): Promise<PoolFixture> {
   const { factory } = await factoryFixture()
   const { token0, token1, token2 } = await tokensFixture()
+  const { feeManager } = await feeManagerFixture(factory.address)
+  await factory.changeFeeManager(feeManager.address)
 
   const MockTimeSquadV3PoolDeployerFactory = await ethers.getContractFactory('MockTimeSquadV3PoolDeployer')
   const MockTimeSquadV3PoolFactory = await ethers.getContractFactory('MockTimeSquadV3Pool')
@@ -80,12 +95,12 @@ export const poolFixture: Fixture<PoolFixture> = async function (): Promise<Pool
   const swapTargetRouter = (await routerContractFactory.deploy()) as TestSquadV3Router
 
   const SquadV3LmPoolFactory = await ethers.getContractFactoryFromArtifact(SquadV3LmPoolArtifact)
-
   return {
     token0,
     token1,
     token2,
     factory,
+    feeManager,
     swapTargetCallee,
     swapTargetRouter,
     createPool: async (fee, tickSpacing, firstToken = token0, secondToken = token1) => {

@@ -895,7 +895,6 @@ contract SquadV3Pool is ISquadV3Pool {
             protocolFees.token1 -= amount1;
             TransferHelper.safeTransfer(token1, recipient, amount1);
         }
-
         emit CollectProtocol(msg.sender, recipient, amount0, amount1);
     }
 

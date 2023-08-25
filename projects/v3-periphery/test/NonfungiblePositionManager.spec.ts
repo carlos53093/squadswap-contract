@@ -1066,10 +1066,11 @@ describe('NonfungiblePositionManager', () => {
         await expect(nft.permit(wallet.address, tokenId, 1, v, r, s)).to.be.revertedWith('Permit expired')
       })
 
-      // it('gas', async () => {
-      //   const { v, r, s } = await getPermitNFTSignature(other, nft, wallet.address, tokenId, 1)
-      //   await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s))
-      // })
+      it('gas', async () => {
+        const { v, r, s } = await getPermitNFTSignature(other, nft, wallet.address, tokenId, 1)
+        // await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s))
+        await nft.permit(wallet.address, tokenId, 1, v, r, s)
+      })
     })
     describe('owned by verifying contract', () => {
       const tokenId = 1
@@ -1129,11 +1130,12 @@ describe('NonfungiblePositionManager', () => {
         await expect(nft.permit(wallet.address, tokenId, 1, v, r, s)).to.be.revertedWith('Permit expired')
       })
 
-      // it('gas', async () => {
-      //   const { v, r, s } = await getPermitNFTSignature(other, nft, wallet.address, tokenId, 1)
-      //   await testPositionNFTOwner.setOwner(other.address)
-      //   await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s))
-      // })
+      it('gas', async () => {
+        const { v, r, s } = await getPermitNFTSignature(other, nft, wallet.address, tokenId, 1)
+        await testPositionNFTOwner.setOwner(other.address)
+        // await snapshotGasCost(nft.permit(wallet.address, tokenId, 1, v, r, s))
+        await nft.permit(wallet.address, tokenId, 1, v, r, s)
+      })
     })
   })
 
@@ -1212,18 +1214,18 @@ describe('NonfungiblePositionManager', () => {
         .to.emit(pool, 'Collect')
     })
 
-    // it('gas', async () => {
+    it('gas', async () => {
     //   await snapshotGasCost(
-    //     exit({
-    //       nft: nft.connect(other),
-    //       tokenId,
-    //       liquidity: 100,
-    //       amount0Min: 0,
-    //       amount1Min: 0,
-    //       recipient: wallet.address,
-    //     })
+      await  exit({
+          nft: nft.connect(other),
+          tokenId,
+          liquidity: 100,
+          amount0Min: 0,
+          amount1Min: 0,
+          recipient: wallet.address,
+        })
     //   )
-    // })
+    })
   })
 
   describe('#tokenURI', async () => {
@@ -1399,6 +1401,7 @@ describe('NonfungiblePositionManager', () => {
       })
 
       // await snapshotGasCost(positionsGasTest.getGasCostOfPositions(1))
+      await positionsGasTest.getGasCostOfPositions(1);
     })
   })
 })
