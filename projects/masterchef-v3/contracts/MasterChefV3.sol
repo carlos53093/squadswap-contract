@@ -357,7 +357,6 @@ contract MasterChefV3 is INonfungiblePositionManagerStruct, Multicall, Ownable, 
         if (address(LMPool) == address(0)) revert NoLMPool();
 
         UserPositionInfo storage positionInfo = userPositionInfos[_tokenId];
-
         positionInfo.tickLower = cache.tickLower;
         positionInfo.tickUpper = cache.tickUpper;
         positionInfo.user = _from;
