@@ -22,24 +22,6 @@ contract OracleTest {
         quoteAmount = OracleLibrary.getQuoteAtTick(tick, baseAmount, baseToken, quoteToken);
     }
 
-    // For gas snapshot test
-    function getGasCostOfConsult(address pool, uint32 period) public view returns (uint256) {
-        uint256 gasBefore = gasleft();
-        OracleLibrary.consult(pool, period);
-        return gasBefore - gasleft();
-    }
-
-    function getGasCostOfGetQuoteAtTick(
-        int24 tick,
-        uint128 baseAmount,
-        address baseToken,
-        address quoteToken
-    ) public view returns (uint256) {
-        uint256 gasBefore = gasleft();
-        OracleLibrary.getQuoteAtTick(tick, baseAmount, baseToken, quoteToken);
-        return gasBefore - gasleft();
-    }
-
     function getOldestObservationSecondsAgo(address pool)
         public
         view

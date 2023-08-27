@@ -22,7 +22,8 @@
     "format:write": "prettier --write './**/*.{js,ts,sol}'",
     "test": "npx hardhat test",
     "compile": "npx hardhat compile",
-    "coverage": "npx hardhat coverage --testfiles './test/*.ts' --solcoverjs ./.solcover.js"
+    "coverage": "npx hardhat coverage --testfiles './test/*.ts' --solcoverjs ./.solcover.js",
+    "initial": "rm -rf abi artifacts catch typechain-types"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.6.1",

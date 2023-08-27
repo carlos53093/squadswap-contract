@@ -52,7 +52,8 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "coverage": "npx hardhat coverage --testfiles './test/*.ts' --solcoverjs ./.solcover.js"
+    "coverage": "npx hardhat coverage --testfiles './test/*.ts' --solcoverjs ./.solcover.js",
+    "initial": "rm -rf abi artifacts catch typechain-types"
   },
   "dependencies": {
     "solidity-coverage": "^0.8.4"

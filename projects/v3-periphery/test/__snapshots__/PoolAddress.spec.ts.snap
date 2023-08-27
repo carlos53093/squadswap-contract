@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PoolAddress #computeAddress gas cost 1`] = `765`;
+exports[`PoolAddress #computeAddress gas cost 1`] = `1020`;
 
 exports[`PoolAddress #computeAddress matches example from core repo 1`] = `"0xfAAE13b6f3D31695832B815F1a6DaF26722b402c"`;

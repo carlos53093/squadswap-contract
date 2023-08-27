@@ -58,16 +58,16 @@ describe('PoolAddress', () => {
       ).to.be.reverted
     })
 
-    // it('gas cost', async () => {
-    //   await snapshotGasCost(
-    //     poolAddress.getGasCostOfComputeAddress(
-    //       '0x5FbDB2315678afecb367f032d93F642f64180aa3',
-    //       '0x1000000000000000000000000000000000000000',
-    //       '0x2000000000000000000000000000000000000000',
-    //       3000
-    //     )
-    //   )
-    // })
+    it('gas cost', async () => {
+      await snapshotGasCost(
+        poolAddress.getGasCostOfComputeAddress(
+          '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+          '0x1000000000000000000000000000000000000000',
+          '0x2000000000000000000000000000000000000000',
+          3000
+        )
+      )
+    })
 
     it('calculation pool address', async () => {
       const addr = await poolAddress.computeAddress(

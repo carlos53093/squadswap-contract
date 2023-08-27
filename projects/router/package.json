@@ -22,7 +22,8 @@
     "test": "echo 'skip'",
     "test:coverage": "npx hardhat coverage",
     "test:size-contracts": "npx hardhat size-contracts",
-    "coverage": "echo 'skip'"
+    "coverage": "echo 'skip'",
+    "initial": "echo 'skip'"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",

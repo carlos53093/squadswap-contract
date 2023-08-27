@@ -14,7 +14,8 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "echo 'skip'",
-    "coverage": "echo 'skip'"
+    "coverage": "echo 'skip'",
+    "initial": "rm -rf abi artifacts catch typechain-types"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",

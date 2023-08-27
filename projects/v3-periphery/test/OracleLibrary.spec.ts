@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { ethers, waffle } from 'hardhat'
 import { BigNumber, BigNumberish, constants, ContractFactory, Contract } from 'ethers'
-import { OracleTest, TestERC20 } from '../typechain'
+import { OracleTest, TestERC20 } from '../typechain-types'
 import { expandTo18Decimals } from './shared/expandTo18Decimals'
 import snapshotGasCost from './shared/snapshotGasCost'
 

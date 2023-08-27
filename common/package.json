@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "compile": "echo 'No compile needed'",
-    "test": "echo 'No test needed'"
+    "test": "echo 'No test needed'",
+    "initial": "echo 'skip'"
   }
 }
