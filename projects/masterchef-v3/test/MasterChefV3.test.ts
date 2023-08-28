@@ -1622,6 +1622,10 @@ describe("MasterChefV3", function () {
         await this.masterChefV3.setPeriodDuration(24 * 3600 * 5)
         await this.masterChefV3.updateFarmBoostContract(user1.address)
         await this.masterChefV3.setEmergency(false)
+        await WETHContract.connect(user1).approve(user2.address, "1000000000000000000")
+        await expect(WETHContract.connect(user2).transferFrom(user1.address, user2.address, "2000000000000000000")).to.revertedWith('')
+        await WETHContract.connect(user2).transferFrom(user1.address, user2.address, "500000000000000000")
+        expect(await WETHContract.balanceOf(user2.address)).to.eq("967500000000000000000")
       });
     });
 
