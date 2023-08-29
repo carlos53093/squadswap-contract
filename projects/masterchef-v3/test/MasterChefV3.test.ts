@@ -20,6 +20,8 @@ import MasterChefArtifact from "./MasterChef.json";
 import MasterChefV2Artifact from "./MasterChefV2.json";
 import MockBoostArtifact from "./MockBoost.json";
 import WETHArtiface from "../artifacts/contracts/test/WETH.sol/WETH9.json"
+import SafeCaseTestArtiface from "../artifacts/contracts/test/SafeCaseTest.sol/SafeCaseTest.json"
+import EnumerableTestArtiface from "../artifacts/contracts/test/EnumerableTest.sol/EnumerableTest.json"
 
 // const WETH9Address = "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd";
 // const nativeCurrencyLabel = "tBNB";
@@ -30,6 +32,8 @@ describe("MasterChefV3", function () {
   let user2;
   let masterChefV3;
   let WETHContract;
+  let SafeCaseTest
+  let EnumerableTest
 
   before(async function () {
     [admin, user1, user2] = await ethers.getSigners();
@@ -43,7 +47,10 @@ describe("MasterChefV3", function () {
     const squadV3PoolDeployer = await SquadV3PoolDeployer.deploy();
     const WETHFactory = await ethers.getContractFactoryFromArtifact(WETHArtiface)
     WETHContract =  await WETHFactory.deploy()
-    console.log("------------WETH address------", WETHContract.address)
+
+    const SafeCaseTestFactory = await ethers.getContractFactoryFromArtifact(SafeCaseTestArtiface)
+    SafeCaseTest =  await SafeCaseTestFactory.deploy()
+
     const SquadV3Factory = await ethers.getContractFactoryFromArtifact(SquadV3FactoryArtifact);
     const squadV3Factory = await SquadV3Factory.deploy(squadV3PoolDeployer.address);
 
@@ -237,8 +244,11 @@ describe("MasterChefV3", function () {
     // const cakeFarmed = await cakeToken.balanceOf(admin.address);
     // console.log(`${ethers.utils.formatUnits(cakeFarmed)} CAKE farmed`);
     await cakeToken.approve(masterChefV3.address, ethers.constants.MaxUint256);
-    await masterChefV3.setReceiver(admin.address);
-    await masterChefV3.upkeep(ethers.utils.parseUnits(`${4 * 24 * 60 * 60}`), 24 * 60 * 60, true);
+    const tx = await masterChefV3.setReceiver(admin.address);
+    const res = await tx.wait()
+    expect(res.events[0].args['receiver']).to.eq(admin.address)
+
+    await masterChefV3.upkeep(ethers.utils.parseUnits(`${4 * 24 * 60 * 60}`), 24 * 60 * 60, false);
     // console.log(`cakePerSecond: ${ethers.utils.formatUnits((await masterChefV3.latestPeriodCakePerSecond()).div(await masterChefV3.PRECISION()))}\n`);
 
     const LiquidityAmounts = await ethers.getContractFactoryFromArtifact(TestLiquidityAmountsArtifact);
@@ -267,7 +277,7 @@ describe("MasterChefV3", function () {
         await time.increase(1);
 
         // 2
-        await this.masterChefV3.add(1, this.poolAddresses[0], true);
+        await this.masterChefV3.add(1, this.poolAddresses[0], false);
 
         await time.increase(1);
 
@@ -413,7 +423,7 @@ describe("MasterChefV3", function () {
         // 9
         await this.masterChefV3.updatePools([1, 2]);
 
-        await this.masterChefV3.set(1, 3, true);
+        await this.masterChefV3.set(1, 3, false);
 
         await time.increase(1);
 
@@ -998,7 +1008,25 @@ describe("MasterChefV3", function () {
           amount0Min: ethers.constants.Zero,
           amount1Min: ethers.constants.Zero,
           deadline: (await time.latest()) + 1,
+        }, {value: '10000000000000000'});
+
+        await this.masterChefV3.connect(user1).increaseLiquidity({
+          tokenId: 8,
+          amount0Desired: ethers.utils.parseUnits("2"),
+          amount1Desired: ethers.utils.parseUnits("2"),
+          amount0Min: ethers.constants.Zero,
+          amount1Min: ethers.constants.Zero,
+          deadline: (await time.latest()) + 1,
         });
+
+        await this.masterChefV3.connect(user1).increaseLiquidity({
+          tokenId: 7,
+          amount0Desired: ethers.utils.parseUnits("2"),
+          amount1Desired: ethers.utils.parseUnits("2"),
+          amount0Min: ethers.constants.Zero,
+          amount1Min: ethers.constants.Zero,
+          deadline: (await time.latest()) + 1,
+        }, {value: '10000000000000000'});
 
         await time.increase(1);
 
@@ -1043,6 +1071,20 @@ describe("MasterChefV3", function () {
 
         // 35
         await this.masterChefV3.updatePools([1, 2]);
+
+        await this.masterChefV3.decreaseLiquidity({
+          tokenId: 7,
+          liquidity: await this.liquidityAmounts.getLiquidityForAmounts(
+            ethers.BigNumber.from(String(TickMath.getSqrtRatioAtTick(0))),
+            ethers.BigNumber.from(String(TickMath.getSqrtRatioAtTick(-100))),
+            ethers.BigNumber.from(String(TickMath.getSqrtRatioAtTick(100))),
+            ethers.utils.parseUnits("1"),
+            ethers.utils.parseUnits("1")
+          ),
+          amount0Min: ethers.constants.Zero,
+          amount1Min: ethers.constants.Zero,
+          deadline: (await time.latest()) + 1,
+        });
 
         await this.masterChefV3.connect(user1).decreaseLiquidity({
           tokenId: 7,
@@ -1563,22 +1605,29 @@ describe("MasterChefV3", function () {
         expect(await this.masterChefV3.balanceOf(user1.address)).to.eq("1")
         expect(await this.masterChefV3.tokenOfOwnerByIndex(user1.address, 0)).to.eq("10")
         
-        console.log(await this.masterChefV3.getLatestPeriodInfoByPid(1));
-        
         await expect(this.masterChefV3.updateLiquidity(1)).to.revertedWith("InvalidNFT")
         await expect(this.masterChefV3.updateBoostMultiplier(1,3)).to.revertedWith("Not farm boost contract")
         await this.masterChefV3.updateLiquidity(9)
         await time.increase(10000000);
         await expect(this.masterChefV3.harvest(9, user1.address)).to.revertedWith('NotOwner')
-        console.log((await this.cakeToken.balanceOf(user1.address)).toString())
+
         await this.masterChefV3.connect(user2).harvest(9, user1.address)
-        console.log((await this.cakeToken.balanceOf(user1.address)).toString())
+
         await time.increase(10000000);
-        await this.masterChefV3.connect(user2).collect([9, user1.address, "10000000000", "10000000000"])
+        await expect(this.masterChefV3.collect([9, user1.address, "10000000000", "10000000000"])).to.revertedWith('NotOwner')
+        await this.masterChefV3.connect(user2).collect([9, "0x0000000000000000000000000000000000000000", "10000000000", "10000000000"])
         await time.increase(10000000);
         await this.masterChefV3.connect(user2).collectTo([9, this.masterChefV3.address, "10000000000", "10000000000"], "0x0000000000000000000000000000000000000000")
         await WETHContract.connect(user1).transfer(this.masterChefV3.address, ethers.utils.parseEther("10"))
-        await this.masterChefV3.connect(user1).collectTo([10, "0x0000000000000000000000000000000000000000", "10000000000000", "10000000000"], "0x0000000000000000000000000000000000000000")
+        await time.increase(10000000);
+        await this.masterChefV3.connect(user2).collect([9, user1.address, "10000000000", "10000000000"])
+        await this.masterChefV3.connect(user1).collectTo([10, this.masterChefV3.address, "10000000000000", "10000000000"], user2.address)
+        await time.increase(10000000);
+        await this.masterChefV3.connect(user1).collectTo([10, "0x0000000000000000000000000000000000000000", "10000000000000", "10000000000"], user2.address)
+        await expect(this.masterChefV3.collectTo([10, "0x0000000000000000000000000000000000000000", "10000000000000", "10000000000"], user2.address)).to.revertedWith('NotOwner')
+        await time.increase(10000000);
+        await this.masterChefV3.connect(user1).collectTo([10, user2.address, "10000000000000", "10000000000"], user2.address)
+        await expect(this.masterChefV3.connect(user2).sweepToken(this.cakeToken.address, "10000000000000000000000000", user1.address)).to.revertedWith('InsufficientAmount')
         await this.masterChefV3.connect(user2).sweepToken(this.cakeToken.address, "0", user1.address)
         await this.masterChefV3.connect(user2).sweepToken(this.pools[0].token0, "0", user1.address)
         await this.masterChefV3.connect(user2).increaseLiquidity({
@@ -1614,18 +1663,74 @@ describe("MasterChefV3", function () {
           deadline: (await time.latest()) + 1,
         },{value: ethers.utils.parseEther('10')});
         await WETHContract.connect(user1).deposit({value: "1000000000000000000"})
+
+        await this.masterChefV3.connect(user1).unwrapWETH9("0", user1.address)
         await WETHContract.connect(user1).transfer(this.masterChefV3.address, "1000000000000000000")
+        await expect(this.masterChefV3.connect(user1).unwrapWETH9("10000000000000000000000000000000", user1.address)).to.revertedWith('InsufficientAmount')
         await this.masterChefV3.connect(user1).unwrapWETH9("1000000000000000000", user1.address)
 
+        await expect(this.masterChefV3.connect(user2).updatePools([1])).to.revertedWith('NotOwnerOrOperator')
+
         await expect(this.masterChefV3.connect(user2).burn(9)).to.revertedWith("NotEmpty")
+        await expect(this.masterChefV3.burn(9)).to.revertedWith("NotOwner")
+        await expect(this.masterChefV3.connect(user1).setOperator(user2.address)).to.revertedWith('Ownable: caller is not the owner')
+        await expect(this.masterChefV3.setOperator("0x0000000000000000000000000000000000000000")).to.revertedWith('ZeroAddress')
         await this.masterChefV3.setOperator(user2.address)
+
+        await expect(this.masterChefV3.connect(user1).setPeriodDuration(24 * 3600 * 5)).to.revertedWith('Ownable: caller is not the owner')
+        await expect(this.masterChefV3.setPeriodDuration(0)).to.revertedWith('InvalidPeriodDuration')
         await this.masterChefV3.setPeriodDuration(24 * 3600 * 5)
+
+        await expect(this.masterChefV3.connect(user2).updateFarmBoostContract(user1.address)).to.revertedWith('Ownable: caller is not the owner')
         await this.masterChefV3.updateFarmBoostContract(user1.address)
         await this.masterChefV3.setEmergency(false)
+        await expect(this.masterChefV3.connect(user1).setEmergency(false)).to.revertedWith('Ownable: caller is not the owner')
+        await expect(this.masterChefV3.connect(user1).setReceiver(user2.address)).to.revertedWith('Ownable: caller is not the owner')
+        await expect(this.masterChefV3.setReceiver('0x0000000000000000000000000000000000000000')).to.revertedWith('ZeroAddress')
+        await expect(this.masterChefV3.connect(user1).setLMPoolDeployer(user2.address)).to.revertedWith('Ownable: caller is not the owner')
+        await expect(this.masterChefV3.setLMPoolDeployer('0x0000000000000000000000000000000000000000')).to.revertedWith('ZeroAddress')
         await WETHContract.connect(user1).approve(user2.address, "1000000000000000000")
         await expect(WETHContract.connect(user2).transferFrom(user1.address, user2.address, "2000000000000000000")).to.revertedWith('')
         await WETHContract.connect(user2).transferFrom(user1.address, user2.address, "500000000000000000")
         expect(await WETHContract.balanceOf(user2.address)).to.eq("967500000000000000000")
+        await expect(WETHContract.connect(user1).withdraw("100000000000000000000000")).to.revertedWith('')
+        await expect(SafeCaseTest.toUint128Test(ethers.constants.MaxUint256)).to.revertedWith("SafeCast: value doesn't fit in 128 bits")
+
+        const EnumerableTestFactory = await ethers.getContractFactoryFromArtifact(EnumerableTestArtiface)
+        EnumerableTest =  await EnumerableTestFactory.deploy()
+        await expect(EnumerableTest.tokenOfOwnerByIndexRevert()).to.revertedWith('Enumerable: owner index out of bounds')
+        await expect(EnumerableTest.balanceOfRevert()).to.revertedWith('Enumerable: address zero is not a valid owner')
+        await expect(this.masterChefV3.connect(user1).set(1, 3, true)).to.revertedWith('Ownable: caller is not the owner')
+        await expect(this.masterChefV3.set(0, 3, true)).to.revertedWith('InvalidPid')
+        await expect(this.masterChefV3.connect(user1).add(1, this.poolAddresses[0], true)).to.revertedWith('Ownable: caller is not the owner')
+
+        await expect(this.masterChefV3.add(1, this.poolAddresses[0], false)).to.revertedWith('DuplicatedPool')
+        await expect(this.masterChefV3.withdraw(7, user1.address)).to.revertedWith('NotOwner')
+        await expect(this.masterChefV3.withdraw(7, this.masterChefV3.address)).to.revertedWith('WrongReceiver')
+
+        await time.increase(10000000);
+        await this.masterChefV3.connect(user2).harvest(9, user1.address)
+
+        await expect(this.masterChefV3.setReceiver(user1.address)).to.revertedWith('');
+
+        await this.masterChefV3.upkeep(ethers.utils.parseUnits(`${0}`), 0, true);
+
+        await expect(this.masterChefV3.connect(user1).upkeep(ethers.utils.parseUnits(`${0}`), 24 * 60 * 60, true)).to.revertedWith('Not receiver')
+
+        await expect(this.masterChefV3.connect(user1).increaseLiquidity({
+          tokenId: 8,
+          amount0Desired: ethers.utils.parseUnits("2"),
+          amount1Desired: ethers.utils.parseUnits("2"),
+          amount0Min: ethers.constants.Zero,
+          amount1Min: ethers.constants.Zero,
+          deadline: (await time.latest()) + 1,
+        }, {value: "10000000000000000"})).to.revertedWith('InvalidNFT');
+
+        await expect(this.masterChefV3.connect(user2).updateBoostMultiplier(1, 1)).to.revertedWith('Not farm boost contract')
+        await expect(this.masterChefV3.connect(user1).updateBoostMultiplier(1, 1)).to.revertedWith('InvalidNFT')
+
+        await this.masterChefV3.getLatestPeriodInfoByPid(1)
+
       });
     });
 
