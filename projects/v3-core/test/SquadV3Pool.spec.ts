@@ -980,6 +980,21 @@ describe('SquadV3Pool', () => {
       expect( await token1.balanceOf(burnWallet.address)).to.be.eq('300000000000002')
     })
 
+    it('FeeManager testing', async()=>{
+      await expect(feeManager.connect(tradeWallet).setFactory(wallet.address)).to.revertedWith('Not owner')
+      await expect(feeManager.connect(tradeWallet).setWallets(tradeWallet.address, squadWallet.address, teamWallet.address, burnWallet.address)).to.revertedWith('Not owner')
+      await expect(feeManager.connect(tradeWallet).setSquadToken(token0.address)).to.revertedWith('Not owner')
+      await expect(feeManager.connect(tradeWallet).setRates(250, 250, 250, 250)).to.revertedWith('Not owner')
+      await expect(feeManager.setRates(250, 250, 250, 400)).to.revertedWith('invalid Rate')
+      await expect(feeManager.connect(tradeWallet).collectFee(pool.address, "170141183460469231731687303715884105727", "170141183460469231731687303715884105727")).to.revertedWith('Not owner')
+      await feeManager.collectFee(pool.address, "170141183460469231731687303715884105727", "170141183460469231731687303715884105727")
+      await expect(factory.connect(tradeWallet).setLmPool(pool.address, tradeWallet.address)).to.reverted
+      await expect(factory.connect(tradeWallet).changeFeeManager(tradeWallet.address)).to.reverted
+      await expect(factory.connect(tradeWallet).collectProtocol(pool.address, pool.address, 0,0)).to.revertedWith('no permission')
+      await expect(factory.connect(tradeWallet).setLmPoolDeployer(pool.address)).to.reverted
+      await expect(factory.connect(tradeWallet).setFeeProtocol(pool.address, 10, 10)).to.reverted
+    })
+
     describe('works across large increases', () => {
       beforeEach(async () => {
         await mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))

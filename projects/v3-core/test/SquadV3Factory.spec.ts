@@ -201,4 +201,16 @@ describe('SquadV3Factory', () => {
       createAndCheckPool([TEST_ADDRESSES[0], TEST_ADDRESSES[1]], 550, 15)
     })
   })
+
+  describe('#revert case', () => {
+    it('fails if caller is not owner', async () => {
+      await expect(factory.connect(other).enableFeeAmount(200, 2)).to.be.reverted
+      await expect(factory.connect(other).setWhiteListAddress(wallet.address, true)).to.be.reverted
+      await expect(factory.connect(other).setFeeAmountExtraInfo(500, true, true)).to.be.reverted
+      await factory.setWhiteListAddress(wallet.address, true)
+      await expect(factory.setWhiteListAddress(wallet.address, true)).to.be.revertedWith('state not change')
+
+    })
+    
+  })
 })
