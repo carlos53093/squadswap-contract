@@ -71,13 +71,13 @@ mapping(address => uint256) v3PoolAddressPid
 
 v3PoolAddressPid[v3PoolAddress] => pid
 
-### CAKE
+### SQUAD
 
 ```solidity
-IERC20 CAKE
+IERC20 SQUAD
 ```
 
-Address of CAKE contract.
+Address of SQUAD contract.
 
 ### WETH
 
@@ -151,10 +151,10 @@ uint256 latestPeriodStartTime
 uint256 latestPeriodEndTime
 ```
 
-### latestPeriodCakePerSecond
+### latestPeriodSQUADPerSecond
 
 ```solidity
-uint256 latestPeriodCakePerSecond
+uint256 latestPeriodSQUADPerSecond
 ```
 
 ### operatorAddress
@@ -219,36 +219,36 @@ uint256 Q128
 uint256 MAX_U256
 ```
 
-### cakeAmountBelongToMC
+### SQUADAmountBelongToMC
 
 ```solidity
-uint256 cakeAmountBelongToMC
+uint256 SQUADAmountBelongToMC
 ```
 
-Record the cake amount belong to 
+Record the SQUAD amount belong to 
 
 
 ### constructor
 
 ```solidity
-constructor(IERC20 _CAKE, INonfungiblePositionManager _nonfungiblePositionManager, address _WETH) public
+constructor(IERC20 _SQUAD, INonfungiblePositionManager _nonfungiblePositionManager, address _WETH) public
 ```
 
 #### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _CAKE | IERC20 | The CAKE token contract address. |
+| _SQUAD | IERC20 | The SQUAD token contract address. |
 | _nonfungiblePositionManager | INonfungiblePositionManager | the NFT position manager contract address. |
 | _WETH | address |  |
 
 ### getLatestPeriodInfoByPid
 
 ```solidity
-function getLatestPeriodInfoByPid(uint256 _pid) public view returns (uint256 cakePerSecond, uint256 endTime)
+function getLatestPeriodInfoByPid(uint256 _pid) public view returns (uint256 SQUADPerSecond, uint256 endTime)
 ```
 
-Returns the cake per second , period end time.
+Returns the SQUAD per second , period end time.
 
 #### Parameters
 
@@ -260,16 +260,16 @@ Returns the cake per second , period end time.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| cakePerSecond | uint256 | Cake reward per second. |
+| SQUADPerSecond | uint256 | SQUAD reward per second. |
 | endTime | uint256 | Period end time. |
 
 ### getLatestPeriodInfo
 
 ```solidity
-function getLatestPeriodInfo(address _v3Pool) public view returns (uint256 cakePerSecond, uint256 endTime)
+function getLatestPeriodInfo(address _v3Pool) public view returns (uint256 SQUADPerSecond, uint256 endTime)
 ```
 
-Returns the cake per second , period end time. This is for liquidity mining pool.
+Returns the SQUAD per second , period end time. This is for liquidity mining pool.
 
 #### Parameters
 
@@ -281,18 +281,18 @@ Returns the cake per second , period end time. This is for liquidity mining pool
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| cakePerSecond | uint256 | Cake reward per second. |
+| SQUADPerSecond | uint256 | SQUAD reward per second. |
 | endTime | uint256 | Period end time. |
 
-### pendingCake
+### pendingSQUAD
 
 ```solidity
-function pendingCake(uint256 _tokenId) external view returns (uint256 reward)
+function pendingSQUAD(uint256 _tokenId) external view returns (uint256 reward)
 ```
 
-View function for checking pending CAKE rewards.
+View function for checking pending SQUAD rewards.
 
-_The pending cake amount is based on the last state in LMPool. The actual amount will happen whenever liquidity changes or harvest._
+_The pending SQUAD amount is based on the last state in LMPool. The actual amount will happen whenever liquidity changes or harvest._
 
 #### Parameters
 
@@ -349,7 +349,7 @@ One v3 pool can only create one pool.
 function set(uint256 _pid, uint256 _allocPoint, bool _withUpdate) external
 ```
 
-Update the given pool's CAKE allocation point. Can only be called by the owner.
+Update the given pool's SQUAD allocation point. Can only be called by the owner.
 
 #### Parameters
 
@@ -374,7 +374,7 @@ Upon receiving a ERC721
 function harvest(uint256 _tokenId, address _to) external returns (uint256 reward)
 ```
 
-harvest cake from pool.
+harvest SQUAD from pool.
 
 #### Parameters
 
@@ -387,7 +387,7 @@ harvest cake from pool.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| reward | uint256 | Cake reward. |
+| reward | uint256 | SQUAD reward. |
 
 ### withdraw
 
@@ -408,7 +408,7 @@ Withdraw LP tokens from pool.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| reward | uint256 | Cake reward. |
+| reward | uint256 | SQUAD reward. |
 
 ### updateLiquidity
 
@@ -629,7 +629,7 @@ Upkeep period.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _amount | uint256 | The amount of cake injected. |
+| _amount | uint256 | The amount of SQUAD injected. |
 | _duration | uint256 | The period duration. |
 | _withUpdate | bool | Whether call "massUpdatePools" operation. |
 
@@ -640,7 +640,7 @@ Upkeep period.
 function updatePools(uint256[] pids) external
 ```
 
-Update cake reward for the liquidity mining pool.
+Update SQUAD reward for the liquidity mining pool.
 
 _Avoid too many pools, and a single transaction cannot be fully executed for all pools._
 
@@ -851,13 +851,13 @@ event Harvest(address sender, address to, uint256 pid, uint256 tokenId, uint256 
 ### NewUpkeepPeriod
 
 ```solidity
-event NewUpkeepPeriod(uint256 periodNumber, uint256 startTime, uint256 endTime, uint256 cakePerSecond, uint256 cakeAmount)
+event NewUpkeepPeriod(uint256 periodNumber, uint256 startTime, uint256 endTime, uint256 SQUADPerSecond, uint256 SQUADAmount)
 ```
 
 ### UpdateUpkeepPeriod
 
 ```solidity
-event UpdateUpkeepPeriod(uint256 periodNumber, uint256 oldEndTime, uint256 newEndTime, uint256 remainingCake)
+event UpdateUpkeepPeriod(uint256 periodNumber, uint256 oldEndTime, uint256 newEndTime, uint256 remainingSQUAD)
 ```
 
 ### UpdateFarmBoostContract

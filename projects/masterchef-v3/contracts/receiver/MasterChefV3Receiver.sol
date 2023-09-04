@@ -10,7 +10,7 @@ import "../interfaces/IMasterChefV2.sol";
 contract MasterChefV3Receiver is Ownable {
     using SafeERC20 for IERC20;
 
-    IERC20 public immutable Cake;
+    IERC20 public immutable Squad;
     IMasterChefV2 public immutable MasterChefV2;
     uint256 public immutable V2_Pid;
     IMasterChefV3 public immutable MasterChefV3;
@@ -34,15 +34,15 @@ contract MasterChefV3Receiver is Ownable {
     /// @notice Constructor.
     /// @param _v2 MasterChef V2 address.
     /// @param _v3 MasterChef V3 address.
-    /// @param _cake Cake token address.
+    /// @param _squad Squad token address.
     /// @param _v2Pid The pool id of the dummy pool on the MCV2.
-    constructor(IMasterChefV2 _v2, IMasterChefV3 _v3, IERC20 _cake, uint256 _v2Pid) {
+    constructor(IMasterChefV2 _v2, IMasterChefV3 _v3, IERC20 _squad, uint256 _v2Pid) {
         MasterChefV2 = _v2;
         MasterChefV3 = _v3;
-        Cake = _cake;
+        Squad = _squad;
         V2_Pid = _v2Pid;
 
-        Cake.safeApprove(address(_v3), type(uint256).max);
+        Squad.safeApprove(address(_v3), type(uint256).max);
     }
 
     /// @notice Deposits a dummy token to `MASTER_CHEF` MCV2. It will transfer all the `dummyToken` in the tx sender address.
@@ -57,7 +57,7 @@ contract MasterChefV3Receiver is Ownable {
         emit Deposit(msg.sender, address(MasterChefV2), balance, V2_Pid);
     }
 
-    /// @notice Harvest pending CAKE tokens from MasterChef V2.
+    /// @notice Harvest pending SQUAD tokens from MasterChef V2.
     function harvestFromV2() internal {
         MasterChefV2.withdraw(V2_Pid, 0);
     }
@@ -70,7 +70,7 @@ contract MasterChefV3Receiver is Ownable {
     function upkeep(uint256 _amount, uint256 _duration, bool _withUpdate) external onlyOwnerOrOperator {
         harvestFromV2();
         uint256 amount = _amount;
-        uint256 balance = Cake.balanceOf(address(this));
+        uint256 balance = Squad.balanceOf(address(this));
         if (_amount == 0 || _amount > balance) {
             amount = balance;
         }
@@ -87,7 +87,7 @@ contract MasterChefV3Receiver is Ownable {
         emit NewOperator(_operatorAddress);
     }
 
-    /// @notice Withdraw unexpected tokens sent to the receiver, can also withdraw cake.
+    /// @notice Withdraw unexpected tokens sent to the receiver, can also withdraw squad.
     /// @dev Callable by owner.
     /// @param _token Token address.
     function withdraw(IERC20 _token) external onlyOwner {

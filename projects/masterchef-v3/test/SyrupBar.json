@@ -6,8 +6,8 @@
     {
       "inputs": [
         {
-          "internalType": "contract CakeToken",
-          "name": "_cake",
+          "internalType": "contract SquadToken",
+          "name": "_squad",
           "type": "address"
         }
       ],
@@ -246,10 +246,10 @@
     },
     {
       "inputs": [],
-      "name": "cake",
+      "name": "squad",
       "outputs": [
         {
-          "internalType": "contract CakeToken",
+          "internalType": "contract SquadToken",
           "name": "",
           "type": "address"
         }
@@ -594,7 +594,7 @@
           "type": "uint256"
         }
       ],
-      "name": "safeCakeTransfer",
+      "name": "safeSquadTransfer",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

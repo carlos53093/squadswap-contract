@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "CakeToken",
-  "sourceName": "contracts/test/CakeToken.sol",
+  "contractName": "SquadToken",
+  "sourceName": "contracts/test/SquadToken.sol",
   "abi": [
     {
       "anonymous": false,

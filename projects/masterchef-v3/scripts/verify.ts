@@ -1,6 +1,6 @@
 import { verifyContract } from "../../../common/verify";
 import { sleep } from "../../../common/sleep";
-// import { configs } from "@pancakeswap/common/config";
+// import { configs } from "@pansquadswap/common/config";
 import { configs } from '../../../common/config';
 
 async function main() {
@@ -16,7 +16,7 @@ async function main() {
   // Verify masterChefV3
   console.log("Verify masterChefV3");
   await verifyContract(deployedContracts_masterchef_v3.MasterChefV3, [
-    config.cake,
+    config.squad,
     deployedContracts_v3_periphery.NonfungiblePositionManager,
     config.WNATIVE,
   ]);

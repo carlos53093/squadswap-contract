@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { ethers, run, network } from "hardhat";
-// import { configs } from "@pancakeswap/common/config";
-// import { tryVerify } from "@pancakeswap/common/verify";
+// import { configs } from "@pansquadswap/common/config";
+// import { tryVerify } from "@pansquadswap/common/verify";
 import { writeFileSync } from "fs";
 import { configs } from '../../../common/config';
 
@@ -24,10 +24,10 @@ async function main() {
   const positionManager_address = v3PeripheryDeployedContracts.NonfungiblePositionManager;
 
   const MasterChefV3 = await ethers.getContractFactory("MasterChefV3");
-  const masterChefV3 = await MasterChefV3.deploy(config.cake, positionManager_address, config.WNATIVE);
+  const masterChefV3 = await MasterChefV3.deploy(config.squad, positionManager_address, config.WNATIVE);
 
   console.log("masterChefV3 deployed to:", masterChefV3.address);
-  // await tryVerify(masterChefV3, [config.cake, positionManager_address]);
+  // await tryVerify(masterChefV3, [config.squad, positionManager_address]);
 
   // Write the address to a file.
   writeFileSync(

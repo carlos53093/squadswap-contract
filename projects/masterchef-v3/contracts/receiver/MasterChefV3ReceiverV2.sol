@@ -9,7 +9,7 @@ import "../interfaces/IMasterChefV3.sol";
 contract MasterChefV3ReceiverV2 is Ownable {
     using SafeERC20 for IERC20;
 
-    IERC20 public immutable Cake;
+    IERC20 public immutable Squad;
     IMasterChefV3 public immutable MasterChefV3;
 
     address public operatorAddress;
@@ -29,12 +29,12 @@ contract MasterChefV3ReceiverV2 is Ownable {
 
     /// @notice Constructor.
     /// @param _v3 MasterChef V3 address.
-    /// @param _cake Cake token address.
-    constructor(IMasterChefV3 _v3, IERC20 _cake) {
+    /// @param _squad Squad token address.
+    constructor(IMasterChefV3 _v3, IERC20 _squad) {
         MasterChefV3 = _v3;
-        Cake = _cake;
+        Squad = _squad;
 
-        Cake.safeApprove(address(_v3), type(uint256).max);
+        Squad.safeApprove(address(_v3), type(uint256).max);
     }
 
     /// @notice upkeep.
@@ -44,7 +44,7 @@ contract MasterChefV3ReceiverV2 is Ownable {
     /// @param _withUpdate Whether call "massUpdatePools" operation.
     function upkeep(uint256 _amount, uint256 _duration, bool _withUpdate) external onlyOwnerOrOperator {
         uint256 amount = _amount;
-        uint256 balance = Cake.balanceOf(address(this));
+        uint256 balance = Squad.balanceOf(address(this));
         if (_amount == 0 || _amount > balance) {
             amount = balance;
         }
@@ -61,7 +61,7 @@ contract MasterChefV3ReceiverV2 is Ownable {
         emit NewOperator(_operatorAddress);
     }
 
-    /// @notice Withdraw unexpected tokens sent to the receiver, can also withdraw cake.
+    /// @notice Withdraw unexpected tokens sent to the receiver, can also withdraw squad.
     /// @dev Callable by owner.
     /// @param _token Token address.
     function withdraw(IERC20 _token) external onlyOwner {

@@ -12,7 +12,7 @@
         },
         {
           "internalType": "contract IBEP20",
-          "name": "_CAKE",
+          "name": "_SQUAD",
           "type": "address"
         },
         {
@@ -239,7 +239,7 @@
           "type": "uint256"
         }
       ],
-      "name": "UpdateCakeRate",
+      "name": "UpdateSquadRate",
       "type": "event"
     },
     {
@@ -266,7 +266,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "accCakePerShare",
+          "name": "accSquadPerShare",
           "type": "uint256"
         }
       ],
@@ -319,7 +319,7 @@
     },
     {
       "inputs": [],
-      "name": "ACC_CAKE_PRECISION",
+      "name": "ACC_SQUAD_PRECISION",
       "outputs": [
         {
           "internalType": "uint256",
@@ -345,7 +345,7 @@
     },
     {
       "inputs": [],
-      "name": "CAKE",
+      "name": "SQUAD",
       "outputs": [
         {
           "internalType": "contract IBEP20",
@@ -358,7 +358,7 @@
     },
     {
       "inputs": [],
-      "name": "CAKE_RATE_TOTAL_PRECISION",
+      "name": "SQUAD_RATE_TOTAL_PRECISION",
       "outputs": [
         {
           "internalType": "uint256",
@@ -371,7 +371,7 @@
     },
     {
       "inputs": [],
-      "name": "MASTERCHEF_CAKE_PER_BLOCK",
+      "name": "MASTERCHEF_SQUAD_PER_BLOCK",
       "outputs": [
         {
           "internalType": "uint256",
@@ -483,7 +483,7 @@
           "type": "bool"
         }
       ],
-      "name": "burnCake",
+      "name": "burnSquad",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -496,7 +496,7 @@
           "type": "bool"
         }
       ],
-      "name": "cakePerBlock",
+      "name": "squadPerBlock",
       "outputs": [
         {
           "internalType": "uint256",
@@ -509,7 +509,7 @@
     },
     {
       "inputs": [],
-      "name": "cakePerBlockToBurn",
+      "name": "squadPerBlockToBurn",
       "outputs": [
         {
           "internalType": "uint256",
@@ -522,7 +522,7 @@
     },
     {
       "inputs": [],
-      "name": "cakeRateToBurn",
+      "name": "squadRateToBurn",
       "outputs": [
         {
           "internalType": "uint256",
@@ -535,7 +535,7 @@
     },
     {
       "inputs": [],
-      "name": "cakeRateToRegularFarm",
+      "name": "squadRateToRegularFarm",
       "outputs": [
         {
           "internalType": "uint256",
@@ -548,7 +548,7 @@
     },
     {
       "inputs": [],
-      "name": "cakeRateToSpecialFarm",
+      "name": "squadRateToSpecialFarm",
       "outputs": [
         {
           "internalType": "uint256",
@@ -699,7 +699,7 @@
           "type": "address"
         }
       ],
-      "name": "pendingCake",
+      "name": "pendingSquad",
       "outputs": [
         {
           "internalType": "uint256",
@@ -722,7 +722,7 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "accCakePerShare",
+          "name": "accSquadPerShare",
           "type": "uint256"
         },
         {
@@ -903,7 +903,7 @@
           "type": "bool"
         }
       ],
-      "name": "updateCakeRate",
+      "name": "updateSquadRate",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -922,7 +922,7 @@
           "components": [
             {
               "internalType": "uint256",
-              "name": "accCakePerShare",
+              "name": "accSquadPerShare",
               "type": "uint256"
             },
             {

@@ -6,8 +6,8 @@
     {
       "inputs": [
         {
-          "internalType": "contract CakeToken",
-          "name": "_cake",
+          "internalType": "contract SquadToken",
+          "name": "_squad",
           "type": "address"
         },
         {
@@ -22,7 +22,7 @@
         },
         {
           "internalType": "uint256",
-          "name": "_cakePerBlock",
+          "name": "_squadPerBlock",
           "type": "uint256"
         },
         {
@@ -166,10 +166,10 @@
     },
     {
       "inputs": [],
-      "name": "cake",
+      "name": "squad",
       "outputs": [
         {
-          "internalType": "contract CakeToken",
+          "internalType": "contract SquadToken",
           "name": "",
           "type": "address"
         }
@@ -179,7 +179,7 @@
     },
     {
       "inputs": [],
-      "name": "cakePerBlock",
+      "name": "squadPerBlock",
       "outputs": [
         {
           "internalType": "uint256",
@@ -356,7 +356,7 @@
           "type": "address"
         }
       ],
-      "name": "pendingCake",
+      "name": "pendingSquad",
       "outputs": [
         {
           "internalType": "uint256",
@@ -394,7 +394,7 @@
         },
         {
           "internalType": "uint256",
-          "name": "accCakePerShare",
+          "name": "accSquadPerShare",
           "type": "uint256"
         }
       ],

@@ -72,13 +72,13 @@ mapping(address => uint256) v3PoolAddressPid
 
 v3PoolAddressPid[v3PoolAddress] => pid
 
-### CAKE
+### SQUAD
 
 ```solidity
-contract IERC20 CAKE
+contract IERC20 SQUAD
 ```
 
-Address of CAKE contract.
+Address of SQUAD contract.
 
 ### WETH
 
@@ -152,10 +152,10 @@ uint256 latestPeriodStartTime
 uint256 latestPeriodEndTime
 ```
 
-### latestPeriodCakePerSecond
+### latestPeriodSquadPerSecond
 
 ```solidity
-uint256 latestPeriodCakePerSecond
+uint256 latestPeriodSquadPerSecond
 ```
 
 ### operatorAddress
@@ -220,13 +220,13 @@ uint256 Q128
 uint256 MAX_U256
 ```
 
-### cakeAmountBelongToMC
+### squadAmountBelongToMC
 
 ```solidity
-uint256 cakeAmountBelongToMC
+uint256 squadAmountBelongToMC
 ```
 
-Record the cake amount belong to MasterChefV3.
+Record the squad amount belong to MasterChefV3.
 
 ### ZeroAddress
 
@@ -387,13 +387,13 @@ event Harvest(address sender, address to, uint256 pid, uint256 tokenId, uint256 
 ### NewUpkeepPeriod
 
 ```solidity
-event NewUpkeepPeriod(uint256 periodNumber, uint256 startTime, uint256 endTime, uint256 cakePerSecond, uint256 cakeAmount)
+event NewUpkeepPeriod(uint256 periodNumber, uint256 startTime, uint256 endTime, uint256 squadPerSecond, uint256 squadAmount)
 ```
 
 ### UpdateUpkeepPeriod
 
 ```solidity
-event UpdateUpkeepPeriod(uint256 periodNumber, uint256 oldEndTime, uint256 newEndTime, uint256 remainingCake)
+event UpdateUpkeepPeriod(uint256 periodNumber, uint256 oldEndTime, uint256 newEndTime, uint256 remainingSquad)
 ```
 
 ### UpdateFarmBoostContract
@@ -437,24 +437,24 @@ _Throws if caller is not the boost contract._
 ### constructor
 
 ```solidity
-constructor(contract IERC20 _CAKE, contract INonfungiblePositionManager _nonfungiblePositionManager, address _WETH) public
+constructor(contract IERC20 _SQUAD, contract INonfungiblePositionManager _nonfungiblePositionManager, address _WETH) public
 ```
 
 #### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _CAKE | contract IERC20 | The CAKE token contract address. |
+| _SQUAD | contract IERC20 | The SQUAD token contract address. |
 | _nonfungiblePositionManager | contract INonfungiblePositionManager | the NFT position manager contract address. |
 | _WETH | address |  |
 
 ### getLatestPeriodInfoByPid
 
 ```solidity
-function getLatestPeriodInfoByPid(uint256 _pid) public view returns (uint256 cakePerSecond, uint256 endTime)
+function getLatestPeriodInfoByPid(uint256 _pid) public view returns (uint256 squadPerSecond, uint256 endTime)
 ```
 
-Returns the cake per second , period end time.
+Returns the squad per second , period end time.
 
 #### Parameters
 
@@ -465,10 +465,10 @@ Returns the cake per second , period end time.
 ### getLatestPeriodInfo
 
 ```solidity
-function getLatestPeriodInfo(address _v3Pool) public view returns (uint256 cakePerSecond, uint256 endTime)
+function getLatestPeriodInfo(address _v3Pool) public view returns (uint256 squadPerSecond, uint256 endTime)
 ```
 
-Returns the cake per second , period end time. This is for liquidity mining pool.
+Returns the squad per second , period end time. This is for liquidity mining pool.
 
 #### Parameters
 
@@ -476,15 +476,15 @@ Returns the cake per second , period end time. This is for liquidity mining pool
 | ---- | ---- | ----------- |
 | _v3Pool | address | Address of the V3 pool. |
 
-### pendingCake
+### pendingSquad
 
 ```solidity
-function pendingCake(uint256 _tokenId) external view returns (uint256 reward)
+function pendingSquad(uint256 _tokenId) external view returns (uint256 reward)
 ```
 
-View function for checking pending CAKE rewards.
+View function for checking pending SQUAD rewards.
 
-_The pending cake amount is based on the last state in LMPool. The actual amount will happen whenever liquidity changes or harvest._
+_The pending squad amount is based on the last state in LMPool. The actual amount will happen whenever liquidity changes or harvest._
 
 #### Parameters
 
@@ -535,7 +535,7 @@ One v3 pool can only create one pool.
 function set(uint256 _pid, uint256 _allocPoint, bool _withUpdate) external
 ```
 
-Update the given pool's CAKE allocation point. Can only be called by the owner.
+Update the given pool's SQUAD allocation point. Can only be called by the owner.
 
 #### Parameters
 
@@ -572,7 +572,7 @@ Upon receiving a ERC721
 function harvest(uint256 _tokenId, address _to) external returns (uint256 reward)
 ```
 
-harvest cake from pool.
+harvest squad from pool.
 
 #### Parameters
 
@@ -820,7 +820,7 @@ Upkeep period.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _amount | uint256 | The amount of cake injected. |
+| _amount | uint256 | The amount of squad injected. |
 | _duration | uint256 | The period duration. |
 | _withUpdate | bool | Whether call "massUpdatePools" operation. |
 
@@ -830,7 +830,7 @@ Upkeep period.
 function massUpdatePools() internal
 ```
 
-Update cake reward for all the liquidity mining pool.
+Update squad reward for all the liquidity mining pool.
 
 ### updatePools
 
@@ -838,7 +838,7 @@ Update cake reward for all the liquidity mining pool.
 function updatePools(uint256[] pids) external
 ```
 
-Update cake reward for the liquidity mining pool.
+Update squad reward for the liquidity mining pool.
 
 _Avoid too many pools, and a single transaction cannot be fully executed for all pools._
 
@@ -909,14 +909,14 @@ Transfer ETH in a safe way
 function _safeTransfer(address _to, uint256 _amount) internal
 ```
 
-Safe Transfer CAKE.
+Safe Transfer SQUAD.
 
 #### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _to | address | The CAKE receiver address. |
-| _amount | uint256 | Transfer CAKE amounts. |
+| _to | address | The SQUAD receiver address. |
+| _amount | uint256 | Transfer SQUAD amounts. |
 
 ### receive
 

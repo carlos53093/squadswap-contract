@@ -2,10 +2,10 @@
 
 ## MasterChefV3Receiver
 
-### Cake
+### Squad
 
 ```solidity
-contract IERC20 Cake
+contract IERC20 Squad
 ```
 
 ### MasterChefV2
@@ -83,7 +83,7 @@ modifier onlyOwnerOrOperator()
 ### constructor
 
 ```solidity
-constructor(contract IMasterChefV2 _v2, contract IMasterChefV3 _v3, contract IERC20 _cake, uint256 _v2Pid) public
+constructor(contract IMasterChefV2 _v2, contract IMasterChefV3 _v3, contract IERC20 _squad, uint256 _v2Pid) public
 ```
 
 Constructor.
@@ -94,7 +94,7 @@ Constructor.
 | ---- | ---- | ----------- |
 | _v2 | contract IMasterChefV2 | MasterChef V2 address. |
 | _v3 | contract IMasterChefV3 | MasterChef V3 address. |
-| _cake | contract IERC20 | Cake token address. |
+| _squad | contract IERC20 | Squad token address. |
 | _v2Pid | uint256 | The pool id of the dummy pool on the MCV2. |
 
 ### depositForMasterChefV2Pool
@@ -119,7 +119,7 @@ _Callable by owner._
 function harvestFromV2() internal
 ```
 
-Harvest pending CAKE tokens from MasterChef V2.
+Harvest pending SQUAD tokens from MasterChef V2.
 
 ### upkeep
 
@@ -161,7 +161,7 @@ _Callable by owner._
 function withdraw(contract IERC20 _token) external
 ```
 
-Withdraw unexpected tokens sent to the receiver, can also withdraw cake.
+Withdraw unexpected tokens sent to the receiver, can also withdraw squad.
 
 _Callable by owner._
 
