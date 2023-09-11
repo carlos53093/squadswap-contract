@@ -105,7 +105,6 @@ describe('SquadV3Pool', () => {
     // default to the 30 bips pool
     pool = await createPool(FeeAmount.MEDIUM, TICK_SPACINGS[FeeAmount.MEDIUM])
     await feeManager.setWallets(tradeWallet.address, squadWallet.address, teamWallet.address, burnWallet.address)
-    await feeManager.setSquadToken(token0.address)
     await feeManager.setRates(250, 250, 250, 250)
   })
 
@@ -983,7 +982,6 @@ describe('SquadV3Pool', () => {
     it('FeeManager testing', async()=>{
       await expect(feeManager.connect(tradeWallet).setFactory(wallet.address)).to.revertedWith('Not owner')
       await expect(feeManager.connect(tradeWallet).setWallets(tradeWallet.address, squadWallet.address, teamWallet.address, burnWallet.address)).to.revertedWith('Not owner')
-      await expect(feeManager.connect(tradeWallet).setSquadToken(token0.address)).to.revertedWith('Not owner')
       await expect(feeManager.connect(tradeWallet).setRates(250, 250, 250, 250)).to.revertedWith('Not owner')
       await expect(feeManager.setRates(250, 250, 250, 400)).to.revertedWith('invalid Rate')
       await expect(feeManager.connect(tradeWallet).collectFee(pool.address, "170141183460469231731687303715884105727", "170141183460469231731687303715884105727")).to.revertedWith('Not owner')

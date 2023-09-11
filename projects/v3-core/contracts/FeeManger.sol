@@ -6,15 +6,16 @@ import './interfaces/ISquadV3Pool.sol';
 import './interfaces/IERC20Minimal.sol';
 
 contract FeeManager {
+    // wallet lists
     address public traderWallet;
     address public squadWallet;
     address public teamWallet;
-    address constant dead = 0x0000000000000000000000000000000000000000;
-    address public owner;
-    address public squadToken;
     address public burn;
+    
+    address public owner;
     ISquadV3Factory public factory;
 
+    // fee distribution rates
     uint256 public traderRate;
     uint256 public squadRate;
     uint256 public teamRate;
@@ -37,12 +38,19 @@ contract FeeManager {
         _;
     }
 
+    // @notice Set factory address.
+    /// @param _factory swap factory address.
     function setFactory(address _factory) onlyOwner external {
         address old = address(factory);
         factory = ISquadV3Factory(_factory);
         emit UpdateOnwer(old, _factory);
     }
 
+    // @notice Set Wallet addresses.
+    /// @param _trader trader wallet.
+    /// @param _sqad Squad wallet.
+    /// @param _team team wallet.
+    /// @param _burn burn wallet.
     function setWallets(address _trader, address _sqad, address _team, address _burn) onlyOwner external {
         traderWallet = _trader;
         squadWallet = _sqad;
@@ -50,10 +58,12 @@ contract FeeManager {
         burn = _burn;
     }
 
-    function setSquadToken(address _token) onlyOwner external {
-        squadToken = _token;
-    }
-
+    /// @notice Set fee rates.
+    /// @dev the total rate should be 1000 (totalRate). _traderRate + _teamRate + _squadRate + _burnRate == 1000 (totalRate)
+    /// @param _traderRate trader fee reate.
+    /// @param _squadRate Squad fee reate.
+    /// @param _teamRate team fee reate.
+    /// @param _burnRate burn fee reate.
     function setRates(uint256 _traderRate, uint256 _teamRate, uint256 _squadRate, uint256 _burnRate) onlyOwner external {
         require(_traderRate + _teamRate + _squadRate + _burnRate == totalRate, "invalid Rate");
         traderRate = _traderRate;
@@ -62,6 +72,10 @@ contract FeeManager {
         // burnRate = _burnRate;
     }
 
+    /// @notice Collect fees from given pool.
+    /// @param pool pool address.
+    /// @param amount0Requested token0 amount. when the amount is more than pool's token0 amount it returns pool's amount.
+    /// @param amount1Requested token1 amount. when the amount is more than pool's token1 amount it returns pool's amount.
     function collectFee(address pool, uint128 amount0Requested, uint128 amount1Requested) onlyOwner external {
         (uint128 amount0, uint128 amount1) = factory.collectProtocol(pool, address(this), amount0Requested, amount1Requested);
         address token0 = ISquadV3Pool(pool).token0();
