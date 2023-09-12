@@ -10,7 +10,7 @@
     "compile": "yarn workspaces run compile",
     "test": "yarn workspaces run test",
     "coverage": "yarn workspaces run coverage",
-    "initial": "yarn workspaces run initial"
+    "clear": "yarn workspaces run initial"
   },
   "devDependencies": {
     "zx": "^7.2.0",
