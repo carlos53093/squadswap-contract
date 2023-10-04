@@ -9,6 +9,7 @@ const artifacts: { [name: string]: ContractJson } = {
   SquadV3PoolDeployer: require('../artifacts/contracts/SquadV3PoolDeployer.sol/SquadV3PoolDeployer.json'),
   // eslint-disable-next-line global-require
   SquadV3Factory: require('../artifacts/contracts/SquadV3Factory.sol/SquadV3Factory.json'),
+  FeeManager: require('../artifacts/contracts/FeeManager.sol/FeeManager.json'),
 }
 
 async function main() {
@@ -25,6 +26,7 @@ async function main() {
   )
   if (!squadV3PoolDeployer_address) {
     squadV3PoolDeployer = await SquadV3PoolDeployer.deploy()
+    await squadV3PoolDeployer.deployed();
 
     squadV3PoolDeployer_address = squadV3PoolDeployer.address
     console.log('squadV3PoolDeployer', squadV3PoolDeployer_address)
@@ -45,6 +47,7 @@ async function main() {
       owner
     )
     squadV3Factory = await SquadV3Factory.deploy(squadV3PoolDeployer_address)
+    await squadV3Factory.deployed()
 
     squadV3Factory_address = squadV3Factory.address
     console.log('squadV3Factory', squadV3Factory_address)
@@ -61,6 +64,8 @@ async function main() {
     owner
   )
   const feeManager = await FeeManager.deploy()
+  await feeManager.deployed()
+  console.log('feeManger', feeManager.address)
   await feeManager.setFactory(squadV3Factory_address)
 
   await squadV3Factory.changeFeeManager(feeManager.address)

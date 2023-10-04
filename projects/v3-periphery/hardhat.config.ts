@@ -55,7 +55,7 @@ const DEFAULT_COMPILER_SETTINGS = {
 }
 
 const bscTestnet: NetworkUserConfig = {
-  url: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+  url: 'https://bsc-testnet.publicnode.com',
   chainId: 97,
   accounts: [process.env.KEY_TESTNET!],
 }

@@ -25,6 +25,7 @@ async function main() {
   console.log('Deploying SmartRouterHelper...')
   const SmartRouterHelper = await ethers.getContractFactory('SmartRouterHelper')
   const smartRouterHelper = await SmartRouterHelper.deploy()
+  await smartRouterHelper.deployed()
   console.log('SmartRouterHelper deployed to:', smartRouterHelper.address)
   // await tryVerify(smartRouterHelper)
 
@@ -44,6 +45,7 @@ async function main() {
     config.stableInfo,
     config.WNATIVE
   )
+  await smartRouter.deployed()
   console.log('SmartRouter deployed to:', smartRouter.address)
 
   // await tryVerify(smartRouter, [
@@ -69,6 +71,7 @@ async function main() {
     config.stableFactory,
     config.WNATIVE
   )
+  await mixedRouteQuoterV1.deployed()
   console.log('MixedRouteQuoterV1 deployed to:', mixedRouteQuoterV1.address)
 
   // await tryVerify(mixedRouteQuoterV1, [
@@ -86,6 +89,7 @@ async function main() {
     },
   })
   const quoterV2 = await QuoterV2.deploy(SquadV3PoolDeployer_address, SquadV3Factory_address, config.WNATIVE)
+  await quoterV2.deployed()
   console.log('QuoterV2 deployed to:', quoterV2.address)
 
   // await tryVerify(quoterV2, [SquadV3PoolDeployer_address, SquadV3Factory_address, config.WNATIVE])
@@ -97,6 +101,7 @@ async function main() {
     },
   })
   const tokenValidator = await TokenValidator.deploy(config.v2Factory, positionManager_address)
+  await tokenValidator.deployed()
   console.log('TokenValidator deployed to:', tokenValidator.address)
 
   // await tryVerify(tokenValidator, [config.v2Factory, positionManager_address])

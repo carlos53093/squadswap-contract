@@ -69,7 +69,7 @@ async function main() {
 
   const SwapRouter = new ContractFactory(artifacts.SwapRouter.abi, artifacts.SwapRouter.bytecode, owner)
   const swapRouter = await SwapRouter.deploy(squadV3PoolDeployer_address, squadV3Factory_address, config.WNATIVE)
-
+  // await swapRouter.deployed()
   // await tryVerify(swapRouter, [squadV3PoolDeployer_address, squadV3Factory_address, config.WNATIVE])
   console.log('swapRouter', swapRouter.address)
 
@@ -147,6 +147,8 @@ async function main() {
     nonfungibleTokenPositionDescriptor.address
   )
 
+  await nonfungiblePositionManager.deployed()
+
   // await tryVerify(nonfungiblePositionManager, [
   //   squadV3PoolDeployer_address,
   //   squadV3Factory_address,
@@ -162,6 +164,7 @@ async function main() {
   )
 
   const squadInterfaceMulticall = await SquadInterfaceMulticall.deploy()
+  await squadInterfaceMulticall.deployed()
   console.log('SquadInterfaceMulticall', squadInterfaceMulticall.address)
 
   // await tryVerify(squadInterfaceMulticall)
@@ -173,6 +176,7 @@ async function main() {
     config.WNATIVE,
     nonfungiblePositionManager.address
   )
+  await v3Migrator.deployed()
   console.log('V3Migrator', v3Migrator.address)
 
   // await tryVerify(v3Migrator, [
@@ -184,12 +188,14 @@ async function main() {
 
   const TickLens = new ContractFactory(artifacts.TickLens.abi, artifacts.TickLens.bytecode, owner)
   const tickLens = await TickLens.deploy()
+  await tickLens.deployed()
   console.log('TickLens', tickLens.address)
 
   // await tryVerify(tickLens)
 
   const QuoterV2 = new ContractFactory(artifacts.QuoterV2.abi, artifacts.QuoterV2.bytecode, owner)
   const quoterV2 = await QuoterV2.deploy(squadV3PoolDeployer_address, squadV3Factory_address, config.WNATIVE)
+  await quoterV2.deployed()
   console.log('QuoterV2', quoterV2.address)
 
   // await tryVerify(quoterV2, [squadV3PoolDeployer_address, squadV3Factory_address, config.WNATIVE])

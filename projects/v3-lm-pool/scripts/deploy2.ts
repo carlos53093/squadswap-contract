@@ -25,6 +25,8 @@ async function main() {
   const SquadV3LmPoolDeployer = await ethers.getContractFactory('SquadV3LmPoolDeployer')
   const squadV3LmPoolDeployer = await SquadV3LmPoolDeployer.deploy(mcV3DeployedContracts.MasterChefV3)
 
+  await squadV3LmPoolDeployer.deployed()
+
   console.log('squadV3LmPoolDeployer deployed to:', squadV3LmPoolDeployer.address)
 
   const squadV3Factory = new ethers.Contract(squadV3Factory_address, abi, owner)

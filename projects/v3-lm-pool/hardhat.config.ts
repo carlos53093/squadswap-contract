@@ -9,7 +9,7 @@ import "solidity-coverage";
 require('dotenv').config({ path: require('find-config')('.env') })
 
 const bscTestnet: NetworkUserConfig = {
-  url: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+  url: 'https://bsc-testnet.publicnode.com',
   chainId: 97,
   accounts: [process.env.KEY_TESTNET!],
 }
