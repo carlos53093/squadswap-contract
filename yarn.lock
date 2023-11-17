@@ -6076,7 +6076,7 @@ hardhat-abi-exporter@2.0.6:
   resolved "https://registry.yarnpkg.com/hardhat-abi-exporter/-/hardhat-abi-exporter-2.0.6.tgz#87afff4e218ec96697afe630e1bd0185c52d7ab3"
   integrity sha512-VCXAZ6BXQWPKDV6pvNECYDLRNhYCPQRZwwXfcajwOoiMva99X46hQV7RLzbWjI1gO7WWRtiZLWns+zWvJ6hqUQ==
 
-hardhat-contract-sizer@^2.0.2:
+hardhat-contract-sizer@^2.0.2, hardhat-contract-sizer@^2.10.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/hardhat-contract-sizer/-/hardhat-contract-sizer-2.10.0.tgz#72646f43bfe50e9a5702c9720c9bc3e77d93a2c9"
   integrity sha512-QiinUgBD5MqJZJh1hl1jc9dNnpJg7eE/w4/4GEnrcmZJJTDbVFNe3+/3Ep24XqISSkYxRz36czcPHKHd/a0dwA==

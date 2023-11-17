@@ -56,7 +56,8 @@ async function main() {
   }
 
   // Set FactoryAddress for squadV3PoolDeployer.
-  await squadV3PoolDeployer.setFactoryAddress(squadV3Factory_address);
+  let tx = await squadV3PoolDeployer.setFactoryAddress(squadV3Factory_address);
+  await tx.wait()
 
   const FeeManager = new ContractFactory(
     artifacts.FeeManager.abi,
@@ -66,9 +67,11 @@ async function main() {
   const feeManager = await FeeManager.deploy()
   await feeManager.deployed()
   console.log('feeManger', feeManager.address)
-  await feeManager.setFactory(squadV3Factory_address)
+  tx = await feeManager.setFactory(squadV3Factory_address)
+  await tx.wait()
 
-  await squadV3Factory.changeFeeManager(feeManager.address)
+  tx = await squadV3Factory.changeFeeManager(feeManager.address)
+  await tx.wait()
 
   const contracts = {
     SquadV3Factory: squadV3Factory_address,

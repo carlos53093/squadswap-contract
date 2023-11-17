@@ -9,6 +9,7 @@ import 'hardhat-tracer'
 import '@nomiclabs/hardhat-etherscan'
 import 'solidity-docgen'
 import "solidity-coverage";
+import "hardhat-contract-sizer";
 
 require('dotenv').config({ path: require('find-config')('.env') })
 

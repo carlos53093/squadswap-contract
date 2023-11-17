@@ -4,6 +4,8 @@ pragma solidity 0.7.6;
 import './interfaces/ISquadV3Factory.sol';
 import './interfaces/ISquadV3Pool.sol';
 import './interfaces/IERC20Minimal.sol';
+import './interfaces/ISquadswapPair.sol';
+import './interfaces/ISquadswapRouter01.sol';
 
 contract FeeManager {
     // wallet lists
@@ -14,6 +16,7 @@ contract FeeManager {
     
     address public owner;
     ISquadV3Factory public factory;
+    ISquadswapRouter01 public routerV2;
 
     // fee distribution rates
     uint256 public traderRate;
@@ -22,8 +25,6 @@ contract FeeManager {
     // uint256 public burnRate;
 
     uint256 constant totalRate = 1000; 
-
-    event UpdateOnwer(address indexed _old, address indexed _new);
 
     constructor() {
         owner = msg.sender;
@@ -41,9 +42,11 @@ contract FeeManager {
     // @notice Set factory address.
     /// @param _factory swap factory address.
     function setFactory(address _factory) onlyOwner external {
-        address old = address(factory);
         factory = ISquadV3Factory(_factory);
-        emit UpdateOnwer(old, _factory);
+    }
+
+    function setFactoryV2(address router) onlyOwner external {
+        routerV2 = ISquadswapRouter01(router);
     }
 
     // @notice Set Wallet addresses.
@@ -76,7 +79,7 @@ contract FeeManager {
     /// @param pool pool address.
     /// @param amount0Requested token0 amount. when the amount is more than pool's token0 amount it returns pool's amount.
     /// @param amount1Requested token1 amount. when the amount is more than pool's token1 amount it returns pool's amount.
-    function collectFee(address pool, uint128 amount0Requested, uint128 amount1Requested) onlyOwner external {
+    function collectFee(address pool, uint128 amount0Requested, uint128 amount1Requested) external {
         (uint128 amount0, uint128 amount1) = factory.collectProtocol(pool, address(this), amount0Requested, amount1Requested);
         address token0 = ISquadV3Pool(pool).token0();
         address token1 = ISquadV3Pool(pool).token1();
@@ -93,6 +96,41 @@ contract FeeManager {
         }
 
         if (amount1 > 0) {
+            uint256 traderAmount1 = amount1 * traderRate / totalRate;
+            uint256 squadAmount1 = amount1 * squadRate / totalRate;
+            uint256 teamAmount1 = amount1 * teamRate / totalRate;
+            uint256 burnAmount1 = amount1 - traderAmount1 - squadAmount1 - teamAmount1;
+            IERC20Minimal(token1).transfer(traderWallet, traderAmount1);
+            IERC20Minimal(token1).transfer(squadWallet, squadAmount1);
+            IERC20Minimal(token1).transfer(teamWallet, teamAmount1);
+            IERC20Minimal(token1).transfer(burn, burnAmount1);
+        }
+    }
+
+    function recoverToken(address lp) external {
+        uint256 liquidity = ISquadswapPair(lp).balanceOf(address(this));
+        ISquadswapPair(lp).approve(address(routerV2), liquidity);
+        if (liquidity > 0) {
+            address token0 = ISquadswapPair(lp).token0();
+            address token1 = ISquadswapPair(lp).token1();
+            (uint256 amount0, uint256 amount1) = routerV2.removeLiquidity(
+                token0,
+                token1,
+                liquidity,
+                0,
+                0,
+                address(this),
+                block.timestamp + 1000
+            );
+            uint256 traderAmount0 = amount0 * traderRate / totalRate;
+            uint256 squadAmount0 = amount0 * squadRate / totalRate;
+            uint256 teamAmount0 = amount0 * teamRate / totalRate;
+            uint256 burnAmount0 = amount0 - traderAmount0 - squadAmount0 - teamAmount0;
+            IERC20Minimal(token0).transfer(traderWallet, traderAmount0);
+            IERC20Minimal(token0).transfer(squadWallet, squadAmount0);
+            IERC20Minimal(token0).transfer(teamWallet, teamAmount0);
+            IERC20Minimal(token0).transfer(burn, burnAmount0);
+
             uint256 traderAmount1 = amount1 * traderRate / totalRate;
             uint256 squadAmount1 = amount1 * squadRate / totalRate;
             uint256 teamAmount1 = amount1 * teamRate / totalRate;
