@@ -45,7 +45,7 @@ contract FeeManager {
         factory = ISquadV3Factory(_factory);
     }
 
-    function setFactoryV2(address router) onlyOwner external {
+    function setRouterV2(address router) onlyOwner external {
         routerV2 = ISquadswapRouter01(router);
     }
 
