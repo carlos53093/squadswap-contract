@@ -22,8 +22,8 @@ export const configs = {
   bscMainnet: {
     WNATIVE: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
     nativeCurrencyLabel: 'BNB',
-    v2Factory: '0x23Fca3204F09B0cB9A748c362E25E82EAAe165cf',
-    v2Router: '0xe4bcDf17304F7843Cdbd8a4e519F00950f9dd097',
+    v2Factory: '0xE6fe8e5C1ADe01174d1Bf6dC752CF5fCe5d8e0c6',
+    v2Router: '0xd8d7cF0e186B30Ad4D790ccee694b4E1146Ae82D',
     stableFactory: '0x0000000000000000000000000000000000000000',
     stableInfo: '0x0000000000000000000000000000000000000000',
     squad: '0x6D2d8AD6f7c044fBF7Bbd3677D40FbBA732f8ae1',
