@@ -49,6 +49,10 @@ contract FeeManager {
         routerV2 = ISquadswapRouter01(router);
     }
 
+    function transferOwnerShip(address _owner) onlyOwner external {
+        owner = _owner;
+    }
+
     // @notice Set Wallet addresses.
     /// @param _trader trader wallet.
     /// @param _sqad Squad wallet.
