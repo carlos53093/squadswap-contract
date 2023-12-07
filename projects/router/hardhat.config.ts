@@ -26,7 +26,7 @@ require('dotenv').config({ path: require('find-config')('.env') })
 // }
 
 // const bscMainnet: NetworkUserConfig = {
-//   url: 'https://bsc.publicnode.com',
+//   url: 'https://bsc-dataseed.binance.org/',
 //   chainId: 56,
 //   // accounts: [process.env.KEY_MAINNET!],
 // }
@@ -38,7 +38,7 @@ const bscTestnet: NetworkUserConfig = {
 }
 
 const bscMainnet: NetworkUserConfig = {
-  url: 'https://bsc.publicnode.com',
+  url: 'https://bsc-dataseed.binance.org/',
   chainId: 56,
   accounts: [process.env.KEY_MAINNET!],
 }
