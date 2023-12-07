@@ -22,11 +22,11 @@ export const configs = {
   bscMainnet: {
     WNATIVE: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
     nativeCurrencyLabel: 'BNB',
-    v2Factory: '0xE6fe8e5C1ADe01174d1Bf6dC752CF5fCe5d8e0c6',
-    v2Router: '0xd8d7cF0e186B30Ad4D790ccee694b4E1146Ae82D',
+    v2Factory: '0x1D9F43a6195054313ac1aE423B1f810f593b6ac1 ',
+    v2Router: '0x8507743C30Ae007ab2ad8523b52F6a1D5155611c',
     stableFactory: '0x0000000000000000000000000000000000000000',
     stableInfo: '0x0000000000000000000000000000000000000000',
-    squad: '0x6D2d8AD6f7c044fBF7Bbd3677D40FbBA732f8ae1',
+    squad: '0x2d2567dec25c9795117228adc7fd58116d2e310c',
     smartRouterHelper: '0xdAecee3C08e953Bd5f89A5Cc90ac560413d709E3',
   },
   bscTestnet: {
