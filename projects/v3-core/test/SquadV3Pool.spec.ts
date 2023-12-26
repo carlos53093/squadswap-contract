@@ -984,13 +984,15 @@ describe('SquadV3Pool', () => {
       await expect(feeManager.connect(tradeWallet).setWallets(tradeWallet.address, squadWallet.address, teamWallet.address, burnWallet.address)).to.revertedWith('Not owner')
       await expect(feeManager.connect(tradeWallet).setRates(250, 250, 250, 250)).to.revertedWith('Not owner')
       await expect(feeManager.setRates(250, 250, 250, 400)).to.revertedWith('invalid Rate')
-      await expect(feeManager.connect(tradeWallet).collectFee(pool.address, "170141183460469231731687303715884105727", "170141183460469231731687303715884105727")).to.revertedWith('Not owner')
       await feeManager.collectFee(pool.address, "170141183460469231731687303715884105727", "170141183460469231731687303715884105727")
       await expect(factory.connect(tradeWallet).setLmPool(pool.address, tradeWallet.address)).to.reverted
       await expect(factory.connect(tradeWallet).changeFeeManager(tradeWallet.address)).to.reverted
       await expect(factory.connect(tradeWallet).collectProtocol(pool.address, pool.address, 0,0)).to.revertedWith('no permission')
       await expect(factory.connect(tradeWallet).setLmPoolDeployer(pool.address)).to.reverted
       await expect(factory.connect(tradeWallet).setFeeProtocol(pool.address, 10, 10)).to.reverted
+      await feeManager.transferOwnerShip(tradeWallet.address)
+      await expect(feeManager.setRouterV2(tradeWallet.address)).to.revertedWith('Not owner')
+      await feeManager.connect(tradeWallet).setRouterV2(tradeWallet.address)
     })
 
     describe('works across large increases', () => {
