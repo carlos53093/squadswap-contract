@@ -64,6 +64,57 @@
           }
         }
       }
+    },
+    "0358649eb6868fdda4843b43f441ad795ecc568f9ffb815ca4f9d6bc1d1e9cee": {
+      "address": "0xfA0C021Cec037b3BaF9FbC1776b8803cE36C24D3",
+      "txHash": "0xe618a1d22adab803219003f003a426de8b4580a40859445e7c540c87183e0984",
+      "layout": {
+        "solcVersion": "0.7.6",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:25"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:30"
+          },
+          {
+            "label": "_baseTokenURI",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage",
+            "contract": "NonfungibleTokenPositionDescriptorOffChainV2",
+            "src": "contracts/NonfungibleTokenPositionDescriptorOffChainV2.sol:14"
+          },
+          {
+            "label": "_initializedV2",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "NonfungibleTokenPositionDescriptorOffChainV2",
+            "src": "contracts/NonfungibleTokenPositionDescriptorOffChainV2.sol:19"
+          }
+        ],
+        "types": {
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          }
+        }
+      }
     }
   }
 }
