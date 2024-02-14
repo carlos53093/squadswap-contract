@@ -1,4 +1,5 @@
 {
-    "PancakeV3Factory": "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865",
-    "PancakeV3PoolDeployer": "0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9"
+  "SquadV3Factory": "0x009c4ef7C0e0Dd6bd1ea28417c01Ea16341367c3",
+  "SquadV3PoolDeployer": "0x38e09D9444B41CFda398DD31eb2713Ca5c3B75eA",
+  "FeeManager": "0x9d8B42760655A0cCd51f3153ee5f6b828ECaFb3c"
 }
