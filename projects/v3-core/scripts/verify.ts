@@ -6,20 +6,20 @@ async function main() {
   const deployedContracts = await import(`../../v3-core/deployments/${networkName}.json`)
 
   // Verify SquadV3PoolDeployer
-  console.log('Verify SquadV3PoolDeployer')
+  console.log('----------------Verify SquadV3PoolDeployer------------', deployedContracts.SquadV3PoolDeployer)
   await verifyContract(deployedContracts.SquadV3PoolDeployer)
   await sleep(10000)
 
   // Verify squadV3Factory
-  console.log('Verify squadV3Factory')
+  console.log('-------------Verify squadV3Factory-------------', deployedContracts.SquadV3Factory)
   await verifyContract(deployedContracts.SquadV3Factory, [deployedContracts.SquadV3PoolDeployer])
   await sleep(10000)
 
-  console.log('Verify feeManager')
+  console.log('--------------Verify feeManager--------------', deployedContracts.FeeManager)
   await verifyContract(deployedContracts.FeeManager)
   await sleep(10000)
 
-  // await verifyContract('0x5Ecb5717120E1A10Ec778322eC82Ba781E5420E0')
+  // await verifyContract('0xC271E157c7a4D37aa321fdbF68F47fC30409ACd3')
   // await sleep(10000)
 }
 

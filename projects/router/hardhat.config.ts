@@ -21,7 +21,7 @@ require('dotenv').config({ path: require('find-config')('.env') })
 
 // const goerli: NetworkUserConfig = {
 //   url: `https://eth-goerli.g.alchemy.com/v2/${process.env.GOERLI_API_KEY}`,
-//   chainId: 5,
+//   chainId: 11155111,
 //   // accounts: [process.env.KEY_GOERLI!],
 // }
 
@@ -44,8 +44,8 @@ const bscMainnet: NetworkUserConfig = {
 }
 
 const goerli: NetworkUserConfig = {
-  url: 'https://rpc.ankr.com/eth_goerli',
-  chainId: 5,
+  url: 'https://eth-sepolia.g.alchemy.com/v2/16OhCWLcnsEJcSKyuGmzMrMtC8OtHX7p',
+  chainId: 11155111,
   accounts: [process.env.KEY_GOERLI!],
 }
 

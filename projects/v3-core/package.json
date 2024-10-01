@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
-    "@nomiclabs/hardhat-etherscan": "^2.1.8",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@squadswap/v3-lm-pool": "1.0.2",
     "@typechain/ethers-v5": "^10.2.0",
@@ -56,6 +55,7 @@
     "initial": "rm -rf abi artifacts catch typechain-types"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
     "solidity-coverage": "^0.8.4"
   }
 }

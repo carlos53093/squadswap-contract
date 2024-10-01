@@ -67,8 +67,8 @@ const bscMainnet: NetworkUserConfig = {
 }
 
 const goerli: NetworkUserConfig = {
-  url: 'https://rpc.ankr.com/eth_goerli',
-  chainId: 5,
+  url: 'https://eth-sepolia.g.alchemy.com/v2/16OhCWLcnsEJcSKyuGmzMrMtC8OtHX7p',
+  chainId: 11155111,
   accounts: [process.env.KEY_GOERLI!],
 }
 
